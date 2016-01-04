@@ -1,0 +1,36 @@
+		for(int i=0;i<colType.length;i++){
+			if(colType[i]!="date"){
+				maxColLen[i]=1;//初始长度
+				for(int j=1;j<allVal.length;j++){
+					if(allVal[j][i]!=null){
+						if(maxColLen[i]<allVal[j][i].length()&&allVal[j][i]!=""){//从第j=1行比较各行字符串长度
+							maxColLen[i]=allVal[j][i].length();
+						}
+						/*更改数值类型*/
+						if(colType[i]=="numeric"&&allVal[j][i].contains(".")){//若小数
+							int loc=allVal[j][i].indexOf(".");
+							String beginstr=allVal[j][i].substring(0, loc);
+							String endstr=allVal[j][i].substring(loc);
+							if(allVal[j][i].substring(loc).length()>2){
+								colType[i]="decimal("+beginstr.length()+","+endstr+")";
+							}else{
+								colType[i]="double("+beginstr.length()+","+endstr+")";
+							}
+						}
+					}
+				}
+				for(int j=1;j<allVal.length;j++){//再次循环，若非小数继续更改数值类型
+					if(allVal[j][i]!=null){
+						if(colType[i]=="numeric"&&!allVal[j][i].contains(".")){//整数
+							if(allVal[j][i].length()>11){
+								colType[i]="bigint";
+							}else{
+								colType[i]="int";
+							}
+						}
+					}
+				}
+			}else{
+				maxColLen[i]=0;
+			}
+		}

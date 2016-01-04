@@ -1,0 +1,49 @@
+//		HSSFWorkbook wb = new HSSFWorkbook(fs);// 得到excel工作簿对象
+//		HSSFSheet sheet = wb.getSheetAt(0);// 得到excel工作表对象
+//		/*处理表头类型长度并存储所有单元格值*/
+//		int rowNum = sheet.getLastRowNum()+1;//得到总行数
+//        int colNum = sheet.getRow(0).getPhysicalNumberOfCells();// 依表头得到总列数
+//        String[] colType=new String[colNum];//存放表头类型
+//        Object[][] allVal=new Object[rowNum][colNum];//存放所有单元格值
+//		for (int i = 0; i < colNum; i++) {// 循环列
+//			allVal[0][i]= sheet.getRow(0).getCell(i).getStringCellValue();// 拿到该列表头的名称
+//			for (int j = 0; j < rowNum; j++) {// 循环行
+//				HSSFRow row = sheet.getRow(j);// 得到行
+//				HSSFCell cell = row.getCell(i);// 得到单元格
+//				if(cell!=null){
+//					/* 比较判断该cell类型 */
+//					if (cell.getCellType() == HSSFCell.CELL_TYPE_STRING) {// String类型
+//						colType[i] = "string";
+//						allVal[j][i] = cell.getStringCellValue();
+//					} else if (cell.getCellType() == HSSFCell.CELL_TYPE_BOOLEAN) {
+//						colType[i] = "boolean";
+//						allVal[j][i] = cell.getBooleanCellValue();
+//					} else if (cell.getCellType() == HSSFCell.CELL_TYPE_NUMERIC) {
+//						if (HSSFDateUtil.isCellDateFormatted(cell)) {// 判断单元格是否属于日期格式
+//							colType[i] = "date";
+//							allVal[j][i] = cell.getDateCellValue();
+//						} else {
+//							cell.getCellStyle().getDataFormat();
+//							colType[i] = "numeric";// ?怎么判断金额double
+//							allVal[j][i] = cell.getNumericCellValue();
+//						}
+//					} else if (cell.getCellType() == HSSFCell.CELL_TYPE_BLANK) {
+//						colType[i] = "blank";// 去除
+//						allVal[j][i] = "blank";
+//					}
+//				}else{
+//					//若单元格为空，不更改属性
+//					allVal[j][i] = "null";
+//				}
+//			}
+//		}
+//		
+//		for(int i=0;i<allVal.length;i++){
+//			for(int j=0;j<allVal[i].length;j++){
+//				System.out.print(allVal[i][j]+" ");
+//			}
+//			System.out.println();
+//		}
+//		for(int i=0;i<colType.length;i++){
+//			System.out.print(colType[i]+" ");
+//		}

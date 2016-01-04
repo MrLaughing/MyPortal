@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+  
+<!DOCTYPE struts PUBLIC  
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"  
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<constant name="struts.objectFactory" value="spring" />
+	<constant name="struts.i18n.encoding" value="UTF-8" />
+	<constant name="struts.i18n.reload" value="false" />
+	<constant name="struts.configuration.xml.reload" value="false" />
+	<constant name="struts.custom.i18n.resources" value="globalMessages" />
+	<!-- *关闭动态方法调用,采用通配符方式* -->
+	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
+ 	<!-- 整个项目所上传文件的最大的Size为20M -->
+ 	<constant name="struts.multipart.maxSize" value="20971520"/>
+	<package name="first" namespace="/" extends="struts-default,json-default"></package>
+	<package name="distribute" namespace="/distribute"
+		extends="struts-default,json-default">
+		<action name="distribute_*" class="com.zai360.portal.test.controller.ExportAction"
+			method="{1}">
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result name="success" type="redirect">../index.jsp</result>
+			<result name="error" type="dispatcher">../login.jsp</result>
+		</action>
+	</package>
+	<include file="find_struts.xml"></include>
+	<include file="comment_struts.xml"></include>
+	<include file="account_struts.xml"></include>
+	<include file="write_struts.xml"></include>
+
+
+</struts>

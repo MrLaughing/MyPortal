@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="account">
+	<resultMap type="com.zai360.portal.test.vo.Admin" id="adminResult">
+		<id property="id" column="id" />
+		<result property="createDate" column="create_date" />
+		<result property="modifyDate" column="modify_date" />
+		<result property="department" column="department" />
+		<result property="email" column="email" />
+		<result property="isEnabled" column="is_enabled" />
+		<result property="isLocked" column="is_locked" />
+		<result property="lockedDate" column="locked_date" />
+		<result property="loginDate" column="login_date" />
+		<result property="loginFailureCount" column="login_failure_count" />
+		<result property="loginIp" column="login_ip" />
+		<result property="name" column="name" />
+		<result property="password" column="password" />
+		<result property="username" column="username" />
+	</resultMap>
+	<resultMap type="com.zai360.portal.test.vo.Role" id="roleResult">
+		<id property="id" column="id" />
+		<result property="createDate" column="create_date" />
+		<result property="modifyDate" column="modify_date" />
+		<result property="description" column="description" />
+		<result property="isSystem" column="is_system" />
+		<result property="name" column="name" />
+	</resultMap>
+	<resultMap type="com.zai360.portal.test.vo.Role_authority" id="authorityResult">
+		<result column="role" property="role"/>
+		<result column="authorities" property="authorities"/>
+	</resultMap>
+	
+	<resultMap type="java.util.Map" id="rolesResult">
+		<result column="用户名" property="用户名" javaType="String" />
+		<result column="姓名" property="姓名" javaType="String" />
+		<result column="角色" property="角色" javaType="String" />
+		<result column="角色描述" property="角色描述" javaType="String" />
+	</resultMap>
+	<resultMap type="java.util.Map" id="authoritiesResult">
+		<result column="角色" property="角色" javaType="String"/>
+		<result column="角色描述" property="角色描述" javaType="String"/>
+		<result column="权限" property="权限" javaType="String"/>
+	</resultMap>
+	<!-- ********************************** -->
+	<!-- 重新添加角色权限 -->
+	<insert id="insertAuthority" parameterType="com.zai360.portal.test.util.SQLAdapter">
+		${sql}
+	</insert>
+	<!--删除角色原有权限  -->
+	<delete id="deleteAuthority" parameterType="com.zai360.portal.test.util.SQLAdapter">
+		${sql}
+	</delete>
+	<!-- 查询角色权限信息 -->
+	<select id="findAuthorities" parameterType="com.zai360.portal.test.util.SQLAdapter"
+		resultMap="authoritiesResult">
+		${sql}
+	</select>
+	<!-- 重新添加用户角色 -->
+	<insert id="insertRole" parameterType="com.zai360.portal.test.util.SQLAdapter">
+		${sql}
+	</insert>
+	<!-- 删除用户原有角色 -->
+	<delete id="deleteRole" parameterType="com.zai360.portal.test.util.SQLAdapter">
+		${sql}
+	</delete>
+	<!-- 查询用户角色 -->
+	<select id="findRoles" parameterType="com.zai360.portal.test.util.SQLAdapter"
+		resultMap="rolesResult">
+		${sql}
+	</select>
+	<!-- 更新用户信息 -->
+	<update id="updateAccount" parameterType="com.zai360.portal.test.util.SQLAdapter">
+		${sql}
+	</update>
+	<!-- 按条件查询用户 -->
+	<select id="findAccounts" parameterType="com.zai360.portal.test.util.SQLAdapter"
+		resultMap="adminResult">
+		${sql}
+	</select>
+	<!-- 查询总条数 -->
+	<select id="findTotal" parameterType="com.zai360.portal.test.util.SQLAdapter"
+		resultType="int">
+		${sql}
+	</select>
+	<!-- 通过角色名获取权限 -->
+	<select id="findAuthority" parameterType="String"
+		resultMap="authorityResult">
+		SELECT ra.* FROM xx_role_authority ra,xx_role r WHERE ra.`role`=r.`id` AND r.`name`=#{name};
+	</select>
+	<!-- 通过角色名获取角色对象 -->
+	<select id="findRoleByRoleName" parameterType="String" resultMap="roleResult">
+		SELECT * FROM xx_role r WHERE r.`name`=#{name};
+	</select>
+	<!-- 通过用户名获取角色 -->
+	<select id="findRole" parameterType="String" resultMap="roleResult">
+		SELECT *
+		FROM xx_role r, xx_admin_role ar, xx_admin a
+		WHERE a.`id`=ar.`admins`
+		AND r.`id`=ar.`roles` AND a.`username`=#{username};
+	</select>
+	<!-- 通过用户名获取账户对象 -->
+	<select id="findAdmin" parameterType="String" resultMap="adminResult">
+		SELECT
+		a.* FROM xx_admin a WHERE
+		a.`username`=#{username};
+	</select>
+
+</mapper>

@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="common">
+	<resultMap type="java.util.Map" id="testccrsResult">
+		<result column="基站名称" property="syorganizationName" javaType="java.lang.String" />
+		<result column="日期" property="createDateTime" javaType="java.lang.String" />
+		<result column="凌晨0点~下午5点" property="dayAmount" javaType="int" />
+		<result column="下午5点~凌晨0点" property="nightAmount" javaType="int" />
+	</resultMap>
+	<resultMap type="java.util.Map" id="fwrqResult">
+		<result column="周一" property="周一" javaType="int" />
+		<result column="周二" property="周二" javaType="int" />
+		<result column="周三" property="周三" javaType="int" />
+		<result column="周四" property="周四" javaType="int" />
+		<result column="周五" property="周五" javaType="int" />
+		<result column="周六" property="周六" javaType="int" />
+		<result column="周日" property="周日" javaType="int" />
+		<result column="基站" property="基站" javaType="String" />
+	</resultMap>
+	<resultMap type="java.util.Map" id="scsyResult">
+		<result column="地推人员" property="地推人员" javaType="String" />
+		<result column="推荐用户商城首次使用数" property="推荐用户商城首次使用数" javaType="int" />
+	</resultMap>
+	<resultMap type="java.util.Map" id="zxyyResult">
+		<result column="手机号" property="手机号" javaType="long" />
+		<result column="客户地址" property="客户地址" javaType="String" />
+		<result column="注销时间" property="注销时间" javaType="Date" />
+		<result column="注销原因" property="注销原因" javaType="String" />
+		<result column="所属基站" property="所属基站" javaType="String" />
+	</resultMap>
+	<resultMap type="java.util.Map" id="smwyResult">
+		<result column="手机号" property="手机号" javaType="long" />
+		<result column="客户地址" property="客户地址" javaType="String" />
+		<result column="原因" property="原因" javaType="String" />
+		<result column="所属基站" property="所属基站" javaType="String" />
+	</resultMap>
+	<resultMap type="java.util.Map" id="appxxResult">
+		<result column="订单" property="订单" javaType="String" />
+		<result column="总金额" property="总金额" javaType="double" />
+		<result column="客户端" property="客户端" javaType="String" />
+		<result column="手机号" property="手机号" javaType="long" />
+	</resultMap>
+	<resultMap type="java.util.Map" id="yhxxResult">
+		<result column="手机号" property="手机号" javaType="long" />
+		<result column="用户状态" property="用户状态" javaType="String" />
+		<result column="暂停服务时间" property="暂停服务时间" javaType="Date" />
+		<result column="账户余额" property="账户余额" javaType="double" />
+		<result column="注册时间" property="注册时间" javaType="Date" />
+		<result column="上门回收次数" property="上门回收次数" javaType="int" />
+		<result column="商城使用次数" property="商城使用次数" javaType="int" />
+		<result column="违约次数" property="违约次数" javaType="int" />
+		<result column="商品拒收次数" property="商品拒收次数" javaType="int" />
+		<result column="首次上门服务时间" property="首次上门服务时间" javaType="Date" />
+		<result column="首次商城下单时间" property="首次商城下单时间" javaType="Date" />
+		<result column="最近上门服务时间" property="最近上门服务时间" javaType="Date" />
+		<result column="最近商城下单时间" property="最近商城下单时间" javaType="Date" />
+		<result column="商城订单总金额" property="商城订单总金额" javaType="double" />
+		<result column="2014年9月成功上门任务数" property="2014年9月成功上门任务数"
+			javaType="int" />
+		<result column="2014年10月成功上门任务数" property="2014年10月成功上门任务数"
+			javaType="int" />
+		<result column="2014年11月成功上门任务数" property="2014年11月成功上门任务数"
+			javaType="int" />
+		<result column="2014年12月成功上门任务数" property="2014年12月成功上门任务数"
+			javaType="int" />
+		<result column="2015年01月成功上门任务数" property="2015年01月成功上门任务数"
+			javaType="int" />
+		<result column="2015年02月成功上门任务数" property="2015年02月成功上门任务数"
+			javaType="int" />
+		<result column="2015年03月成功上门任务数" property="2015年03月成功上门任务数"
+			javaType="int" />
+		<result column="2015年04月成功上门任务数" property="2015年04月成功上门任务数"
+			javaType="int" />
+		<result column="2015年05月成功上门任务数" property="2015年05月成功上门任务数"
+			javaType="int" />
+		<result column="2015年06月成功上门任务数" property="2015年06月成功上门任务数"
+			javaType="int" />
+		<result column="2015年07月成功上门任务数" property="2015年07月成功上门任务数"
+			javaType="int" />
+		<result column="2015年08月成功上门任务数" property="2015年08月成功上门任务数"
+			javaType="int" />
+		<result column="2015年09月成功上门任务数" property="2015年09月成功上门任务数"
+			javaType="int" />
+		<result column="2015年10月成功上门任务数" property="2015年10月成功上门任务数"
+			javaType="int" />
+		<result column="2015年11月成功上门任务数" property="2015年11月成功上门任务数"
+			javaType="int" />
+	</resultMap>
+	<resultMap type="java.util.Map" id="dtxxResult">
+		<result column="手机号" property="手机号" javaType="long" />
+		<result column="注册时间" property="注册时间" javaType="Date" />
+		<result column="下单数" property="下单数" javaType="int" /><!-- 不包含取消的订单(order_status=3) -->
+		<result column="完成订单数" property="完成订单数" javaType="int" />
+	</resultMap>
+	<resultMap type="java.util.Map" id="hsjeResult">
+		<result column="手机号" property="手机号" javaType="long" />
+		<result column="任务ID" property="任务ID" javaType="String" />
+		<result column="回收金额" property="回收金额" javaType="double" />
+		<result column="完成时间" property="完成时间" javaType="Date" />
+		<result column="再生侠" property="再生侠" javaType="String" />
+	</resultMap>
+	<resultMap type="java.util.Map" id="zcyhResult">
+		<result column="时间段" property="时间段" javaType="String" />
+		<result column="注册人数" property="注册人数" javaType="int" />
+	</resultMap>
+	<resultMap type="java.util.Map" id="noOpenidResult">
+		<result column="手机号" property="手机号" javaType="long" />
+		<result column="地址" property="地址" javaType="String" />
+		<result column="姓名" property="姓名" javaType="String" />
+		<result column="注册时间" property="注册时间" javaType="Date" />
+		<result column="推荐人" property="推荐人" javaType="String" />
+	</resultMap>
+	<resultMap type="java.util.Map" id="hsxxResult">
+		<result column="任务ID" property="任务ID" javaType="String" />
+		<result column="再生侠" property="再生侠" javaType="String" />
+		<result column="订单接受日期" property="订单接受日期" javaType="Date" />
+		<result column="回收类型" property="回收类型" javaType="String" />
+		<result column="回收总金额" property="回收总金额" javaType="double" />
+		<result column="回收袋子金额" property="回收袋子金额" javaType="double" />
+		<result column="回收瓶子金额" property="回收瓶子金额" javaType="double" />
+		<result column="回收衣服金额" property="回收衣服金额" javaType="double" />
+		<result column="回收电子金额" property="回收电子金额" javaType="double" />
+		<result column="回收废纸金额" property="回收废纸金额" javaType="double" />
+	</resultMap>
+	<resultMap type="java.util.Map" id="tgrsResult">
+		<result column="推广人数" property="推广人数" javaType="int" />
+		<result column="基站" property="基站" javaType="String" />
+	</resultMap>
+	<resultMap type="java.util.Map" id="scsmResult">
+		<result column="首次上门数" property="首次上门数" javaType="int" />
+		<result column="基站" property="基站" javaType="String" />
+	</resultMap>
+	<resultMap type="java.util.Map" id="dtzcResult">
+		<result column="手机号" property="手机号" javaType="long" />
+		<result column="注册时间" property="注册时间" javaType="Date" />
+		<result column="地推姓名" property="地推姓名" javaType="String" />
+		<result column="地推工号" property="地推工号" javaType="long" />
+		<result column="基站名称" property="基站名称" javaType="String" />
+		<result column="地址" property="地址" javaType="String" />
+		<result column="状态" property="状态" javaType="String" />
+	</resultMap>
+	<resultMap type="java.util.Map" id="scyhResult">
+		<result column="手机号" property="手机号" javaType="long" />
+		<result column="当前余额" property="当前余额" javaType="double" />
+		<result column="地址" property="地址" javaType="String" />
+		<result column="回收次数" property="回收次数" javaType="int" />
+		<result column="注册时间" property="注册时间" javaType="Date" />
+	</resultMap>
+	<resultMap type="java.util.Map" id="dddcResult">
+		<result column="订单编号" property="订单编号" javaType="String" />
+		<result column="商品编号" property="商品编号" javaType="long" />
+		<result column="商品名称" property="商品名称" javaType="String" />
+		<result column="订单数量" property="订单数量" javaType="int" />
+		<result column="商品价格" property="商品价格" javaType="double" />
+		<result column="总金额" property="总金额" javaType="double" />
+		<result column="已付金额" property="已付金额" javaType="double" />
+		<result column="在线支付" property="在线支付" javaType="double" />
+		<result column="账户抵用" property="账户抵用" javaType="double" />
+		<result column="收货人" property="收货人" javaType="String" />
+		<result column="手机号" property="手机号" javaType="long" />
+		<result column="基站" property="基站" javaType="String" />
+		<result column="地址" property="地址" javaType="String" />
+		<result column="邮编" property="邮编" javaType="long" />
+		<result column="是否开具发票" property="是否开具发票" javaType="String" />
+		<result column="发票抬头" property="发票抬头" javaType="String" />
+		<result column="支付方式" property="支付方式" javaType="String" />
+		<result column="配送方式" property="配送方式" javaType="String" />
+		<result column="订单状态" property="订单状态" javaType="String" />
+		<result column="支付状态" property="支付状态" javaType="String" />
+		<result column="配送状态" property="配送状态" javaType="String" />
+		<result column="确认收货" property="确认收货" javaType="Date" />
+		<result column="创建订单" property="创建订单" javaType="Date" />
+		<result column="确认订单" property="确认订单" javaType="Date" />
+		<result column="配送订单" property="配送订单" javaType="Date" />
+		<result column="完成订单" property="完成订单" javaType="Date" />
+		<result column="取消订单" property="取消订单" javaType="Date" />
+	</resultMap>
+	<resultMap type="java.util.Map" id="yxyhResult">
+		<result column="基站名称" property="基站名称" javaType="String" />
+		<result column="再生侠编号" property="再生侠编号" javaType="long" />
+		<result column="再生侠名称" property="再生侠名称" javaType="String" />
+		<result column="营销客户数" property="营销客户数" javaType="int" />
+	</resultMap>
+	<resultMap type="java.util.Map" id="tyyhResult">
+		<result column="手机号" property="手机号" javaType="long" />
+		<result column="推广人员工号" property="推广人员工号" javaType="String" />
+		<result column="注册时间" property="注册时间" javaType="Date" />
+		<result column="预约上门时间" property="预约上门时间" javaType="Date" />
+		<result column="服务再生侠" property="服务再生侠" javaType="String" />
+		<result column="违约原因" property="违约原因" javaType="String" />
+		<result column="所属基站" property="所属基站" javaType="String" />
+		<result column="回收次数" property="回收次数" javaType="int" />
+		<result column="用户地址" property="用户地址" javaType="String" />
+		<result column="暂停服务操作人" property="暂停服务操作人" javaType="String" />
+		<result column="成功回收次数" property="成功回收次数" javaType="int" />
+	</resultMap>
+	<resultMap type="java.util.Map" id="cfdzResult">
+		<result column="手机号" property="手机号" javaType="long" />
+		<result column="地址" property="地址" javaType="String" />
+		<result column="小区名称" property="小区名称" javaType="String" />
+		<result column="小区编号" property="小区编号" javaType="String" />
+		<result column="楼宇" property="楼宇" javaType="String" />
+		<result column="楼宇号" property="楼宇号" javaType="String" />
+		<result column="门牌号" property="门牌号" javaType="String" />
+		<result column="商城使用次数" property="商城使用次数" javaType="int" />
+		<result column="上门回收次数" property="上门回收次数" javaType="int" />
+		<result column="推荐人" property="推荐人" javaType="String" />
+		<result column="注册时间" property="注册时间" javaType="Date" />
+		<result column="重复数量" property="重复数量" javaType="int" />
+	</resultMap>
+	<resultMap type="java.util.Map" id="wyhqResult">
+		<result column="手机号" property="手机号" javaType="long" />
+		<result column="用户名" property="用户名" javaType="String" />
+	</resultMap>
+	<resultMap type="java.util.Map" id="wssjResult">
+		<result column="手机号" property="手机号" javaType="long" />
+		<result column="地址" property="地址" javaType="String" />
+		<result column="基站名称" property="基站名称" javaType="String" />
+		<result column="回收次数" property="回收次数" javaType="int" />
+		<result column="再生侠编号" property="再生侠编号" javaType="String" />
+		<result column="余额" property="余额" javaType="double" />
+	</resultMap>
+	<resultMap type="java.util.Map" id="ccrsResult">
+		<result column="基站名称" property="基站名称" javaType="String" />
+		<result column="日期" property="日期" javaType="String" />
+		<result column="凌晨0点-下午5点" property="凌晨0点-下午5点" javaType="int" />
+		<result column="下午5点-凌晨0点" property="下午5点-凌晨0点" javaType="int" />
+	</resultMap>
+	<resultMap type="java.util.Map" id="scxdResult">
+		<result column="订单编号" property="订单编号" javaType="String" />
+		<result column="订单总金额" property="订单总金额" javaType="double" />
+		<result column="收货人" property="收货人" javaType="String" />
+		<result column="手机号" property="手机号" javaType="long" />
+		<result column="地址" property="地址" javaType="String" />
+		<result column="所属基站" property="所属基站" javaType="String" />
+		<result column="完成时间" property="完成时间" javaType="Date" />
+	</resultMap>
+	<resultMap type="java.util.Map" id="xdmxResult">
+		<result column="订单编号" property="订单编号" javaType="String" />
+		<result column="手机号" property="手机号" javaType="long" />
+		<result column="下单时间" property="下单时间" javaType="Date" />
+		<result column="订单总金额" property="订单总金额" javaType="double" />
+		<result column="账户抵用金额" property="账户抵用金额" javaType="double" />
+		<result column="当前余额" property="当前余额" javaType="double" />
+		<result column="商品编号" property="商品编号" javaType="long" />
+		<result column="商品名称" property="商品名称" javaType="String" />
+		<result column="商品原价" property="商品原价" javaType="double" />
+		<result column="商品价格" property="商品价格" javaType="double" />
+		<result column="数量" property="数量" javaType="int" />
+	</resultMap>
+	<resultMap type="java.util.Map" id="zcfwResult">
+		<result column="手机号" property="手机号" javaType="long" />
+		<result column="服务周期" property="服务周期" javaType="String" />
+		<result column="服务日期" property="服务日期" javaType="String" />
+		<result column="服务时间段" property="服务时间段" javaType="String" />
+		<result column="注册时间" property="注册时间" javaType="Date" />
+		<result column="推荐人" property="推荐人" javaType="String" />
+		<result column="用户状态" property="用户状态" javaType="String" />
+		<result column="用户来源" property="用户来源" javaType="String" />
+		<result column="回收次数" property="回收次数" javaType="int" />
+		<result column="商城使用次数" property="商城使用次数" javaType="int" />
+		<result column="所属基站" property="所属基站" javaType="String" />
+		<result column="用户地址" property="用户地址" javaType="String" />
+		<result column="注册当天是否有临时任务" property="注册当天是否有临时任务" javaType="String" />
+		<result column="是否开启了出差" property="是否开启了出差" javaType="String" />
+	</resultMap>
+	<resultMap type="java.util.Map" id="dtfwResult">
+		<result column="手机号" property="手机号" javaType="long" />
+		<result column="服务周期" property="服务周期" javaType="String" />
+		<result column="服务日期" property="服务日期" javaType="String" />
+		<result column="服务时间段" property="服务时间段" javaType="String" />
+		<result column="注册时间" property="注册时间" javaType="Date" />
+		<result column="推荐人" property="推荐人" javaType="String" />
+		<result column="用户状态" property="用户状态" javaType="String" />
+		<result column="用户来源" property="用户来源" javaType="String" />
+		<result column="回收次数" property="回收次数" javaType="int" />
+		<result column="商城使用次数" property="商城使用次数" javaType="int" />
+		<result column="所属基站" property="所属基站" javaType="String" />
+		<result column="用户地址" property="用户地址" javaType="String" />
+		<result column="注册当天是否有临时任务" property="注册当天是否有临时任务" javaType="String" />
+		<result column="是否开启了出差" property="是否开启了出差" javaType="String" />
+	</resultMap>
+	<resultMap type="java.util.Map" id="zhyeResult">
+		<result column="账户总余额" property="账户总余额" javaType="double" />
+	</resultMap>
+	<resultMap type="java.util.Map" id="hssjResult">
+		<result column="基站" property="基站" javaType="String" />
+		<result column="回收二手智能机数量" property="回收二手智能机数量" javaType="int" />
+		<result column="手机号" property="手机号" javaType="long" />
+		<result column="订单状态" property="订单状态" javaType="String" />
+		<result column="创建日期" property="创建日期" javaType="Date" />
+		<result column="完成时间" property="完成时间" javaType="Date" />
+	</resultMap>
+	<resultMap type="java.util.Map" id="tsglResult">
+	
+	</resultMap>
+
+	<!-- ************************************ -->
+	<!-- 电话购物信息 -->
+	<select id="finddhgw" parameterType="com.zai360.portal.test.util.SQLAdapter"
+		resultType="java.util.Map">
+		${sql}
+	</select>
+	<!-- 上门客户数 -->
+	<select id="findsmkh" parameterType="com.zai360.portal.test.util.SQLAdapter"
+		resultType="java.util.Map">
+		${sql}
+	</select>
+	<!-- 用户投诉管理 -->
+	<select id="findtsgl" parameterType="com.zai360.portal.test.util.SQLAdapter"
+		resultMap="tsglResult">
+		${sql}
+	</select>
+	<!-- 回收手机任务信息 -->
+	<select id="findhssj" parameterType="com.zai360.portal.test.util.SQLAdapter"
+		resultMap="hssjResult">
+		${sql}
+	</select>
+	<!-- 查询账户总余额 -->
+	<select id="findzhye" parameterType="com.zai360.portal.test.util.SQLAdapter"
+		resultMap="zhyeResult">
+		${sql}
+	</select>
+	<!-- 查询地推用户服务信息设置 -->
+	<select id="finddtfw" parameterType="com.zai360.portal.test.util.SQLAdapter"
+		resultMap="dtfwResult">
+		${sql}
+	</select>
+	<!-- 查询新注册用户服务信息设置 -->
+	<select id="findzcfw" parameterType="com.zai360.portal.test.util.SQLAdapter"
+		resultMap="zcfwResult">
+		${sql}
+	</select>
+	<!-- 首次下单账户及商品信息 -->
+	<select id="findxdmx" parameterType="com.zai360.portal.test.util.SQLAdapter"
+		resultMap="xdmxResult">
+		${sql}
+	</select>
+	<!-- 首次下单信息查询 -->
+	<select id="findscxd" parameterType="com.zai360.portal.test.util.SQLAdapter"
+		resultMap="scxdResult">
+		${sql}
+	</select>
+	<!-- 查询各基站出差人数 -->
+	<select id="findccrs" parameterType="com.zai360.portal.test.util.SQLAdapter"
+		resultMap="ccrsResult">
+		${sql}
+	</select>
+	<!-- 查询未完善回收时间用户 -->
+	<select id="findwssj" parameterType="com.zai360.portal.test.util.SQLAdapter"
+		resultMap="wssjResult">
+		${sql}
+	</select>
+	<!-- 查询未发放优惠券用户 -->
+	<select id="findwyhq" parameterType="com.zai360.portal.test.util.SQLAdapter"
+		resultMap="wyhqResult">
+		${sql}
+	</select>
+	<!-- 查询重复地址用户信息 -->
+	<select id="findcfdz" parameterType="com.zai360.portal.test.util.SQLAdapter"
+		resultMap="cfdzResult">
+		${sql}
+	</select>
+	<!-- 查询停用用户信息 -->
+	<select id="findtyyh" parameterType="com.zai360.portal.test.util.SQLAdapter"
+		resultMap="tyyhResult">
+		${sql}
+	</select>
+	<!-- 查询商城营销用户数 -->
+	<select id="findyxyh" parameterType="com.zai360.portal.test.util.SQLAdapter"
+		resultMap="yxyhResult">
+		${sql}
+	</select>
+	<!-- 订单导出 -->
+	<select id="finddddc" parameterType="com.zai360.portal.test.util.SQLAdapter"
+		resultMap="dddcResult">
+		${sql}
+	</select>
+	<!-- 查询未购买过商品的商城用户信息 -->
+	<select id="findscyh" parameterType="com.zai360.portal.test.util.SQLAdapter"
+		resultMap="scyhResult">
+		${sql}
+	</select>
+	<!-- 查询地推注册明细 -->
+	<select id="finddtzc" parameterType="com.zai360.portal.test.util.SQLAdapter"
+		resultMap="dtzcResult">
+		${sql}
+	</select>
+	<!-- 查询再生侠各基站首次上门人数 -->
+	<select id="findscsm" parameterType="com.zai360.portal.test.util.SQLAdapter"
+		resultMap="scsmResult">
+		${sql}
+	</select>
+	<!-- 查询再生侠各基站推广人数 -->
+	<select id="findtgrs" parameterType="com.zai360.portal.test.util.SQLAdapter"
+		resultMap="tgrsResult">
+		${sql}
+	</select>
+	<!-- 查询回收任务信息 -->
+	<select id="findhsxx" parameterType="com.zai360.portal.test.util.SQLAdapter"
+		resultMap="hsxxResult">
+		${sql}
+	</select>
+	<!-- 查询地推注册但无openID的用户信息 -->
+	<select id="findnoOpenid" parameterType="com.zai360.portal.test.util.SQLAdapter"
+		resultMap="noOpenidResult">
+		${sql}
+	</select>
+	<!-- 查询某时段用户注册数 -->
+	<select id="findzcyh" parameterType="com.zai360.portal.test.util.SQLAdapter"
+		resultMap="zcyhResult">
+		${sql}
+	</select>
+	<!-- 查询每日用户回收金额 -->
+	<select id="findhsje" parameterType="com.zai360.portal.test.util.SQLAdapter"
+		resultMap="hsjeResult">
+		${sql}
+	</select>
+	<!-- 查询单个地推信息 -->
+	<select id="finddtxx" parameterType="com.zai360.portal.test.util.SQLAdapter"
+		resultMap="dtxxResult">
+		${sql}
+	</select>
+	<!-- 查询用户信息表 -->
+	<select id="findyhxx" parameterType="com.zai360.portal.test.util.SQLAdapter"
+		resultMap="yhxxResult">
+		${sql}
+	</select>
+	<!-- 查询app下单信息 -->
+	<select id="findappxdxx" parameterType="com.zai360.portal.test.util.SQLAdapter"
+		resultMap="appxxResult">
+		${sql}
+	</select>
+	<!-- 首次上门违约客户信息 -->
+	<select id="findsmwy" parameterType="com.zai360.portal.test.util.SQLAdapter"
+		resultMap="smwyResult">
+		${sql}
+	</select>
+	<!-- 客户注销原因 -->
+	<select id="findzxyy" parameterType="com.zai360.portal.test.util.SQLAdapter"
+		resultMap="zxyyResult">
+		${sql}
+	</select>
+	<!-- 地推人员推荐用户商城首次使用数查询 -->
+	<select id="findscsy" parameterType="com.zai360.portal.test.util.SQLAdapter"
+		resultMap="scsyResult">
+		${sql}
+	</select>
+	<!-- 地推人员推荐的每周服务日期查询 -->
+	<select id="findfwrq" parameterType="com.zai360.portal.test.util.SQLAdapter"
+		resultMap="fwrqResult">
+		${sql}
+	</select>
+	<!-- 查询总条数 -->
+	<select id="findtotal" parameterType="com.zai360.portal.test.util.SQLAdapter"
+		resultType="int">
+		${sql}
+	</select>
+</mapper>

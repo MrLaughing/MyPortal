@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="write">
+	<!-- 查询表 -->
+	<select id="havetable" parameterType="com.zai360.portal.test.util.SQLAdapter"
+		resultType="String">
+		${sql}
+	</select>
+	<!-- 创建表 -->
+	<update id="createTable" parameterType="com.zai360.portal.test.util.SQLAdapter">
+		${sql}
+	</update>
+	<!-- 插入行 -->
+	<insert id="insertRow" parameterType="com.zai360.portal.test.util.SQLAdapter">
+		${sql}
+	</insert>
+</mapper>
