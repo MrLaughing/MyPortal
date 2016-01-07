@@ -2,22 +2,54 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
 %>
-<shiro:hasAnyRoles name="基站管理员,订单查看角色,高级商城管理员,report测试人员">
+<shiro:hasRole name="后台导表--回收人员">
+	<%
+		List huishouList = PathUtil.huishouList();
+			request.setAttribute("huishouList", huishouList);
+	%>
+</shiro:hasRole>
+<shiro:hasRole name="后台导表--客服人员">
+	<%
+		List kefuList = PathUtil.kefuList();
+			request.setAttribute("kefuList", kefuList);
+	%>
+</shiro:hasRole>
+<shiro:hasRole name="后台导表--商城人员">
+	<%
+		List shangchengList = PathUtil.shangchengList();
+			request.setAttribute("shangchengList", shangchengList);
+	%>
+</shiro:hasRole>
+<shiro:hasRole name="后台导表--市场人员">
+	<%
+		List shichangList = PathUtil.shichangList();
+			request.setAttribute("shichangList", shichangList);
+	%>
+</shiro:hasRole>
+<shiro:hasRole name="后台导表--推广人员">
+	<%
+		List tuiguangList = PathUtil.tuiguangList();
+			request.setAttribute("tuiguangList", tuiguangList);
+	%>
+</shiro:hasRole>
 <%
-	List list=PathUtil.PathCollection();
-	request.setAttribute("list", list);//将路径相关list存入request
-	List ceshiList=PathUtil.ceshiList();
-	request.setAttribute("ceshiList", ceshiList);
+	/*部门交互查询  */
+	List jiaohuList = PathUtil.jiaohuList();
+	request.setAttribute("jiaohuList", jiaohuList);
 %>
-</shiro:hasAnyRoles>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%
+	/*额外查询  */
+	List ewaiList = PathUtil.ewaiList();
+	request.setAttribute("ewaiList", ewaiList);
+%>
 <html>
 <head>
 <meta charset="utf-8">
@@ -48,8 +80,9 @@
 </head>
 <body>
 	<header class="Hui-header cl"> <a class="Hui-logo l"
-		title="H-ui.admin v2.3" href="javascript:location.replace(location.href);">再生活</a>
-	<span class="Hui-subtitle l">V1.0</span> 
+		title="H-ui.admin v2.3"
+		href="javascript:location.replace(location.href);">再生活</a> <span
+		class="Hui-subtitle l">V1.0</span>
 	<ul class="Hui-userbar">
 		<li class="dropDown dropDown_hover"><a href="#"
 			class="dropDown_A"><shiro:principal></shiro:principal> <i
@@ -74,75 +107,174 @@
 	<aside class="Hui-aside"> <input runat="server"
 		id="divScrollValue" type="hidden" value="" />
 	<div class="menu_dropdown bk_2">
-		<shiro:hasRole name="report测试人员">
+		<shiro:hasRole name="后台导表--回收人员">
 			<dl id="menu-article">
 				<dt>
-					<i class="Hui-iconfont">&#xe681;</i>测试相关查询<i
+					<i class="Hui-iconfont">&#xe681;</i>回收相关查询<i
 						class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i>
 				</dt>
 				<dd>
 					<ul>
-						<c:forEach items="${requestScope.ceshiList }" var="var" varStatus="id">
-							<li><a _href="page/${var.path}?serialVersionUID=${var.serialVersionUID}"><i class="Hui-iconfont">&#xe64b;</i>${id.index+1}.${var.name}</a></li>
+						<c:forEach items="${requestScope.huishouList }" var="var"
+							varStatus="id">
+							<li><a
+								_href="page/${var.path}?serialVersionUID=${var.serialVersionUID}"><i
+									class="Hui-iconfont">&#xe64b;</i>${id.index+1}.${var.name}</a></li>
 						</c:forEach>
-					</ul>
-				</dd>
-			</dl>	
-		</shiro:hasRole>
-		<shiro:hasPermission name="admin:report_query">
-			<dl id="menu-article">
-				<dt>
-					<i class="Hui-iconfont">&#xe681;</i>常用查询<i
-						class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i>
-				</dt>
-				<dd>
-					<ul>
-						<c:forEach items="${requestScope.list }" var="var" varStatus="id">
-							<li><a _href="page/${var.path}?serialVersionUID=${var.serialVersionUID}"><i class="Hui-iconfont">&#xe64b;</i>${id.index+1}.${var.name}</a></li>
-						</c:forEach>
-					</ul>
-				</dd>
-			</dl>	
-		</shiro:hasPermission>
-		
-			<dl id="menu-comments">
-				<dt>
-					<i class="Hui-iconfont">&#xe622;</i> 评论管理<i
-						class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i>
-				</dt>
-				<dd>
-					<ul>
-						<li><a _href="comment/feedback-list.jsp"
-							href="javascript:void(0)"><i class="Hui-iconfont">&#xe691;</i>意见反馈</a></li>
-					</ul>
-				</dd>
-			</dl>		
-			<dl id="menu-write">
-				<dt>
-					<i class="Hui-iconfont">&#xe6dc;</i> 上传管理<i
-						class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i>
-				</dt>
-				<dd>
-					<ul>
-						<li><a _href="write/writeExcel.jsp"
-							href="javascript:void(0)"><i class="Hui-iconfont">&#xe642;</i>读取文件</a></li>
-					</ul>
-				</dd>
-			</dl>	
-			<dl id="menu-member">
-				<dt>
-					<i class="Hui-iconfont">&#xe63c;</i> 系统管理<i
-						class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i>
-				</dt>
-				<dd>
-					<ul>
-						<li><a _href="account/account-list.jsp" href="javascript:;">用户管理</a></li>
-						<li><a _href="role/role-list.jsp" href="javascript:;">角色管理</a></li>
-						<li><a _href="authority/authority-list.jsp" href="javascript:void(0)">权限管理</a></li>
 					</ul>
 				</dd>
 			</dl>
-			
+		</shiro:hasRole>
+		<shiro:hasRole name="后台导表--客服人员">
+			<dl id="menu-article">
+				<dt>
+					<i class="Hui-iconfont">&#xe681;</i>客服相关查询<i
+						class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i>
+				</dt>
+				<dd>
+					<ul>
+						<c:forEach items="${requestScope.kefuList }" var="var"
+							varStatus="id">
+							<li><a
+								_href="page/${var.path}?serialVersionUID=${var.serialVersionUID}"><i
+									class="Hui-iconfont">&#xe64b;</i>${id.index+1}.${var.name}</a></li>
+						</c:forEach>
+					</ul>
+				</dd>
+			</dl>
+		</shiro:hasRole>
+		<shiro:hasRole name="后台导表--商城人员">
+			<dl id="menu-article">
+				<dt>
+					<i class="Hui-iconfont">&#xe681;</i>商城相关查询<i
+						class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i>
+				</dt>
+				<dd>
+					<ul>
+						<c:forEach items="${requestScope.shangchengList }" var="var"
+							varStatus="id">
+							<li><a
+								_href="page/${var.path}?serialVersionUID=${var.serialVersionUID}"><i
+									class="Hui-iconfont">&#xe64b;</i>${id.index+1}.${var.name}</a></li>
+						</c:forEach>
+					</ul>
+				</dd>
+			</dl>
+		</shiro:hasRole>
+		<shiro:hasRole name="后台导表--市场人员">
+			<dl id="menu-article">
+				<dt>
+					<i class="Hui-iconfont">&#xe681;</i>市场相关查询<i
+						class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i>
+				</dt>
+				<dd>
+					<ul>
+						<c:forEach items="${requestScope.shichangList }" var="var"
+							varStatus="id">
+							<li><a
+								_href="page/${var.path}?serialVersionUID=${var.serialVersionUID}"><i
+									class="Hui-iconfont">&#xe64b;</i>${id.index+1}.${var.name}</a></li>
+						</c:forEach>
+					</ul>
+				</dd>
+			</dl>
+		</shiro:hasRole>
+		<shiro:hasRole name="后台导表--推广人员">
+			<dl id="menu-article">
+				<dt>
+					<i class="Hui-iconfont">&#xe681;</i>推广相关查询<i
+						class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i>
+				</dt>
+				<dd>
+					<ul>
+						<c:forEach items="${requestScope.tuiguangList }" var="var"
+							varStatus="id">
+							<li><a
+								_href="page/${var.path}?serialVersionUID=${var.serialVersionUID}"><i
+									class="Hui-iconfont">&#xe64b;</i>${id.index+1}.${var.name}</a></li>
+						</c:forEach>
+					</ul>
+				</dd>
+			</dl>
+		</shiro:hasRole>
+		<shiro:hasAnyRoles
+			name="后台导表--回收人员,后台导表--客服人员,后台导表--商城人员,后台导表--市场人员,后台导表--推广人员">
+			<dl id="menu-article">
+				<dt>
+					<i class="Hui-iconfont">&#xe681;</i>部门交互查询<i
+						class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i>
+				</dt>
+				<dd>
+					<ul>
+						<c:forEach items="${requestScope.jiaohuList }" var="var"
+							varStatus="id">
+							<li><a
+								_href="page/${var.path}?serialVersionUID=${var.serialVersionUID}"><i
+									class="Hui-iconfont">&#xe64b;</i>${id.index+1}.${var.name}</a></li>
+						</c:forEach>
+					</ul>
+				</dd>
+			</dl>
+		</shiro:hasAnyRoles>
+		<shiro:hasAnyRoles
+			name="仅查各基站出差人数,仅查首次上门违约用户,仅查停用用户数,仅查电话购物信息,仅查app下单信息,仅查未发放优惠券用户,
+			仅查基站推广人数,仅查地推注册明细,仅查地推推荐服务日期,仅查查询用户信息,仅查重复地址用户信息,仅查客户注销原因">
+			<dl id="menu-article">
+				<dt>
+					<i class="Hui-iconfont">&#xe681;</i>额外查询<i
+						class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i>
+				</dt>
+				<dd>
+					<ul>
+						<c:forEach items="${requestScope.ewaiList }" var="var"
+							varStatus="id">
+							<li><a
+								_href="page/${var.path}?serialVersionUID=${var.serialVersionUID}"><i
+									class="Hui-iconfont">&#xe64b;</i>${id.index+1}.${var.name}</a></li>
+						</c:forEach>
+					</ul>
+				</dd>
+			</dl>
+		</shiro:hasAnyRoles>
+		<dl id="menu-comments">
+			<dt>
+				<i class="Hui-iconfont">&#xe622;</i> 评论管理<i
+					class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i>
+			</dt>
+			<dd>
+				<ul>
+					<li><a _href="comment/feedback-list.jsp"
+						href="javascript:void(0)"><i class="Hui-iconfont">&#xe691;</i>意见反馈</a></li>
+				</ul>
+			</dd>
+		</dl>
+		<dl id="menu-write">
+			<dt>
+				<i class="Hui-iconfont">&#xe6dc;</i> 上传管理<i
+					class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i>
+			</dt>
+			<dd>
+				<ul>
+					<li><a _href="write/writeExcel.jsp" href="javascript:void(0)"><i
+							class="Hui-iconfont">&#xe642;</i>读取文件</a></li>
+				</ul>
+			</dd>
+		</dl>
+		<dl id="menu-member">
+			<dt>
+				<i class="Hui-iconfont">&#xe63c;</i> 系统管理<i
+					class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i>
+			</dt>
+			<dd>
+				<ul>
+					<li><a _href="account/account-list.jsp" href="javascript:;">用户管理</a></li>
+					<li><a _href="role/role-list.jsp" href="javascript:;">角色管理</a></li>
+					<li><a _href="authority/authority-list.jsp"
+						href="javascript:void(0)">权限管理</a></li>
+				</ul>
+			</dd>
+		</dl>
+
 	</div>
 	</aside>
 	<div class="dislpayArrow">

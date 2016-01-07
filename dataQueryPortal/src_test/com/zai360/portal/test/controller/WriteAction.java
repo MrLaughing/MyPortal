@@ -21,7 +21,11 @@ import org.springframework.stereotype.Controller;
 import com.opensymphony.xwork2.ActionSupport;
 import com.zai360.portal.test.service.WriteService;
 import com.zai360.portal.test.util.ReadExcel;
-
+/**
+ * excel写入DB的Action
+ * @author Laughing_Lz
+ * @date 2016年1月4日
+ */
 @Controller
 public class WriteAction extends ActionSupport {
 	private static final long serialVersionUID = 1L;
@@ -37,7 +41,7 @@ public class WriteAction extends ActionSupport {
 		Workbook wb = null;
 		wb = WorkbookFactory.create(is);
 		ReadExcel excel = new ReadExcel();
-		Map<String, Object> result = excel.readExcelData(wb, 0, 0, 0);// 读取excel数据，包括类型，各单元格值
+		Map<String, Object> result = excel.readExcelData(wb, 0, 0, 0);// 读取excel数据，包括类型，及各单元格值
 		String[] colType = (String[]) result.get("colType");
 		String[][] allVal = (String[][]) result.get("allVal");
 		/* 1、判断表是否已存在 */
@@ -47,7 +51,6 @@ public class WriteAction extends ActionSupport {
 				+ "' ;");
 		String havetable = this.writeService.havetable(sql);
 		if (havetable == null) {
-			System.out.println("没表,执行创建表并插入数据");
 			/* 2、创建表 */
 			this.writeService.createTable(createSql(colType, allVal,
 					excelFileName));

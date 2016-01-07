@@ -134,10 +134,11 @@
 				部门：<span class="select-box inline"> <select name="department"
 					id="department" class="select" size="1">
 						<option selected="selected" value="">--未选择--</option>
-						<option value="总经理">总经理</option>
-						<option value="副总经理">副总经理</option>
-						<option value="测试部">测试部</option>
-						<option value="运营管理部">运营管理部</option>
+						<option value="回收">回收</option>
+						<option value="客服">客服</option>
+						<option value="商城">商城</option>
+						<option value="市场">市场</option>
+						<option value="推广">推广</option>
 				</select>
 				</span> <span>&nbsp&nbsp&nbsp&nbsp</span> 用户名：<input type="text"
 					name="username" id="username" style="width: 120px"

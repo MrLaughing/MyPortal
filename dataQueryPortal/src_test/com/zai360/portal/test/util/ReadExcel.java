@@ -12,7 +12,8 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddress;
 /**
- * 可处理合并单元格
+ * （可处理合并单元格）
+ * 应不处理单元格！
  * @author report
  * @date 2015年12月30日
  */
@@ -32,7 +33,6 @@ public class ReadExcel {
 		Sheet sheet = wb.getSheetAt(sheetIndex);
 		int rowNum = sheet.getLastRowNum() - tailLine + 1;// 得到总行数
 		int colNum = sheet.getRow(0).getPhysicalNumberOfCells();// 依表头得到总列数
-		System.out.println(rowNum + " " + colNum);
 		String[] colType = new String[colNum];// 存放表头类型
 		String[][] allVal = new String[rowNum][colNum];// 存放所有单元格值
 		Map<String, Object> result = new HashMap<String, Object>();// 将结果存入map集合中以调用

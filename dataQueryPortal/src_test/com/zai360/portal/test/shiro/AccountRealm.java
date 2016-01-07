@@ -77,6 +77,7 @@ public class AccountRealm extends AuthorizingRealm {
 			List<String> authorities=new ArrayList<String>();//角色id list
 			Iterator<Role_authority> it1=role_authority.iterator();
 			while(it1.hasNext()){
+//				System.out.print(it1.next().getAuthorities()+" ");
 				authorities.add(it1.next().getAuthorities());
 			}
 			authorizationInfo.addStringPermissions(authorities);//添加权限

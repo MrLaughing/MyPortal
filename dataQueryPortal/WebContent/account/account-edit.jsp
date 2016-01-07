@@ -54,7 +54,7 @@
 				<label class="form-label col-2"><span class="c-red">*</span>姓名：</label>
 				<div class="formControls col-5">
 					<input type="text" class="input-text" value="${requestScope.account.name}"
-						id="name" name="name" datatype="*2-16">
+						id="name" name="name" datatype="*2-16" nullmsg="请填写姓名！">
 				</div>
 				<div class="col-4"></div>
 			</div>
@@ -72,11 +72,11 @@
 					<span class="select-box"> <select class="select" size="1" 
 						name="department" id="department" datatype="*" nullmsg="请选择部门！">
 							<option value="" selected>--未选择--</option>
-							<option value="总经理">总经理</option>
-							<option value="副总经理">副总经理</option>
-							<option value="测试部">测试部</option>
-							<option value="运营管理部">运营管理部</option>
-							<option value="废品回收部">废品回收部</option>
+							<option value="回收">回收</option>
+							<option value="客服">客服</option>
+							<option value="商城">商城</option>
+							<option value="市场">市场</option>
+							<option value="推广">推广</option>
 					</select>
 					</span>
 				</div>

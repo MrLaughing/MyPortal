@@ -32,7 +32,7 @@ public interface AccountDao extends BaseDao{
 	Role findRoleByRoleName(String name);
 	/**
 	 * 通过角色名获取权限
-	 * @param syresourceId
+	 * @param name
 	 * @return
 	 */
 	List<Role_authority> findAuthority(String name);
@@ -52,6 +52,12 @@ public interface AccountDao extends BaseDao{
 	 * @param sql
 	 */
 	void updateAccount(StringBuffer sql);
+	/**
+	 * 通过基本角色id获取同权限的其他额外角色id
+	 * @param sql
+	 * @return
+	 */
+	List<String> findAuthorityById(StringBuffer sql);
 	/**
 	 * 删除用户原有角色
 	 * @param sql

@@ -54,61 +54,84 @@
 				<label class="form-label col-2">角色权限：</label>
 				<div class="formControls col-10">
 					<div class="check-box" >
+						<b>回收相关</b>
 						<table border="0" cellpadding="0" cellspacing="0" style="text-align:left; ">
-							  <tr height="28px">
-							    <td width="130px"><input id="authorities" name="authorities" value="admin:report_findappxdxx" type="checkbox">app下单信息</td>
-							    <td width="130px"><input id="authorities" name="authorities" value="admin:report_findyhxx" type="checkbox">查询用户信息</td>
-							    <td><input id="authorities" name="authorities" value="admin:report_finddtxx" type="checkbox">单个地推信息</td>
-							  </tr>
+							 <tr height="28px">
+								 <td width="130px"><input id="authorities" name="authorities" value="admin:report_findccrs" type="checkbox">各基站出差人数</td>
+								 <td width="130px"><input id="authorities" name="authorities" value="admin:report_findsmwy" type="checkbox">首次上门违约用户</td>
+							 </tr>
+						 </table>
+					 	<b>客服相关</b>
+						 <table border="0" cellpadding="0" cellspacing="0" style="text-align:left; ">
 						 	  <tr height="28px">
-							    <td><input id="authorities" name="authorities" value="admin:report_findhsje" type="checkbox">每日回收金额</td>
-							    <td><input id="authorities" name="authorities" value="admin:report_findzcyh" type="checkbox">某时段注册用户数</td>
-							    <td><input id="authorities" name="authorities" value="admin:report_findnoOpenid" type="checkbox">注册无openID用户</td>
+							 	  <td width="130px"><input id="authorities" name="authorities" value="admin:report_findtyyh" type="checkbox">停用用户数</td>
+							 	  <td width="130px"><input id="authorities" name="authorities" value="admin:report_finddhgw" type="checkbox"> 电话购物信息</td>
 							  </tr>
-							  <tr height="28px">
-							    <td><input id="authorities" name="authorities" value="admin:report_findhsxx" type="checkbox">回收任务信息</td>
-							    <td><input id="authorities" name="authorities" value="admin:report_findtgrs" type="checkbox">基站推广人数</td>
-							    <td><input id="authorities" name="authorities" value="admin:report_findscsm" type="checkbox">基站首次上门数</td>
-							  </tr>
-							  <tr height="28px">
-							    <td><input id="authorities" name="authorities" value="admin:report_finddtzc" type="checkbox">地推注册明细</td>
-							    <td><input id="authorities" name="authorities" value="admin:report_findscyh" type="checkbox">未购买过商品用户</td>
-							    <td><input id="authorities" name="authorities" value="admin:report_finddddc" type="checkbox">订单查询</td>
-							  </tr>
-							   <tr height="28px">
-							    <td><input id="authorities" name="authorities" value="admin:report_findyxyh" type="checkbox">营销用户数</td>
-							    <td><input id="authorities" name="authorities" value="admin:report_findtyyh" type="checkbox">停用用户数</td>
-							    <td><input id="authorities" name="authorities" value="admin:report_findcfdz" type="checkbox">重复地址用户信息</td>
-							  </tr>
-							   <tr height="28px">
-							    <td><input id="authorities" name="authorities" value="admin:report_findwyhq" type="checkbox">未发放优惠券用户</td>
-							    <td><input id="authorities" name="authorities" value="admin:report_findwssj" type="checkbox">未完善时间用户</td>
-							    <td><input id="authorities" name="authorities" value="admin:report_findccrs" type="checkbox">各基站出差人数</td>
-							  </tr>
-							   <tr height="28px">
-							    <td><input id="authorities" name="authorities" value="admin:report_findscxd" type="checkbox">首次下单信息</td>
-							    <td><input id="authorities" name="authorities" value="admin:report_findxdmx" type="checkbox">首次下单商品明细</td>
-							    <td><input id="authorities" name="authorities" value="admin:report_findzcfw" type="checkbox">新用户服务设置</td>
-							  </tr>
-							   <tr height="28px">
-							    <td><input id="authorities" name="authorities" value="admin:report_finddtfw" type="checkbox">地推用户服务设置</td>
-							    <td><input id="authorities" name="authorities" value="admin:report_findzhye" type="checkbox">所有账户总余额</td>
-							    <td><input id="authorities" name="authorities" value="admin:report_findfwrq" type="checkbox">地推推荐服务日期</td>
-							  </tr>
-							   <tr height="28px">
-							    <td><input id="authorities" name="authorities" value="admin:report_findscsy" type="checkbox">商城首次使用数</td>
-							    <td><input id="authorities" name="authorities" value="admin:report_findzxyy" type="checkbox">客户注销原因</td>
-							    <td><input id="authorities" name="authorities" value="admin:report_findsmwy" type="checkbox">首次上门违约用户</td>
-							  </tr>
-							   <tr height="28px">
-							    <td><input id="authorities" name="authorities" value="admin:report_findhssj" type="checkbox">回收手机任务信息</td>
-							    <td><input id="authorities" name="authorities" value="admin:report_findtsgl" type="checkbox">用户投诉管理</td>
-							    <td><input id="authorities" name="authorities" value="admin:report_findsmkh" type="checkbox">上门客户数</td>
-							  </tr>
-							   <tr height="28px">
-							    <td><input id="authorities" name="authorities" value="admin:report_finddhgw" type="checkbox"> 电话购物信息</td>
-							  </tr>
-							</table>
+						  </table>
+					 	<b>商城相关</b>
+						 <table border="0" cellpadding="0" cellspacing="0" style="text-align:left; ">
+							 <tr height="28px">
+								 <td width="130px"><input id="authorities" name="authorities" value="admin:report_findappxdxx" type="checkbox">app下单信息</td>
+								 <td width="130px"><input id="authorities" name="authorities" value="admin:report_findwyhq" type="checkbox">未发放优惠券用户</td>
+							 </tr>
+						 </table>
+					 	<b>市场相关</b>
+						 <table border="0" cellpadding="0" cellspacing="0" style="text-align:left; ">
+							 <tr height="28px">
+							 	<td width="130px"><input id="authorities" name="authorities" value="admin:report_findtgrs" type="checkbox">基站推广人数</td>
+							 </tr>
+						 </table>
+					 	<b>推广相关</b>
+						 <table border="0" cellpadding="0" cellspacing="0" style="text-align:left; ">
+						   	<tr height="28px">
+							   <td width="130px"><input id="authorities" name="authorities" value="admin:report_finddtzc" type="checkbox">地推注册明细</td>
+							   <td width="130px"><input id="authorities" name="authorities" value="admin:report_findfwrq" type="checkbox">地推推荐服务日期</td>
+						   	</tr>
+						 </table>
+					 	<b>交互查询</b>
+						 <table border="0" cellpadding="0" cellspacing="0" style="text-align:left; ">
+							 <tr height="28px">
+							   <td width="130px"><input id="authorities" name="authorities" value="admin:report_findyhxx" type="checkbox">查询用户信息</td>
+							   <td width="130px"><input id="authorities" name="authorities" value="admin:report_findcfdz" type="checkbox">重复地址用户信息</td>
+							   <td width="130px"><input id="authorities" name="authorities" value="admin:report_findzxyy" type="checkbox">客户注销原因</td>
+							 </tr>
+						 </table>
+					 	<b style="display: none;">隐藏查询</b>
+						 <table border="0" cellpadding="0" cellspacing="0" style="text-align:left;display: none; ">
+							<tr height="28px">
+								<td width="130px"><input id="authorities" name="authorities" value="admin:report_finddtxx" type="checkbox">单个地推信息</td>
+								<td width="130px"><input id="authorities" name="authorities" value="admin:report_findhsje" type="checkbox">每日回收金额</td>
+							    <td width="130px"><input id="authorities" name="authorities" value="admin:report_findzcyh" type="checkbox">某时段注册用户数</td>
+							</tr>
+							<tr height="28px">
+							    <td width="130px"><input id="authorities" name="authorities" value="admin:report_findnoOpenid" type="checkbox">注册无openID用户</td>
+								<td width="130px"><input id="authorities" name="authorities" value="admin:report_findhsxx" type="checkbox">回收任务信息</td>
+							    <td width="130px"><input id="authorities" name="authorities" value="admin:report_findscsm" type="checkbox">基站首次上门数</td>
+							</tr>
+							<tr height="28px">
+								<td width="130px"><input id="authorities" name="authorities" value="admin:report_findscyh" type="checkbox">未购买过商品用户</td>
+							    <td width="130px"><input id="authorities" name="authorities" value="admin:report_finddddc" type="checkbox">订单查询</td>
+								<td width="130px"><input id="authorities" name="authorities" value="admin:report_findyxyh" type="checkbox">营销用户数</td>
+							</tr>
+							<tr height="28px">
+								<td width="130px"><input id="authorities" name="authorities" value="admin:report_findwssj" type="checkbox">未完善时间用户</td>
+								<td width="130px"><input id="authorities" name="authorities" value="admin:report_findscxd" type="checkbox">首次下单信息</td>
+							    <td width="130px"><input id="authorities" name="authorities" value="admin:report_findxdmx" type="checkbox">首次下单商品明细</td>
+							</tr>
+							<tr height="28px">
+							    <td width="130px"><input id="authorities" name="authorities" value="admin:report_findzcfw" type="checkbox">新用户服务设置</td>
+								<td width="130px"><input id="authorities" name="authorities" value="admin:report_finddtfw" type="checkbox">地推用户服务设置</td>
+							    <td width="130px"><input id="authorities" name="authorities" value="admin:report_findzhye" type="checkbox">所有账户总余额</td>
+							</tr>
+							<tr height="28px">
+								<td width="130px"><input id="authorities" name="authorities" value="admin:report_findscsy" type="checkbox">商城首次使用数</td>
+							    <td width="130px"><input id="authorities" name="authorities" value="admin:report_findhssj" type="checkbox">回收手机任务信息</td>
+							    <td width="130px"><input id="authorities" name="authorities" value="admin:report_findtsgl" type="checkbox">用户投诉管理</td>
+							 </tr>
+							<tr height="28px">
+							    <td width="130px"><input id="authorities" name="authorities" value="admin:report_findsmkh" type="checkbox">上门客户数</td>
+							</tr>
+						 </table>
 					</div>
 				</div>
 			</div>

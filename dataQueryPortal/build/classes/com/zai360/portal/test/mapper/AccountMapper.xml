@@ -25,11 +25,12 @@
 		<result property="isSystem" column="is_system" />
 		<result property="name" column="name" />
 	</resultMap>
-	<resultMap type="com.zai360.portal.test.vo.Role_authority" id="authorityResult">
-		<result column="role" property="role"/>
-		<result column="authorities" property="authorities"/>
+	<resultMap type="com.zai360.portal.test.vo.Role_authority"
+		id="authorityResult">
+		<result column="role" property="role" />
+		<result column="authorities" property="authorities" />
 	</resultMap>
-	
+
 	<resultMap type="java.util.Map" id="rolesResult">
 		<result column="用户名" property="用户名" javaType="String" />
 		<result column="姓名" property="姓名" javaType="String" />
@@ -37,16 +38,21 @@
 		<result column="角色描述" property="角色描述" javaType="String" />
 	</resultMap>
 	<resultMap type="java.util.Map" id="authoritiesResult">
-		<result column="角色" property="角色" javaType="String"/>
-		<result column="角色描述" property="角色描述" javaType="String"/>
-		<result column="权限" property="权限" javaType="String"/>
+		<result column="角色" property="角色" javaType="String" />
+		<result column="角色描述" property="角色描述" javaType="String" />
+		<result column="权限" property="权限" javaType="String" />
 	</resultMap>
-	<!-- ********************************** -->
+	<!-- ****************************分隔符************************************ -->
+	<!-- 通过基本角色id获取同权限的其他额外角色id -->
+	<select id="findAuthorityById" parameterType="com.zai360.portal.test.util.SQLAdapter"
+		resultType="String">
+		${sql}
+	</select>
 	<!-- 重新添加角色权限 -->
 	<insert id="insertAuthority" parameterType="com.zai360.portal.test.util.SQLAdapter">
 		${sql}
 	</insert>
-	<!--删除角色原有权限  -->
+	<!--删除角色原有权限 -->
 	<delete id="deleteAuthority" parameterType="com.zai360.portal.test.util.SQLAdapter">
 		${sql}
 	</delete>
@@ -83,25 +89,27 @@
 		${sql}
 	</select>
 	<!-- 通过角色名获取权限 -->
-	<select id="findAuthority" parameterType="String"
-		resultMap="authorityResult">
-		SELECT ra.* FROM xx_role_authority ra,xx_role r WHERE ra.`role`=r.`id` AND r.`name`=#{name};
+	<select id="findAuthority" parameterType="String" resultMap="authorityResult">
+		SELECT ra.* FROM xx_role_authority_report ra,xx_role_report r WHERE
+		ra.`role`=r.`id` AND r.`name`=#{name};
 	</select>
 	<!-- 通过角色名获取角色对象 -->
-	<select id="findRoleByRoleName" parameterType="String" resultMap="roleResult">
-		SELECT * FROM xx_role r WHERE r.`name`=#{name};
+	<select id="findRoleByRoleName" parameterType="String"
+		resultMap="roleResult">
+		SELECT * FROM xx_role_report r WHERE r.`name`=#{name};
 	</select>
 	<!-- 通过用户名获取角色 -->
 	<select id="findRole" parameterType="String" resultMap="roleResult">
 		SELECT *
-		FROM xx_role r, xx_admin_role ar, xx_admin a
+		FROM xx_role_report r, xx_admin_role_report ar, xx_admin_report a
 		WHERE a.`id`=ar.`admins`
-		AND r.`id`=ar.`roles` AND a.`username`=#{username};
+		AND r.`id`=ar.`roles` AND
+		a.`username`=#{username};
 	</select>
 	<!-- 通过用户名获取账户对象 -->
 	<select id="findAdmin" parameterType="String" resultMap="adminResult">
 		SELECT
-		a.* FROM xx_admin a WHERE
+		a.* FROM xx_admin_report a WHERE
 		a.`username`=#{username};
 	</select>
 
