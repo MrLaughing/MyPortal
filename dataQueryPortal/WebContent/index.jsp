@@ -10,36 +10,36 @@
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
 %>
-<shiro:hasRole name="后台导表--回收人员">
+<shiro:hasAnyRoles name="后台导表--回收人员,后台导表--管理员">
 	<%
 		List huishouList = PathUtil.huishouList();
 			request.setAttribute("huishouList", huishouList);
 	%>
-</shiro:hasRole>
-<shiro:hasRole name="后台导表--客服人员">
+</shiro:hasAnyRoles>
+<shiro:hasAnyRoles name="后台导表--客服人员,后台导表--管理员">
 	<%
 		List kefuList = PathUtil.kefuList();
 			request.setAttribute("kefuList", kefuList);
 	%>
-</shiro:hasRole>
-<shiro:hasRole name="后台导表--商城人员">
+</shiro:hasAnyRoles>
+<shiro:hasAnyRoles name="后台导表--商城人员,后台导表--管理员">
 	<%
 		List shangchengList = PathUtil.shangchengList();
 			request.setAttribute("shangchengList", shangchengList);
 	%>
-</shiro:hasRole>
-<shiro:hasRole name="后台导表--市场人员">
+</shiro:hasAnyRoles>
+<shiro:hasAnyRoles name="后台导表--市场人员,后台导表--管理员">
 	<%
 		List shichangList = PathUtil.shichangList();
 			request.setAttribute("shichangList", shichangList);
 	%>
-</shiro:hasRole>
-<shiro:hasRole name="后台导表--推广人员">
+</shiro:hasAnyRoles>
+<shiro:hasAnyRoles name="后台导表--推广人员,后台导表--管理员">
 	<%
 		List tuiguangList = PathUtil.tuiguangList();
 			request.setAttribute("tuiguangList", tuiguangList);
 	%>
-</shiro:hasRole>
+</shiro:hasAnyRoles>
 <%
 	/*部门交互查询  */
 	List jiaohuList = PathUtil.jiaohuList();
@@ -83,9 +83,9 @@
 		title="H-ui.admin v2.3"
 		href="javascript:location.replace(location.href);">再生活</a> <span
 		class="Hui-subtitle l">V1.0</span>
-	<ul class="Hui-userbar">
-		<li class="dropDown dropDown_hover"><a href="#"
-			class="dropDown_A"><shiro:principal></shiro:principal> <i
+		<ul class="Hui-userbar">
+			<li class="dropDown dropDown_hover"><a href="#"
+				class="dropDown_A"><shiro:principal></shiro:principal> <i
 				class="Hui-iconfont">&#xe6d5;</i></a>
 			<ul class="dropDown-menu radius box-shadow">
 				<li><a href="#">个人信息</a></li>
@@ -102,15 +102,16 @@
 				<li><a href="javascript:;" data-val="yellow" title="黄色">黄色</a></li>
 				<li><a href="javascript:;" data-val="orange" title="绿色">橙色</a></li>
 			</ul></li>
-	</ul>
-	<a aria-hidden="false" class="Hui-nav-toggle" href="#"></a> </header>
+		</ul>
+		<a aria-hidden="false" class="Hui-nav-toggle" href="#"></a> 
+	</header>
 	<aside class="Hui-aside"> <input runat="server"
 		id="divScrollValue" type="hidden" value="" />
 	<div class="menu_dropdown bk_2">
-		<shiro:hasRole name="后台导表--回收人员">
+		<shiro:hasAnyRoles name="后台导表--回收人员,后台导表--管理员">
 			<dl id="menu-article">
 				<dt>
-					<i class="Hui-iconfont">&#xe681;</i>回收相关查询<i
+					<i class="Hui-iconfont">&#xe653;</i>回收相关查询<i
 						class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i>
 				</dt>
 				<dd>
@@ -124,11 +125,11 @@
 					</ul>
 				</dd>
 			</dl>
-		</shiro:hasRole>
-		<shiro:hasRole name="后台导表--客服人员">
+		</shiro:hasAnyRoles>
+		<shiro:hasAnyRoles name="后台导表--客服人员,后台导表--管理员">
 			<dl id="menu-article">
 				<dt>
-					<i class="Hui-iconfont">&#xe681;</i>客服相关查询<i
+					<i class="Hui-iconfont">&#xe6d0;</i>客服相关查询<i
 						class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i>
 				</dt>
 				<dd>
@@ -142,11 +143,11 @@
 					</ul>
 				</dd>
 			</dl>
-		</shiro:hasRole>
-		<shiro:hasRole name="后台导表--商城人员">
+		</shiro:hasAnyRoles>
+		<shiro:hasAnyRoles name="后台导表--商城人员,后台导表--管理员">
 			<dl id="menu-article">
 				<dt>
-					<i class="Hui-iconfont">&#xe681;</i>商城相关查询<i
+					<i class="Hui-iconfont">&#xe66a;</i>商城相关查询<i
 						class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i>
 				</dt>
 				<dd>
@@ -160,11 +161,11 @@
 					</ul>
 				</dd>
 			</dl>
-		</shiro:hasRole>
-		<shiro:hasRole name="后台导表--市场人员">
+		</shiro:hasAnyRoles>
+		<shiro:hasAnyRoles name="后台导表--市场人员,后台导表--管理员">
 			<dl id="menu-article">
 				<dt>
-					<i class="Hui-iconfont">&#xe681;</i>市场相关查询<i
+					<i class="Hui-iconfont">&#xe627;</i>市场相关查询<i
 						class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i>
 				</dt>
 				<dd>
@@ -178,11 +179,11 @@
 					</ul>
 				</dd>
 			</dl>
-		</shiro:hasRole>
-		<shiro:hasRole name="后台导表--推广人员">
+		</shiro:hasAnyRoles>
+		<shiro:hasAnyRoles name="后台导表--推广人员,后台导表--管理员">
 			<dl id="menu-article">
 				<dt>
-					<i class="Hui-iconfont">&#xe681;</i>推广相关查询<i
+					<i class="Hui-iconfont">&#xe6b6;</i>推广相关查询<i
 						class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i>
 				</dt>
 				<dd>
@@ -196,12 +197,12 @@
 					</ul>
 				</dd>
 			</dl>
-		</shiro:hasRole>
+		</shiro:hasAnyRoles>
 		<shiro:hasAnyRoles
-			name="后台导表--回收人员,后台导表--客服人员,后台导表--商城人员,后台导表--市场人员,后台导表--推广人员">
+			name="后台导表--回收人员,后台导表--客服人员,后台导表--商城人员,后台导表--市场人员,后台导表--推广人员,后台导表--管理员">
 			<dl id="menu-article">
 				<dt>
-					<i class="Hui-iconfont">&#xe681;</i>部门交互查询<i
+					<i class="Hui-iconfont">&#xe611;</i>部门交互查询<i
 						class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i>
 				</dt>
 				<dd>
@@ -260,21 +261,22 @@
 				</ul>
 			</dd>
 		</dl>
-		<dl id="menu-member">
-			<dt>
-				<i class="Hui-iconfont">&#xe63c;</i> 系统管理<i
-					class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i>
-			</dt>
-			<dd>
-				<ul>
-					<li><a _href="account/account-list.jsp" href="javascript:;">用户管理</a></li>
-					<li><a _href="role/role-list.jsp" href="javascript:;">角色管理</a></li>
-					<li><a _href="authority/authority-list.jsp"
-						href="javascript:void(0)">权限管理</a></li>
-				</ul>
-			</dd>
-		</dl>
-
+		<shiro:hasRole name="后台导表--管理员">
+			<dl id="menu-member">
+				<dt>
+					<i class="Hui-iconfont">&#xe63c;</i> 系统管理<i
+						class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i>
+				</dt>
+				<dd>
+					<ul>
+						<li><a _href="account/account-list.jsp" href="javascript:;">用户管理</a></li>
+						<li><a _href="role/role-list.jsp" href="javascript:;">角色管理</a></li>
+						<li><a _href="authority/authority-list.jsp"
+							href="javascript:void(0)">权限管理</a></li>
+					</ul>
+				</dd>
+			</dl>
+		</shiro:hasRole>
 	</div>
 	</aside>
 	<div class="dislpayArrow">

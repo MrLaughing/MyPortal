@@ -58,11 +58,12 @@
 						<b>基本角色</b>
 						<table border="0" cellpadding="0" cellspacing="0" style="text-align:left; ">
 							<tr height="28px">
+							   <td width="140px"><input id="roles" name="roles" value="0" type="checkbox">管理员</td>
 							   <td width="140px"><input id="roles" name="roles" value="1" type="checkbox">回收人员</td>
 							   <td width="140px"><input id="roles" name="roles" value="2" type="checkbox">客服人员</td>
-							   <td width="140px"><input id="roles" name="roles" value="3" type="checkbox">商城人员</td>
 							</tr>
 						 	<tr height="28px">
+							   <td width="140px"><input id="roles" name="roles" value="3" type="checkbox">商城人员</td>
 							   <td width="140px"><input id="roles" name="roles" value="4" type="checkbox">市场人员</td>
 							   <td width="140px"><input id="roles" name="roles" value="5" type="checkbox">推广人员</td>
 							</tr>

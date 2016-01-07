@@ -2,7 +2,6 @@ package com.zai360.portal.test.vo;
 
 
 import java.util.Date;
-import java.util.Set;
 
 public class Role {
     private Long id;
@@ -13,16 +12,15 @@ public class Role {
 
     private String description;
 
-    private Boolean isSystem;
-
     private String name;
     
+    private String type;
     
 	@Override
 	public String toString() {
 		return "Role [id=" + id + ", createDate=" + createDate
 				+ ", modifyDate=" + modifyDate + ", description=" + description
-				+ ", isSystem=" + isSystem + ", name=" + name + "]";
+				+ ", name=" + name + ", type=" + type + "]";
 	}
 
 	public Long getId() {
@@ -57,15 +55,15 @@ public class Role {
         this.description = description == null ? null : description.trim();
     }
 
-    public Boolean getIsSystem() {
-        return isSystem;
-    }
+    public String getType() {
+		return type;
+	}
 
-    public void setIsSystem(Boolean isSystem) {
-        this.isSystem = isSystem;
-    }
+	public void setType(String type) {
+		this.type = type;
+	}
 
-    public String getName() {
+	public String getName() {
         return name;
     }
 

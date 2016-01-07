@@ -125,9 +125,9 @@ public class Sql4Account {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String username = request.getParameter("username");
 		StringBuffer sql = new StringBuffer();
-		sql.append("SELECT a.`username` AS '用户名', a.`name` AS '姓名', role.`name` AS '角色', "
+		sql.append("SELECT a.`username` AS '用户名', a.`name` AS '姓名', role.`name` AS '角色', role.`type` AS '角色类型', "
 				+ " role.`description` AS '角色描述' FROM xx_admin_report a LEFT JOIN (SELECT r.`name`, "
-				+ " r.`description`, ar.`admins` FROM xx_role_report r, xx_admin_role_report ar "
+				+ " r.`description`, r.`type`, ar.`admins` FROM xx_role_report r, xx_admin_role_report ar "
 				+ " WHERE r.`id` = ar.`roles`) role ON a.`id` = role.`admins` ");
 		if (username != "") {
 			sql.append(" WHERE a.`username`='" + username + "' ");

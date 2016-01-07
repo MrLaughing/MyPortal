@@ -134,6 +134,7 @@
 				部门：<span class="select-box inline"> <select name="department"
 					id="department" class="select" size="1">
 						<option selected="selected" value="">--未选择--</option>
+						<option value="管理员">管理员</option>
 						<option value="回收">回收</option>
 						<option value="客服">客服</option>
 						<option value="商城">商城</option>

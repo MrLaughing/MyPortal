@@ -44,7 +44,7 @@
         $('#table').datagrid('selectRow',index);// 关键在这里  
         var row = $('#table').datagrid('getSelected'); //拿到该行数据
         if (row){  
-        	layer_show('用户角色','<%=basePath%>account/account_findrole.action?username='+row.用户名,'800','510');
+        	layer_show('修改角色','<%=basePath%>account/account_findrole.action?username='+row.用户名,'800','510');
         }  
     }  
 	function find() {
@@ -72,6 +72,9 @@
 				}, {
 					field : '角色',
 					title : '角色'
+				} , {
+					field : '角色类型',
+					title : '角色类型'
 				} , {
 					field : '角色描述',
 					title : '角色描述'

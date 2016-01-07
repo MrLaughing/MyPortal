@@ -195,10 +195,11 @@ public class AccountAction extends ActionSupport {
 		Iterator<Role> it = roles.iterator();
 		List<String> roleids = new ArrayList<String>();
 		List<String> ewairoleids=new ArrayList<String>();
-		while (it.hasNext()) {
-			String id=String.valueOf(it.next().getId());// 获取用户角色id
-			roleids.add(id);
-			if(id.equals("1")||id.equals("2")||id.equals("3")||id.equals("4")||id.equals("5")){//显然需要修改！！！
+		while (it.hasNext()) {//遍历该用户的角色's
+			Role role=it.next();//获取角色
+			String id=String.valueOf(role.getId());// 获取角色id
+			roleids.add(String.valueOf(role.getId()));
+			if("基本角色".equals(role.getType())){//为用户筛选基本角色已有的权限（id）
 				List<String> findAuthorityByIdList=new ArrayList<String>();
 				findAuthorityByIdList=this.accountService.findAuthorityById(Sql4Account.findAuthorityById(id));
 				ewairoleids.addAll(findAuthorityByIdList);

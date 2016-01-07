@@ -22,8 +22,8 @@
 		<result property="createDate" column="create_date" />
 		<result property="modifyDate" column="modify_date" />
 		<result property="description" column="description" />
-		<result property="isSystem" column="is_system" />
 		<result property="name" column="name" />
+		<result property="type" column="type" />
 	</resultMap>
 	<resultMap type="com.zai360.portal.test.vo.Role_authority"
 		id="authorityResult">
@@ -35,6 +35,7 @@
 		<result column="用户名" property="用户名" javaType="String" />
 		<result column="姓名" property="姓名" javaType="String" />
 		<result column="角色" property="角色" javaType="String" />
+		<result column="角色类型" property="角色类型" javaType="String"/>
 		<result column="角色描述" property="角色描述" javaType="String" />
 	</resultMap>
 	<resultMap type="java.util.Map" id="authoritiesResult">
