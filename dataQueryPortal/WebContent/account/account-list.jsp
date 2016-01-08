@@ -37,19 +37,26 @@
 <%@ include file="../util/easyui.jsp"%>
 <script type="text/javascript">
 	function formatOper(value,row,index){  
-	    return "<a style='text-decoration:none' class='ml-5' onClick='editUser("+index+")' title='编辑' href='javascript:;'><i class='Hui-iconfont'>&#xe6df;</i></a>";  
+	    return "<a style='text-decoration:none' class='ml-5' onClick='editUser("+index+")' title='编辑' href='javascript:;'>"
+	    +"<i class='Hui-iconfont'>&#xe6df;</i></a><a style='text-decoration:none' class='ml-5' onClick='delUser(this,"+index+")' "
+	    +"title='删除' href='javascript:;'><i class='Hui-iconfont'>&#xe6e2;</i></a>";  
+	}
+	/*删除用户*/
+	function delUser(obj,index){
+		$('#table').datagrid('selectRow',index);// 关键在这里  
+	    var row = $('#table').datagrid('getSelected'); //拿到该行数据
+		layer.confirm('确认要删除吗？',function(index){
+			//此处请求后台程序，下方是成功后的前台处理……
+			document.location.href="<%=basePath%>account/account_deleteAccount.action?username="+row.username;
+			$(obj).parents("tr").remove();
+			layer.msg('已删除!',{icon:1,time:1000});
+		});
 	}
 	/* 编辑用户 */
     function editUser(index){  
         $('#table').datagrid('selectRow',index);// 关键在这里  
         var row = $('#table').datagrid('getSelected'); //拿到该行数据
         if (row){  
-        	/* var edit = layer.open({
-        		type: 2,
-        		title: '编辑用户',
-        		content: 'account-edit.jsp'
-        	});
-        	layer.full(edit); */
         	layer_show('编辑用户','<%=basePath%>account/account_findaccount.action?username='+row.username,'500','450');
         }  
     }  

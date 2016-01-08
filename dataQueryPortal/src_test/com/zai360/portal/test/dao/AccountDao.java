@@ -48,6 +48,16 @@ public interface AccountDao extends BaseDao{
 	 */
 	List getList(String mappermethod, StringBuffer sql);
 	/**
+	 * 用户注册--添加用户
+	 * @param sql
+	 */
+	void insertAccount(StringBuffer sql);
+	/**
+	 * 删除用户
+	 * @param sql
+	 */
+	void deleteAccount(StringBuffer sql);
+	/**
 	 * 更新用户信息
 	 * @param sql
 	 */

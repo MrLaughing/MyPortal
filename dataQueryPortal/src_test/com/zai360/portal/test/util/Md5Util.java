@@ -5,11 +5,11 @@ import com.ndktools.javamd5.Mademd5;
 public class Md5Util {
 	/**
 	 * toMd5 转为32位小写
-	 * @param serialVersionUID
+	 * @param str
 	 * @return
 	 */
-	public static String toMd5(String serialVersionUID){
+	public static String toMd5(String str){
 		Mademd5 mademd5 =new Mademd5();
-		return 	mademd5.toMd5(serialVersionUID).toLowerCase();
+		return 	mademd5.toMd5(str).toLowerCase();
 	}
 }

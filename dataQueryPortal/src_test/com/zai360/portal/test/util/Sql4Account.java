@@ -1,5 +1,9 @@
 package com.zai360.portal.test.util;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts2.ServletActionContext;
@@ -24,6 +28,30 @@ public class Sql4Account {
 		sql.append("UPDATE xx_admin_report a SET a.`login_ip`='" + login_ip
 				+ "',a.`login_date`='" + login_date + "' WHERE a.`username`='"
 				+ username + "';");
+		return sql;
+	}
+
+	/**
+	 * 查询用户条目数
+	 * 
+	 * @return
+	 */
+	public static StringBuffer findAccountsTotal() {
+		HttpServletRequest request = ServletActionContext.getRequest();
+		String username = request.getParameter("username");
+		String department = request.getParameter("department");
+		StringBuffer sql = new StringBuffer();
+		sql.append("SELECT COUNT(*) FROM xx_admin_report a ");
+		if (username == "" && department == "") {
+
+		} else if (username != "" && department == "") {
+			sql.append(" WHERE a.`username`='" + username + "' ");
+		} else if (username == "" && department != "") {
+			sql.append(" WHERE a.`department`='" + department + "' ");
+		} else if (username != "" && department != "") {
+			sql.append(" WHERE a.`department`='" + department
+					+ "' AND a.`username`='" + username + "' ");
+		}
 		return sql;
 	}
 
@@ -53,28 +81,22 @@ public class Sql4Account {
 		sql.append(" LIMIT " + (pageNumber - 1) * pageSize + "," + pageSize);
 		return sql;
 	}
-
 	/**
-	 * 查询用户条目数
-	 * 
+	 * 用户注册--添加用户SQL
 	 * @return
 	 */
-	public static StringBuffer findAccountsTotal() {
+	public static StringBuffer insertAccount() {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String username = request.getParameter("username");
+		String name = request.getParameter("name");
 		String department = request.getParameter("department");
+		String email = request.getParameter("email");
+		String password = Md5Util.toMd5(request.getParameter("password"));// 密码需要MD5加密
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");																	// 字母小写
+		String create_date = sdf.format(new Date());
 		StringBuffer sql = new StringBuffer();
-		sql.append("SELECT COUNT(*) FROM xx_admin_report a ");
-		if (username == "" && department == "") {
-
-		} else if (username != "" && department == "") {
-			sql.append(" WHERE a.`username`='" + username + "' ");
-		} else if (username == "" && department != "") {
-			sql.append(" WHERE a.`department`='" + department + "' ");
-		} else if (username != "" && department != "") {
-			sql.append(" WHERE a.`department`='" + department
-					+ "' AND a.`username`='" + username + "' ");
-		}
+		sql.append("INSERT INTO xx_admin_report(username,name,email,department,password,create_date) VALUES('"
+				+ username+ "','"+ name+ "','"+ email+ "','"+ department+ "','"+password+"','"+create_date+"')");
 		return sql;
 	}
 
@@ -89,13 +111,20 @@ public class Sql4Account {
 		String name = request.getParameter("name");
 		String email = request.getParameter("email");
 		String department = request.getParameter("department");
+		SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String modify_date = sdf.format(new Date());
 		StringBuffer sql = new StringBuffer();
 		sql.append("UPDATE xx_admin_report a SET a.`name`='" + name
 				+ "',a.`department`='" + department + "',a.`email`='" + email
-				+ "' WHERE a.`username`='" + username + "';");
+				+ "',a.`modify_date`='"+modify_date+"' WHERE a.`username`='" + username + "';");
 		return sql;
 	}
-
+	public static StringBuffer deleteAccount(String username){
+		StringBuffer sql=new StringBuffer();
+		sql.append("DELETE FROM xx_admin_report WHERE username='"+username+"'");
+		return sql;
+		
+	}
 	/**
 	 * 查询用户角色条目数
 	 * 
@@ -156,7 +185,7 @@ public class Sql4Account {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String[] roles = request.getParameterValues("roles");
 		StringBuffer sql = new StringBuffer();
-		sql.append("INSERT INTO xx_admin_role_report(admins,roles) VALUE");
+		sql.append("INSERT INTO xx_admin_role_report(admins,roles) VALUES");
 		StringBuffer role_str = new StringBuffer();
 		if (roles != null) {
 			if (roles.length > 0 & roles[0] != "") {
@@ -225,7 +254,7 @@ public class Sql4Account {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String[] authorities = request.getParameterValues("authorities");
 		StringBuffer sql = new StringBuffer();
-		sql.append("INSERT INTO xx_role_authority_report(role,authorities) VALUE");
+		sql.append("INSERT INTO xx_role_authority_report(role,authorities) VALUES");
 		StringBuffer authority_str = new StringBuffer();
 		if (authorities != null) {
 			if (authorities.length > 0 & authorities[0] != "") {
@@ -247,16 +276,20 @@ public class Sql4Account {
 		}
 		return sql;
 	}
+
 	/**
 	 * 通过基本角色id获取同权限的其他额外角色id SQL
+	 * 
 	 * @param id
 	 * @return
 	 */
 	public static StringBuffer findAuthorityById(String id) {
 		StringBuffer sql = new StringBuffer();
-		sql.append("SELECT ra.`role` FROM xx_role_authority_report ra WHERE ra.`authorities` "
+		sql.append("SELECT ra.`role` FROM xx_role_authority_report ra ,xx_role_report r WHERE ra.`authorities` "
 				+ " IN (SELECT ra.`authorities` FROM xx_role_authority_report ra WHERE "
-				+ " ra.`role`='"+id+"') AND ra.`role` NOT IN (1,2,3,4,5)");
+				+ " ra.`role`='"
+				+ id
+				+ "') AND ra.`role`=r.`id` AND r.`type`='额外角色'");
 		return sql;
 	}
 }

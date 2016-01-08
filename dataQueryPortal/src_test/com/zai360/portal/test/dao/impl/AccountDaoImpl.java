@@ -80,4 +80,14 @@ public class AccountDaoImpl extends BaseDaoImpl implements
 	public List<String> findAuthorityById(StringBuffer sql) {
 		return this.getSqlSession().selectList("account.findAuthorityById", new SQLAdapter(sql.toString()));
 	}
+
+	@Override
+	public void insertAccount(StringBuffer sql) {
+		this.getSqlSession().insert("account.insertAccount", new SQLAdapter(sql.toString()));
+	}
+
+	@Override
+	public void deleteAccount(StringBuffer sql) {
+		this.getSqlSession().delete("account.deleteAccount", new SQLAdapter(sql.toString()));
+	}
 }

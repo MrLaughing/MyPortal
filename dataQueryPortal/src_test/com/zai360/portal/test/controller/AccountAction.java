@@ -28,6 +28,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.zai360.portal.test.captcha.CaptchaException;
 import com.zai360.portal.test.service.AccountService;
 import com.zai360.portal.test.shiro.UsernamePasswordCaptchaToken;
+import com.zai360.portal.test.util.Md5Util;
 import com.zai360.portal.test.util.Page;
 import com.zai360.portal.test.util.Sql4Account;
 import com.zai360.portal.test.util.jsonUtil;
@@ -61,8 +62,7 @@ public class AccountAction extends ActionSupport {
 		String captchacode = request.getParameter("captchacode");// 接收验证码
 		boolean rememberMe = request.getParameter("rememberMe") != null;// 记住密码
 		String login_ip = request.getRemoteAddr();// 接收请求端的P地址
-		Mademd5 mademd5 = new Mademd5();
-		password = mademd5.toMd5(password).toLowerCase();// MD5加密字母小写
+		password=Md5Util.toMd5(password);// MD5加密 字母小写
 		ThreadContext.bind(SecurityUtils.getSubject()); //
 		Subject currentUser = SecurityUtils.getSubject();
 
@@ -133,7 +133,19 @@ public class AccountAction extends ActionSupport {
 		this.inputStream = jsonUtil.string2stream(info);
 		return "ajax";
 	}
-
+	/**
+	 * 用户注册--1、添加用户
+	 * 并返回用户的用户名
+	 * @return
+	 */
+	public String signupAccount(){
+		HttpServletRequest request= ServletActionContext.getRequest();
+		String username=request.getParameter("username");//获取用户名（基本为工号）
+		StringBuffer sql=Sql4Account.insertAccount();
+		this.accountService.insertAccount(sql);//添加用户
+		request.setAttribute("username", username);//将新注册用户的用户名返回给下级页面
+		return "signupAccount";
+	}
 	/**
 	 * 编辑用户： 1、根据用户名查询用户对象
 	 * 
@@ -158,6 +170,18 @@ public class AccountAction extends ActionSupport {
 		StringBuffer sql = Sql4Account.updateAccount();// 获取更新用户SQL
 		this.accountService.updateAccount(sql);// 更新用户信息
 		return "updatesuccess";
+	}
+	/**
+	 * 删除用户
+	 * @return
+	 */
+	public String deleteAccount(){
+		HttpServletRequest request=ServletActionContext.getRequest();
+		String username=request.getParameter("username");
+		Long id=this.accountService.findAdmin(username).getId();//获取用户id
+		this.accountService.deleteRole(Sql4Account.deleteRole(id));//删除用户角色
+		this.accountService.deleteAccount(Sql4Account.deleteAccount(username));//删除用户
+		return null;//返回null,方法执行完后不执行任何跳转
 	}
 
 	/**
@@ -221,6 +245,8 @@ public class AccountAction extends ActionSupport {
 	/**
 	 * 编辑用户角色： 2、更新用户角色
 	 * 
+	 * 用户注册--2、添加角色
+	 * 并返回用户的用户名
 	 * @return
 	 */
 	public String updateRole() {

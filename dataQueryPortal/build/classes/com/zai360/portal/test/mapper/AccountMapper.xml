@@ -70,6 +70,10 @@
 	<delete id="deleteRole" parameterType="com.zai360.portal.test.util.SQLAdapter">
 		${sql}
 	</delete>
+	<!-- 删除用户 -->
+	<delete id="deleteAccount" parameterType="com.zai360.portal.test.util.SQLAdapter">
+		${sql}
+	</delete>
 	<!-- 查询用户角色 -->
 	<select id="findRoles" parameterType="com.zai360.portal.test.util.SQLAdapter"
 		resultMap="rolesResult">
@@ -79,6 +83,10 @@
 	<update id="updateAccount" parameterType="com.zai360.portal.test.util.SQLAdapter">
 		${sql}
 	</update>
+	<!-- 添加用户 -->
+	<insert id="insertAccount" parameterType="com.zai360.portal.test.util.SQLAdapter">
+		${sql}
+	</insert>
 	<!-- 按条件查询用户 -->
 	<select id="findAccounts" parameterType="com.zai360.portal.test.util.SQLAdapter"
 		resultMap="adminResult">
