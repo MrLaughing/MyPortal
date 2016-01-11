@@ -45,9 +45,19 @@
 	function delUser(obj,index){
 		$('#table').datagrid('selectRow',index);// 关键在这里  
 	    var row = $('#table').datagrid('getSelected'); //拿到该行数据
-		layer.confirm('确认要删除吗？',function(index){
+		layer.confirm("确认要删除吗？",function(index){
 			//此处请求后台程序，下方是成功后的前台处理……
-			document.location.href="<%=basePath%>account/account_deleteAccount.action?username="+row.username;
+			<%-- document.location.href="<%=basePath%>account/account_deleteAccount.action?username="+row.username; --%>
+			$.ajax({
+				type:'post',
+				data:{username:row.username},
+				url:'<%=basePath%>account/account_deleteAccount.action',
+				success:function(result){
+					if(result=='删除成功'){
+					$('#table').datagrid('reload');//删除成功后刷新表格
+					}
+				}
+			});
 			$(obj).parents("tr").remove();
 			layer.msg('已删除!',{icon:1,time:1000});
 		});
@@ -69,7 +79,7 @@
 				collapsible : true,//是否可以折叠
 				fitColumns : false,//自动适应列宽
 				striped : true,//隔行变色
-				loadMsg : "客官，店小二正在为您加载中...",//加载时的提示信息
+				loadMsg : "加载中...",//加载时的提示信息
 				pagination : true,//分页
 				rownumbers : true,//显示序号
 				singleSelect : true,//单选，只能选择一行
@@ -77,12 +87,10 @@
 					username : $("#username").val(),
 					department : $("#department").val(),
 				},//queryParams 传送的额外参数
-				frozenColumns:[ [ {
+				columns : [ [ {
 					field : 'username',
 					title : '用户名'
-					}
-				    ] ],
-				columns : [ [ {
+				}, {
 					field : 'name',
 					title : '姓名'
 				}, {

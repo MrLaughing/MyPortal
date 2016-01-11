@@ -181,7 +181,8 @@ public class AccountAction extends ActionSupport {
 		Long id=this.accountService.findAdmin(username).getId();//获取用户id
 		this.accountService.deleteRole(Sql4Account.deleteRole(id));//删除用户角色
 		this.accountService.deleteAccount(Sql4Account.deleteAccount(username));//删除用户
-		return null;//返回null,方法执行完后不执行任何跳转
+		this.inputStream=jsonUtil.string2stream("删除成功");//做标志位
+		return "ajax";//返回ajax
 	}
 
 	/**
