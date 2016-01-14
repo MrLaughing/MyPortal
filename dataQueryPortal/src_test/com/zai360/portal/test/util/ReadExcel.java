@@ -12,10 +12,10 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddress;
 /**
- * （可处理合并单元格）
- * 应不处理单元格！
- * @author report
- * @date 2015年12月30日
+ *（可处理合并单元格）
+ * 应不处理单元格
+ * @author Laughing_Lz
+ * @date 2016年1月11日
  */
 public class ReadExcel {
 	/**
@@ -80,7 +80,7 @@ public class ReadExcel {
 				}
 				if (endstrmax.length() > 2) {
 					colType[i] = "decimal(" + (beginstrmax.length()+endstrmax.length()) + ","
-							+ endstrmax.length() + ")";//decimal(6,2);总长度6位，小数点前6位，小数点后2位
+							+ endstrmax.length() + ")";//decimal(6,2);总长度6位，小数点前4位，小数点后2位
 				} else if (endstrmax.length() <= 2 && endstrmax.length() > 0) {
 					colType[i] = "double(" + (beginstrmax.length()+endstrmax.length()) + ","
 							+ endstrmax.length() + ")";//double(6,2):总长度6位，小数点前4位，小数点后2位
@@ -107,10 +107,10 @@ public class ReadExcel {
 				}
 				colType[i] = "varchar(" + strlen + ")";
 			}
-			/* 更改datetime类型,不需要修改 */
+			/* 更改datetime类型 */
 			if (colType[i] == "datetime") {
 				for (int j = 1; j < allVal.length; j++) {
-					if (allVal[j][i] == null) {
+					if (allVal[j][i] == null||allVal[j][i]=="") {
 						allVal[j][i] = "0000-00-00 00:00:00";
 					}
 				}

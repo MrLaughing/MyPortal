@@ -38,9 +38,9 @@
 <script type="text/javascript">
 function find() {
 	var createDate =  $("#createDate").val();
-	var completeTime_min =  $("#completeTime_min").val();
-	var completeTime_max =  $("#completeTime_max").val();
-	if (createDate!=""&&completeTime_min!=""&&completeTime_max !="") {
+	var datetime_min =  $("#datetime_min").val();
+	var datetime_max =  $("#datetime_max").val();
+	if (createDate!=""&&datetime_min!=""&&datetime_max !="") {
 		$('#table').datagrid({
 			url : "../find/findAction_search.action?serialVersionUID=<%=request.getParameter("serialVersionUID")%>",
 			method : "post",//请求方式
@@ -54,8 +54,8 @@ function find() {
 			singleSelect : true,//单选，只能选择一行
 			queryParams : {
 				createDate:$("#createDate").val(),
-				completeTime_min : $("#completeTime_min").val(),
-				completeTime_max : $("#completeTime_max").val(),
+				datetime_min : $("#datetime_min").val(),
+				datetime_max : $("#datetime_max").val(),
 			},//queryParams 传送的额外参数
 			frozenColumns:[ [ {
 				field : '订单编号',
@@ -102,9 +102,9 @@ function find() {
 						"click",
 						function() {
 							var createDate = document.getElementById("createDate").value;
-							var completeTime_min = document.getElementById("completeTime_min").value;
-							var completeTime_max = document.getElementById("completeTime_max").value;
-							if (createDate != "" && completeTime_min != ""&& completeTime_max != "") {
+							var datetime_min = document.getElementById("datetime_min").value;
+							var datetime_max = document.getElementById("datetime_max").value;
+							if (createDate != "" && datetime_min != ""&& datetime_max != "") {
 								document.getElementById("form1").action = "../distribute/distribute_distribute.action?serialVersionUID=<%= request.getParameter("serialVersionUID")%>";
 								document.getElementById("form1").submit();
 							} else {
@@ -130,12 +130,12 @@ function find() {
 					onfocus="WdatePicker({maxDate:'%y-%M-%d'})" name="createDate"
 					id="createDate" class="input-text Wdate" placeholder="例如2015-02-14"
 					style="width: 140px;"> 订单完成日期：<input type="text"
-					onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'completeTime_max\')||\'%y-%M-%d\'}'})"
-					name="completeTime_min" id="completeTime_min"
+					onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'datetime_max\')||\'%y-%M-%d\'}'})"
+					name="datetime_min" id="datetime_min"
 					class="input-text Wdate" placeholder="如2015-01-26"
 					style="width: 140px;"> - <input type="text"
-					onfocus="WdatePicker({minDate:'#F{$dp.$D(\'completeTime_min\')}',maxDate:'%y-%M-%d'})"
-					name="completeTime_max" id="completeTime_max"
+					onfocus="WdatePicker({minDate:'#F{$dp.$D(\'datetime_min\')}',maxDate:'%y-%M-%d'})"
+					name="datetime_max" id="datetime_max"
 					class="input-text Wdate" placeholder="如2015-02-02"
 					style="width: 140px;">
 				<a href="javascript:;" name="find" id="find" class="btn btn-success"

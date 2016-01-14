@@ -38,9 +38,9 @@
 <script type="text/javascript">
 function find() {
 	var refereecode =  $("#refereecode").val();
-	var firstrecyclesuccess_date_min =  $("#firstrecyclesuccess_date_min").val();
-	var firstrecyclesuccess_date_max =  $("#firstrecyclesuccess_date_max").val();
-	if (refereecode!=""&&firstrecyclesuccess_date_min!=""&&firstrecyclesuccess_date_max !="") {
+	var datetime_min =  $("#datetime_min").val();
+	var datetime_max =  $("#datetime_max").val();
+	if (refereecode!=""&&datetime_min!=""&&datetime_max !="") {
 		$('#table').datagrid({
 			url : "../find/findAction_search.action?serialVersionUID=<%=request.getParameter("serialVersionUID")%>",
 			method : "post",//请求方式
@@ -55,8 +55,8 @@ function find() {
 			singleSelect : true,//单选，只能选择一行
 			queryParams : {
 				refereecode:$("#refereecode").val(),
-				firstrecyclesuccess_date_min : $("#firstrecyclesuccess_date_min").val(),
-				firstrecyclesuccess_date_max : $("#firstrecyclesuccess_date_max").val(),
+				datetime_min : $("#datetime_min").val(),
+				datetime_max : $("#datetime_max").val(),
 			},//queryParams 传送的额外参数
 			frozenColumns:[ [ {
 				field : '手机号',
@@ -91,8 +91,8 @@ function find() {
 	$(function (){
 		$("#export").on("click",function(){
 			var refereecode=document.getElementById("refereecode").value;
-			var firstrecyclesuccess_date_max=document.getElementById("firstrecyclesuccess_date_max").value;
-			if(refereecode!=""&&firstrecyclesuccess_date_max!=""){
+			var datetime_max=document.getElementById("datetime_max").value;
+			if(refereecode!=""&&datetime_max!=""){
 				document.getElementById("form1").action="../distribute/distribute_distribute.action?serialVersionUID=<%=request.getParameter("serialVersionUID")%>";
 								document.getElementById("form1").submit();
 							} else {
@@ -116,14 +116,14 @@ function find() {
 				地推人员工号：<input type="text" class="input-text"
 					placeholder="必填项，例如500048" style="width: 150px" id="refereecode"
 					name="refereecode"> 时间段： <input type="text"
-					onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'firstrecyclesuccess_date_max\')||\'%y-%M-%d\'}'})"
-					name="firstrecyclesuccess_date_min"
-					id="firstrecyclesuccess_date_min" class="input-text Wdate"
+					onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'datetime_max\')||\'%y-%M-%d\'}'})"
+					name="datetime_min"
+					id="datetime_min" class="input-text Wdate"
 					placeholder="2015-08-03" style="width: 120px;"> - <input
 					type="text"
-					onfocus="WdatePicker({minDate:'#F{$dp.$D(\'firstrecyclesuccess_date_min\')}',maxDate:'%y-%M-%d'})"
-					name="firstrecyclesuccess_date_max"
-					id="firstrecyclesuccess_date_max" class="input-text Wdate"
+					onfocus="WdatePicker({minDate:'#F{$dp.$D(\'datetime_min\')}',maxDate:'%y-%M-%d'})"
+					name="datetime_max"
+					id="datetime_max" class="input-text Wdate"
 					placeholder="2015-08-20" style="width: 120px;"> <a
 					href="javascript:;" name="find" id="find" class="btn btn-success"
 					onclick="find()"> <i class="Hui-iconfont">&#xe665;</i> 查询

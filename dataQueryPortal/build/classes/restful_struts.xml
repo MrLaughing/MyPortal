@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+  
+<!DOCTYPE struts PUBLIC  
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"  
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="query" extends="struts-default,json-default">
+		<interceptors><!-- 拦截器 -->
+			<interceptor name="1" class="com.zai360.portal.test.interceptor.Myinterceptor"></interceptor>
+			<interceptor-stack name="Myinterceptorstack">
+				<interceptor-ref name="1"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		<action name="query" class="com.zai360.portal.test.controller.FindAction" method="search">
+			<interceptor-ref name="Myinterceptorstack"/><!-- 查询使用拦截器 -->
+			<result name="error" type="redirect">../index.jsp</result>
+			<result name="ajax" type="stream">
+				<param name="contentType">text/html;charset=utf-8</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+	</package>
+</struts>

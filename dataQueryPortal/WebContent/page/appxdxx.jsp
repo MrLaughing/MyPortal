@@ -51,8 +51,8 @@
 			type : "post",
 			url : "../find/findAction_search.action?serialVersionUID=<%=request.getParameter("serialVersionUID")%>",
 			data : {
-				create_date_min : $("#create_date_min").val(),
-				create_date_max : $("#create_date_max").val(),
+				datetime_min : $("#datetime_min").val(),
+				datetime_max : $("#datetime_max").val(),
 				order_status : order_status,
 				source_type : source_type,
 				page:1,
@@ -76,9 +76,9 @@
 			source_type[i] = $(this).val();
 		});
 		source_type = decodeURIComponent(source_type, true);//获取checkbox中的多个source_type
-		var create_date_min =  $("#create_date_min").val();
-		var create_date_max =  $("#create_date_max").val();
-		if (create_date_min!=""&&create_date_max !="") {
+		var datetime_min =  $("#datetime_min").val();
+		var datetime_max =  $("#datetime_max").val();
+		if (datetime_min!=""&&datetime_max !="") {
 			$('#table').datagrid({
 				url : "../find/findAction_search.action?serialVersionUID=<%=request.getParameter("serialVersionUID")%>",
 				method : "post",//请求方式
@@ -91,8 +91,8 @@
 				rownumbers : true,//显示序号
 				singleSelect : true,//单选，只能选择一行
 				queryParams : {
-					create_date_min : $("#create_date_min").val(),
-					create_date_max : $("#create_date_max").val(),
+					datetime_min : $("#datetime_min").val(),
+					datetime_max : $("#datetime_max").val(),
 					order_status : order_status,
 					source_type : source_type
 				},//queryParams 传送的额外参数
@@ -128,9 +128,9 @@
 				.on(
 						"click",
 						function() {
-							var create_date_min = document.getElementById("create_date_min").value;
-							var create_date_max = document.getElementById("create_date_max").value;
-							if (create_date_min!=""&&create_date_max !="") {							
+							var datetime_min = document.getElementById("datetime_min").value;
+							var datetime_max = document.getElementById("datetime_max").value;
+							if (datetime_min!=""&&datetime_max !="") {							
 								document.getElementById("form1").action = "../distribute/distribute_distribute.action?serialVersionUID=<%=request.getParameter("serialVersionUID")%>";
 								document.getElementById("form1").submit();
 							} else {
@@ -152,12 +152,12 @@
 		<div class="text-c">
 			<form action="" id="form1" name="form1" method="post">
 				下单时间： <input type="text"
-					onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'create_date_max\')||\'%y-%M-%d\'}'})"
-					name="create_date_min" id="create_date_min"
+					onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'datetime_max\')||\'%y-%M-%d\'}'})"
+					name="datetime_min" id="datetime_min"
 					class="input-text Wdate" placeholder="2015-08-03"
 					style="width: 120px;"> - <input type="text"
-					onfocus="WdatePicker({minDate:'#F{$dp.$D(\'create_date_min\')}',maxDate:'%y-%M-%d'})"
-					name="create_date_max" id="create_date_max"
+					onfocus="WdatePicker({minDate:'#F{$dp.$D(\'datetime_min\')}',maxDate:'%y-%M-%d'})"
+					name="datetime_max" id="datetime_max"
 					class="input-text Wdate" placeholder="2015-08-20"
 					style="width: 120px;"> 订单状态： <input type="checkbox"
 					name="order_status" value="0">未确认 <input type="checkbox"

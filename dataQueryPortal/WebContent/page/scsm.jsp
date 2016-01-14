@@ -37,9 +37,9 @@
 <%@ include file="../util/easyui.jsp"%>
 <script type="text/javascript">
 function find() {
-	var firstRecycleSuccessDate_min =  $("#firstRecycleSuccessDate_min").val();
-	var firstRecycleSuccessDate_max =  $("#firstRecycleSuccessDate_max").val();
-	if (firstRecycleSuccessDate_min!=""&&firstRecycleSuccessDate_max !="") {
+	var datetime_min =  $("#datetime_min").val();
+	var datetime_max =  $("#datetime_max").val();
+	if (datetime_min!=""&&datetime_max !="") {
 		$('#table').datagrid({
 			url : "../find/findAction_search.action?serialVersionUID=<%=request.getParameter("serialVersionUID")%>",
 			method : "post",//请求方式
@@ -54,8 +54,8 @@ function find() {
 			singleSelect : true,//单选，只能选择一行
 			queryParams : {
 				refereecode:$("#refereecode").val(),
-				firstRecycleSuccessDate_min : $("#firstRecycleSuccessDate_min").val(),
-				firstRecycleSuccessDate_max : $("#firstRecycleSuccessDate_max").val(),
+				datetime_min : $("#datetime_min").val(),
+				datetime_max : $("#datetime_max").val(),
 			},//queryParams 传送的额外参数
 			columns : [ [{
 				field : '首次上门数',
@@ -80,8 +80,8 @@ function find() {
 }
 	$(function (){
 		$("#export").on("click",function(){
-			var firstRecycleSuccessDate_max=document.getElementById("firstRecycleSuccessDate_max").value;
-			if(firstRecycleSuccessDate_max!=""){
+			var datetime_max=document.getElementById("datetime_max").value;
+			if(datetime_max!=""){
 				document.getElementById("form1").action="../distribute/distribute_distribute.action?serialVersionUID=<%=request.getParameter("serialVersionUID")%>";
 								document.getElementById("form1").submit();
 							} else {
@@ -105,12 +105,12 @@ function find() {
 				再生侠ID（选填）：<input type="text" class="input-text" id="refereecode"
 					placeholder="例如500035" style="width: 150px" name="refereecode">
 				首次成功上门时间： <input type="text"
-					onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'firstRecycleSuccessDate_max\')||\'%y-%M-%d\'}'})"
-					name="firstRecycleSuccessDate_min" id="firstRecycleSuccessDate_min"
+					onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'datetime_max\')||\'%y-%M-%d\'}'})"
+					name="datetime_min" id="datetime_min"
 					class="input-text Wdate" placeholder="2015-08-03"
 					style="width: 120px;"> - <input type="text"
-					onfocus="WdatePicker({minDate:'#F{$dp.$D(\'firstRecycleSuccessDate_min\')}',maxDate:'%y-%M-%d'})"
-					name="firstRecycleSuccessDate_max" id="firstRecycleSuccessDate_max"
+					onfocus="WdatePicker({minDate:'#F{$dp.$D(\'datetime_min\')}',maxDate:'%y-%M-%d'})"
+					name="datetime_max" id="datetime_max"
 					class="input-text Wdate" placeholder="2015-08-20"
 					style="width: 120px;"> <a href="javascript:;" name="find"
 					id="find" class="btn btn-success" onclick="find()"> <i

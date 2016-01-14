@@ -36,9 +36,9 @@
 <%@ include file="../util/easyui.jsp"%>
 <script type="text/javascript">
 function find() {
-	var recycleTaskDate_min =  $("#recycleTaskDate_min").val();
-	var recycleTaskDate_max =  $("#recycleTaskDate_max").val();
-	if (recycleTaskDate_min!=""&&recycleTaskDate_max !="") {
+	var datetime_min =  $("#datetime_min").val();
+	var datetime_max =  $("#datetime_max").val();
+	if (datetime_min!=""&&datetime_max !="") {
 		$('#table').datagrid({
 			url : "../find/findAction_search.action?serialVersionUID=<%=request.getParameter("serialVersionUID")%>",
 			method : "post",//请求方式
@@ -51,8 +51,8 @@ function find() {
 			rownumbers : true,//显示序号
 			singleSelect : true,//单选，只能选择一行
 			queryParams : {
-				recycleTaskDate_min : $("#recycleTaskDate_min").val(),
-				recycleTaskDate_max : $("#recycleTaskDate_max").val(),
+				datetime_min : $("#datetime_min").val(),
+				datetime_max : $("#datetime_max").val(),
 			},//queryParams 传送的额外参数
 			frozenColumns:[ [ {
 				field : '手机号',
@@ -92,9 +92,9 @@ function find() {
 
 	$(function (){
 		$("#export").on("click",function(){
-			var recycleTaskDate_min=document.getElementById("recycleTaskDate_min").value;
-			var recycleTaskDate_max=document.getElementById("recycleTaskDate_max").value;
-			if(recycleTaskDate_min!=""&&recycleTaskDate_max!=""){
+			var datetime_min=document.getElementById("datetime_min").value;
+			var datetime_max=document.getElementById("datetime_max").value;
+			if(datetime_min!=""&&datetime_max!=""){
 				document.getElementById("form1").action="../distribute/distribute_distribute.action?serialVersionUID=<%= request.getParameter("serialVersionUID")%>";
 				document.getElementById("form1").submit();
 			}else{
@@ -117,12 +117,12 @@ function find() {
 		<div class="text-c">
 			<form action="" name="form1" id="form1" method="post">
 				回收任务时间段： <input type="text"
-					onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'recycleTaskDate_max\')||\'%y-%M-%d\'}'})"
-					name="recycleTaskDate_min" id="recycleTaskDate_min" class="input-text Wdate"
+					onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'datetime_max\')||\'%y-%M-%d\'}'})"
+					name="datetime_min" id="datetime_min" class="input-text Wdate"
 					placeholder="2015-10-05" style="width: 120px;"> - <input
 					type="text"
-					onfocus="WdatePicker({minDate:'#F{$dp.$D(\'recycleTaskDate_min\')}',maxDate:'%y-%M-%d'})"
-					name="recycleTaskDate_max" id="recycleTaskDate_max" class="input-text Wdate"
+					onfocus="WdatePicker({minDate:'#F{$dp.$D(\'datetime_min\')}',maxDate:'%y-%M-%d'})"
+					name="datetime_max" id="datetime_max" class="input-text Wdate"
 					placeholder="2015-10-10" style="width: 120px;">
 			<a href="javascript:;" name="find" id="find" class="btn btn-success"
 					onclick="find()"> <i class="Hui-iconfont">&#xe665;</i>

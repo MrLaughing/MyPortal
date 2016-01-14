@@ -42,16 +42,16 @@
 			taskType[i] = $(this).val();
 		});
 		taskType = decodeURIComponent(taskType, true);//获取checkbox中的多个order_status
-		var orderReceiveDate_min =  $("#orderReceiveDate_min").val();
-		var orderReceiveDate_max =  $("#orderReceiveDate_max").val();
+		var datetime_min =  $("#datetime_min").val();
+		var datetime_max =  $("#datetime_max").val();
 		var city=$("#city").val();
-		if (orderReceiveDate_min!=""&&orderReceiveDate_max !="") {
+		if (datetime_min!=""&&datetime_max !="") {
 			$.ajax({
 				url : "../find/findAction_dynamic.action?serialVersionUID=<%=request.getParameter("serialVersionUID")%>",
                 type:"post",
                 dataType:'json',
-                data:{	orderReceiveDate_min : orderReceiveDate_min,
-						orderReceiveDate_max : orderReceiveDate_max,
+                data:{	datetime_min : datetime_min,
+						datetime_max : datetime_max,
 						taskType : taskType,
 						city:city,
 					},
@@ -68,8 +68,8 @@
     					rownumbers : true,//显示序号
     					singleSelect : true,//单选，只能选择一行
     					queryParams : {
-    						orderReceiveDate_min : orderReceiveDate_min,
-    						orderReceiveDate_max : orderReceiveDate_max,
+    						datetime_min : datetime_min,
+    						datetime_max : datetime_max,
     						taskType : taskType,
     						city:city
     					},//queryParams 传送的额外参数
@@ -95,9 +95,9 @@
 				.on(
 						"click",
 						function() {
-							var orderReceiveDate_min = document.getElementById("orderReceiveDate_min").value;
-							var orderReceiveDate_max = document.getElementById("orderReceiveDate_max").value;
-							if (orderReceiveDate_min!=""&&orderReceiveDate_max !="") {							
+							var datetime_min = document.getElementById("datetime_min").value;
+							var datetime_max = document.getElementById("datetime_max").value;
+							if (datetime_min!=""&&datetime_max !="") {							
 								document.getElementById("form1").action = "../distribute/distribute_distribute.action?serialVersionUID=<%=request.getParameter("serialVersionUID")%>";
 								document.getElementById("form1").submit();
 							} else {
@@ -122,12 +122,12 @@
 					<option value="010">北京</option>
 					<option value="021">上海</option>
 				</select> 预约回收时间： <input type="text"
-					onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'orderReceiveDate_max\')||\'%y-%M-%d\'}'})"
-					name="orderReceiveDate_min" id="orderReceiveDate_min"
+					onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'datetime_max\')||\'%y-%M-%d\'}'})"
+					name="datetime_min" id="datetime_min"
 					class="input-text Wdate" placeholder="2015-08-03"
 					style="width: 120px;"> - <input type="text"
-					onfocus="WdatePicker({minDate:'#F{$dp.$D(\'orderReceiveDate_min\')}',maxDate:'%y-%M-%d'})"
-					name="orderReceiveDate_max" id="orderReceiveDate_max"
+					onfocus="WdatePicker({minDate:'#F{$dp.$D(\'datetime_min\')}',maxDate:'%y-%M-%d'})"
+					name="datetime_max" id="datetime_max"
 					class="input-text Wdate" placeholder="2015-08-20"
 					style="width: 120px;"> 任务类型： <input type="checkbox"
 					name="taskType" value="0">上门回收 <input type="checkbox"

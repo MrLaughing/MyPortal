@@ -34,7 +34,6 @@ public class WriteAction extends ActionSupport {
 	private String excelFileName;
 	@Autowired
 	private WriteService writeService;
-
 	public String write() throws IOException, FileUploadException,
 			InvalidFormatException {
 		InputStream is = new FileInputStream(excel);
@@ -59,17 +58,21 @@ public class WriteAction extends ActionSupport {
 				this.writeService.insertRow(insertsql(colType, allVal,
 						excelFileName, i));
 			}
+//			ResultUtil result2=new ResultUtil(true, "", allVal);
+//			WriteJson.writeResult(result2);
 			return "success";
 		} else {
 			HttpServletRequest request  = ServletActionContext.getRequest();
 			HttpServletResponse response = ServletActionContext.getResponse();
 			request.setAttribute("msg", "该表已存在，请勿再次创建！");
 			try {
-				request.getRequestDispatcher("/write/writeExcel.jsp").forward(request, response);//跳转至原页面并输出警告信息
+				request.getRequestDispatcher("/write/writeExcel.jsp").forward(request, response);
 			} catch (ServletException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
+			}//跳转至原页面并输出警告信息
 		}
+		
 		return null;
 	}
 
@@ -125,23 +128,18 @@ public class WriteAction extends ActionSupport {
 	public String getExcelContentType() {
 		return excelContentType;
 	}
-
 	public void setExcelContentType(String excelContentType) {
 		this.excelContentType = excelContentType;
 	}
-
 	public String getExcelFileName() {
 		return excelFileName;
 	}
-
 	public void setExcelFileName(String excelFileName) {
 		this.excelFileName = excelFileName;
 	}
-
 	public File getExcel() {
 		return excel;
 	}
-
 	public void setExcel(File excel) {
 		this.excel = excel;
 	}

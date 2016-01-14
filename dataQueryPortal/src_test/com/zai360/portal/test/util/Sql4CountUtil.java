@@ -87,14 +87,14 @@ public class Sql4CountUtil {
 	private static StringBuffer getDhgwSql() {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		StringBuffer sql = new StringBuffer();
-		String createDate_min = request.getParameter("createDate_min");
-		String createDate_max = request.getParameter("createDate_max");
+		String datetime_min = request.getParameter("datetime_min");
+		String datetime_max = request.getParameter("datetime_max");
 		sql.append("SELECT COUNT(*) FROM (SELECT c.phoneno AS '手机号', s.name AS '所属基站', c.registertime AS '注册时间', "
 				+ " c.recycletimes AS '回收次数', c.ordertimes AS '商城使用次数', COUNT(1) AS '通过电话购物成功下单次数', "
 				+ " SUM(o.amount_paid) AS '通过电话购物下单总金额' FROM polan.customer c, polan.syorganization s, "
 				+ " polan.xx_order o, polan.xx_order_way_log l WHERE o.order_status = 2 AND c.syorganization_id = s.id "
-				+ " AND c.phoneno = o.phone AND o.sn = l.order_sn AND l.type = 2 AND o.create_date BETWEEN '"+createDate_min+"' "
-				+ " AND '"+createDate_max+" 23:59:59' GROUP BY c.phoneno) a ");
+				+ " AND c.phoneno = o.phone AND o.sn = l.order_sn AND l.type = 2 AND o.create_date BETWEEN '"+datetime_min+"' "
+				+ " AND '"+datetime_max+" 23:59:59' GROUP BY c.phoneno) a ");
 		return sql;
 	}
 
@@ -106,10 +106,10 @@ public class Sql4CountUtil {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		StringBuffer sql = new StringBuffer();
 		sql.append("SELECT COUNT(*) FROM (SELECT COUNT(1) AS '上门客户数' ");
-		String orderReceiveDate_min = request
-				.getParameter("orderReceiveDate_min");
-		String orderReceiveDate_max = request
-				.getParameter("orderReceiveDate_max");
+		String datetime_min = request
+				.getParameter("datetime_min");
+		String datetime_max = request
+				.getParameter("datetime_max");
 		String city=request.getParameter("city");
 		sql.append(" FROM (SELECT COUNT(1) AS recycletimes, t.`CUSTOMERID` AS customerid FROM TASK t, "
 				+ " syorganization s WHERE t.`syorganization_id`=s.`ID` ");
@@ -118,8 +118,8 @@ public class Sql4CountUtil {
 		}else if("021".equals(city)){
 			sql.append(" AND s.`tree_path` LIKE '%"+"99d685f2-a131-4df9-9046-1d02a858e169"+"%' ");
 		}
-		sql.append(" AND t.`ORDERRECEIVEDATE` >= '"+orderReceiveDate_min+"' AND t.`ORDERRECEIVEDATE` <= '"
-				+orderReceiveDate_max+" 23:59:59' AND t.`STATUS` = 4 ");
+		sql.append(" AND t.`ORDERRECEIVEDATE` >= '"+datetime_min+"' AND t.`ORDERRECEIVEDATE` <= '"
+				+datetime_max+" 23:59:59' AND t.`STATUS` = 4 ");
 		String[] taskType=request.getParameterValues("taskType"); 
 		StringBuffer taskType_str = new StringBuffer();
 		if (taskType != null) {
@@ -144,14 +144,14 @@ public class Sql4CountUtil {
 	private static StringBuffer getTsglSql() {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		StringBuffer sql = new StringBuffer();
-		String complainTime_min = request
-				.getParameter("complainTime_min");
-		String complainTime_max = request
-				.getParameter("complainTime_max");
+		String datetime_min = request
+				.getParameter("datetime_min");
+		String datetime_max = request
+				.getParameter("datetime_max");
 		sql.append("SELECT COUNT(*) FROM complaint a, customer b, "
 				+ " syorganization c WHERE a.`CUSTOMERID` = b.`id` AND b.`syorganization_id` = c.`ID` "
-				+ " AND a.COMPLAINTIME >= '"+complainTime_min+" 00:00:00' AND a.COMPLAINTIME <= '"
-				+complainTime_max+" 23:59:59'");
+				+ " AND a.COMPLAINTIME >= '"+datetime_min+" 00:00:00' AND a.COMPLAINTIME <= '"
+				+datetime_max+" 23:59:59'");
 		return sql;
 	}
 	/**
@@ -162,10 +162,10 @@ public class Sql4CountUtil {
 	private static StringBuffer getHssjSql() {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		StringBuffer sql = new StringBuffer();
-		String recycleTaskDate_min = request
-				.getParameter("recycleTaskDate_min");// 回收手机时间段
-		String recycleTaskDate_max = request
-				.getParameter("recycleTaskDate_max");
+		String datetime_min = request
+				.getParameter("datetime_min");// 回收手机时间段
+		String datetime_max = request
+				.getParameter("datetime_max");
 		sql.append("SELECT COUNT(*) FROM (SELECT s.`NAME` AS '基站', m.`REAL_QUANTITY` AS '回收二手智能机数量', "
 				+ " m.`PHONENO` AS '手机号', CASE WHEN m.`STATUS` = 0 THEN '未处理' "
 				+ " WHEN m.`STATUS` = 1 THEN '发出' WHEN m.`STATUS` = 2 THEN '收到' WHEN m.`STATUS` = 3 "
@@ -173,9 +173,9 @@ public class Sql4CountUtil {
 				+ " t.`CREATEDATETIME` AS '创建日期', m.`CREATEDATETIME` AS '完成时间' FROM "
 				+ " mobile_recycle_task m, TASK t, syorganization s WHERE m.`TASK` = t.`ID` "
 				+ " AND m.`SYORGANIZATION_ID` = s.`ID` AND t.`CREATEDATETIME` BETWEEN '"
-				+ recycleTaskDate_min + "'" + " AND '" + recycleTaskDate_max
+				+ datetime_min + "'" + " AND '" + datetime_max
 				+ " 23:59:59' AND m.`CREATEDATETIME` BETWEEN '"
-				+ recycleTaskDate_min + "' AND '" + recycleTaskDate_max
+				+ datetime_min + "' AND '" + datetime_max
 				+ " 23:59:59' " + "ORDER BY s.code,t.CREATEDATETIME) a ");
 		return sql;
 	}
@@ -187,20 +187,20 @@ public class Sql4CountUtil {
 	private static StringBuffer getSmwySql() {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		StringBuffer sql = new StringBuffer();
-		String orgcode = request.getParameter("orgcode");// 基站CODE
-		String realReceveiTime_min = request
-				.getParameter("realReceveiTime_min");// 注销时间段
-		String realReceveiTime_max = request
-				.getParameter("realReceveiTime_max");
+		String sycode = request.getParameter("sycode");// 基站CODE
+		String datetime_min = request
+				.getParameter("datetime_min");// 注销时间段
+		String datetime_max = request
+				.getParameter("datetime_max");
 		sql.append("SELECT COUNT(*) FROM TASK a, customer c, syorganization s "
 				+ " WHERE a.`CUSTOMERID` = c.`id` AND s.`ID` = a.`syorganization_id` "
 				+ " AND a.`STATUS` = 5 AND a.`TYPE` = 0 AND a.`realReceveiTime` >= '"
-				+ realReceveiTime_min
+				+ datetime_min
 				+ "' AND a.`realReceveiTime` <= '"
-				+ realReceveiTime_max
+				+ datetime_max
 				+ " 23:59:59' AND c.`FIRSTRECYCLESUCCESSDATE` IS NULL ");
-		if (orgcode != "") {
-			sql.append(" AND s.`CODE`=" + orgcode);
+		if (sycode != "") {
+			sql.append(" AND s.`CODE`=" + sycode);
 		}
 		sql.append(" ORDER BY s.`NAME` ");
 		return sql;
@@ -214,18 +214,18 @@ public class Sql4CountUtil {
 	private static StringBuffer getZxyySql() {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		StringBuffer sql = new StringBuffer();
-		String orgcode = request.getParameter("orgcode");// 基站CODE
-		String updatedatetime_min = request.getParameter("updatedatetime_min");// 注销时间段
-		String updatedatetime_max = request.getParameter("updatedatetime_max");
+		String sycode = request.getParameter("sycode");// 基站CODE
+		String datetime_min = request.getParameter("datetime_min");// 注销时间段
+		String datetime_max = request.getParameter("datetime_max");
 		sql.append("SELECT COUNT(*) FROM (SELECT a.`phoneno` AS '手机号', a.`address` '客户地址', "
 				+ " a.`updatedatetime` AS '注销时间', CASE WHEN a.`reason` IS NULL "
 				+ " THEN a.comment ELSE a.reason END AS '注销原因', "
 				+ " s.`NAME` AS '所属基站' FROM customer a, syorganization s WHERE a.`status` = 0 "
 				+ " AND a.`syorganization_id` = s.`id` AND a.`updatedatetime` >= '"
-				+ updatedatetime_min + "' AND a.updatedatetime <= '"
-				+ updatedatetime_max + " 23:59:59' ");
-		if (orgcode != "") {
-			sql.append(" AND s.`CODE`=" + orgcode);
+				+ datetime_min + "' AND a.updatedatetime <= '"
+				+ datetime_max + " 23:59:59' ");
+		if (sycode != "") {
+			sql.append(" AND s.`CODE`=" + sycode);
 		}
 		sql.append(") a");
 		return sql;
@@ -239,17 +239,17 @@ public class Sql4CountUtil {
 	private static StringBuffer getScsySql() {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		StringBuffer sql = new StringBuffer();
-		String firstordersuccessdate_min = request
-				.getParameter("firstordersuccessdate_min");// 首次下单成功时间
-		String firstordersuccessdate_max = request
-				.getParameter("firstordersuccessdate_max");
+		String datetime_min = request
+				.getParameter("datetime_min");// 首次下单成功时间
+		String datetime_max = request
+				.getParameter("datetime_max");
 		sql.append("SELECT COUNT(*) FROM (SELECT s.`NAME` AS '地推人员', COUNT(1) AS '推荐用户商城首次使用数' "
 				+ " FROM customer c, syuser s, recycleman r WHERE c.`refereecode` = s.`LOGINNAME` "
 				+ " AND s.`ID` = r.`SYUSERID` AND s.`USERTYPE` = 2 AND r.`TIMETYPE` = 1"
 				+ " AND c.`FIRSTORDERSUCCESSDATE` IS NOT NULL AND c.`FIRSTORDERSUCCESSDATE` >= '"
-				+ firstordersuccessdate_min
+				+ datetime_min
 				+ "' AND c.`FIRSTORDERSUCCESSDATE` <= '"
-				+ firstordersuccessdate_max
+				+ datetime_max
 				+ " 23:59:59' GROUP BY c.`refereecode` ORDER BY c.`refereecode`) a");
 		return sql;
 	}
@@ -262,9 +262,9 @@ public class Sql4CountUtil {
 	private static StringBuffer getFwrqSql() {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		StringBuffer sql = new StringBuffer();
-		String loginname = request.getParameter("loginname");// 地推人员工号
-		String registertime_min = request.getParameter("registertime_min");// 注册时间
-		String registertime_max = request.getParameter("registertime_max");
+		String refereecode = request.getParameter("refereecode");// 地推人员工号
+		String datetime_min = request.getParameter("datetime_min");// 注册时间
+		String datetime_max = request.getParameter("datetime_max");
 		sql.append("SELECT COUNT(*) FROM (SELECT SUM(CASE WHEN c.`recycleday` = 1 THEN 1 ELSE 0 END) AS '周一', "
 				+ " SUM(CASE WHEN c.`recycleday` = 2 THEN 1 ELSE 0 END) AS '周二', "
 				+ " SUM(CASE WHEN c.`recycleday` = 3 THEN 1 ELSE 0 END) AS '周三', "
@@ -276,11 +276,11 @@ public class Sql4CountUtil {
 				+ " recycleman r WHERE c.`refereecode` = s.`LOGINNAME` AND "
 				+ " c.`syorganization_id` = org.`ID` AND s.`ID` = r.`SYUSERID` "
 				+ " AND s.`USERTYPE` = 2 AND r.`TIMETYPE` = 1 ");
-		if (loginname != "") {
-			sql.append(" AND s.`LOGINNAME` = " + loginname);
+		if (refereecode != "") {
+			sql.append(" AND s.`LOGINNAME` = " + refereecode);
 		}
-		sql.append(" AND c.`registertime` >= '" + registertime_min
-				+ " ' AND c.`registertime` " + " <= '" + registertime_max
+		sql.append(" AND c.`registertime` >= '" + datetime_min
+				+ " ' AND c.`registertime` " + " <= '" + datetime_max
 				+ " 23:59:59' GROUP BY c.`syorganization_id` "
 				+ " ORDER BY org.`CODE`) a ");
 		return sql;
@@ -337,14 +337,14 @@ public class Sql4CountUtil {
 	private static StringBuffer getHsxxSql() {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		StringBuffer sql = new StringBuffer();
-		String orderReceiveTime_min = request
-				.getParameter("orderReceiveTime_min");
-		String orderReceiveTime_max = request
-				.getParameter("orderReceiveTime_max");
+		String datetime_min = request
+				.getParameter("datetime_min");
+		String datetime_max = request
+				.getParameter("datetime_max");
 		sql.append("SELECT COUNT(*) FROM task t , syuser s  WHERE  t.`USERID`=s.`ID` AND t.status = 4  "
 				+ " AND t.`ORDERRECEIVEDATE` BETWEEN '"
-				+ orderReceiveTime_min
-				+ "' AND '" + orderReceiveTime_max + " 23:59:59'");
+				+ datetime_min
+				+ "' AND '" + datetime_max + " 23:59:59'");
 		return sql;
 	}
 
@@ -356,8 +356,8 @@ public class Sql4CountUtil {
 	private static StringBuffer getXdmxSql() {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		StringBuffer sql = new StringBuffer();
-		String createDate_min = request.getParameter("createDate_min");// 首次下单日期
-		String createDate_max = request.getParameter("createDate_max");
+		String datetime_min = request.getParameter("datetime_min");// 首次下单日期
+		String datetime_max = request.getParameter("datetime_max");
 		sql.append("SELECT COUNT(*) FROM (SELECT t.`sn` AS '订单编号', t.`phone` AS '手机号', t.`create_date` AS '下单时间', (SELECT"
 				+ " SUM(i1.`quantity` * i1.`price`) + t.freight + t.`fee` - "
 				+ " t.`promotion_discount` - t.`coupon_discount` + t.`offset_amount` + "
@@ -367,9 +367,9 @@ public class Sql4CountUtil {
 				+ " i.`sale_price` AS '商品原价', i.`price` AS '商品价格', i.`quantity` AS '数量' "
 				+ " FROM xx_order t, xx_member m, xx_product p, xx_order_item i "
 				+ " WHERE t.`create_date` >= '"
-				+ createDate_min
+				+ datetime_min
 				+ "' AND t.`create_date` <= '"
-				+ createDate_max
+				+ datetime_max
 				+ " 23:59:59' AND t.`id` = i.`orders` "
 				+ " AND i.`product` = p.`id` AND ( ( t.`order_status` = '2' "
 				+ " AND t.`shipping_status` = '2') OR t.`order_status` = '1')"
@@ -389,8 +389,8 @@ public class Sql4CountUtil {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		StringBuffer sql = new StringBuffer();
 		String createDate = request.getParameter("createDate");// 下单截止日期
-		String completeTime_min = request.getParameter("completeTime_min");// 订单完成日期_min
-		String completeTime_max = request.getParameter("completeTime_max");// 订单完成日期_max
+		String datetime_min = request.getParameter("datetime_min");// 订单完成日期_min
+		String datetime_max = request.getParameter("datetime_max");// 订单完成日期_max
 		sql.append("SELECT COUNT(*) FROM (SELECT DISTINCT t.`sn` AS '订单编号', (SELECT ( (SELECT "
 				+ " SUM(item.`price` * item.`quantity`) FROM xx_order_item item "
 				+ " WHERE item.`orders` = o2.`id`) + o2.`fee` + o2.freight + o2.`tax` + "
@@ -401,9 +401,9 @@ public class Sql4CountUtil {
 				+ " xx_order_log l, xx_member m, syorganization s WHERE t.`member` = m.`id` "
 				+ " AND l.`orders` = t.`id` AND m.`syorganization_id`=s.`ID` AND l.`type` "
 				+ " = 7 AND l.`create_date` BETWEEN '"
-				+ completeTime_min
+				+ datetime_min
 				+ "' AND '"
-				+ completeTime_max
+				+ datetime_max
 				+ "' AND t.`create_date` >= '"
 				+ createDate
 				+ " 23:59:59' AND (SELECT"
@@ -442,10 +442,10 @@ public class Sql4CountUtil {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		StringBuffer sql = new StringBuffer();
 		sql.append("select COUNT(*) ");
-		String create_date_min = request.getParameter("create_date_min");
-		String create_date_max = request.getParameter("create_date_max");
+		String datetime_min = request.getParameter("datetime_min");
+		String datetime_max = request.getParameter("datetime_max");
 		sql.append(" from xx_order t where t.create_date between '"
-				+ create_date_min + "' and '" + create_date_max + " 23:59:59' ");
+				+ datetime_min + "' and '" + datetime_max + " 23:59:59' ");
 		String[] order_status = request.getParameterValues("order_status");
 		String[] source_type = request.getParameterValues("source_type");
 		StringBuffer status_str = new StringBuffer();
@@ -486,18 +486,18 @@ public class Sql4CountUtil {
 	private static StringBuffer getDtfwSql() {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		StringBuffer sql = new StringBuffer();
-		String orgCode = request.getParameter("orgCode");
-		String registertime_min = request.getParameter("registertime_min");
-		String registertime_max = request.getParameter("registertime_max");
+		String sycode = request.getParameter("sycode");
+		String datetime_min = request.getParameter("datetime_min");
+		String datetime_max = request.getParameter("datetime_max");
 		sql.append("SELECT COUNT(*) FROM customer c, syorganization org, "
 				+ " syuser s WHERE c.`syorganization_id` = org.`ID` AND c.`refereecode` = "
 				+ " s.`LOGINNAME` AND c.`refereecode` IS NOT NULL ");
-		if (orgCode != "") {
-			sql.append(" AND org.`CODE`= '" + orgCode + "' ");
+		if (sycode != "") {
+			sql.append(" AND org.`CODE`= '" + sycode + "' ");
 		}
-		if (registertime_min != "" && registertime_max != "") {
-			sql.append(" AND c.`registertime` >= '" + registertime_min
-					+ " 00:00:00' AND c.`registertime` <= '" + registertime_max
+		if (datetime_min != "" && datetime_max != "") {
+			sql.append(" AND c.`registertime` >= '" + datetime_min
+					+ " 00:00:00' AND c.`registertime` <= '" + datetime_max
 					+ " 23:59:59' ");
 		}
 		sql.append(" ORDER BY c.registerTime DESC ");
@@ -512,18 +512,18 @@ public class Sql4CountUtil {
 	private static StringBuffer getZcfwSql() {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		StringBuffer sql = new StringBuffer();
-		String orgCode = request.getParameter("orgCode");
-		String registertime_min = request.getParameter("registertime_min");
-		String registertime_max = request.getParameter("registertime_max");
+		String sycode = request.getParameter("sycode");
+		String datetime_min = request.getParameter("datetime_min");
+		String datetime_max = request.getParameter("datetime_max");
 		sql.append("SELECT COUNT(*) FROM Customer c LEFT JOIN syorganization org "
 				+ " ON c.syorganization_id = org.id  LEFT JOIN syuser s ON c.`refereecode` = s.`LOGINNAME` "
 				+ " WHERE 1 = 1 ");
-		if (orgCode != "") {
-			sql.append(" AND org.`CODE`= '" + orgCode + "' ");
+		if (sycode != "") {
+			sql.append(" AND org.`CODE`= '" + sycode + "' ");
 		}
-		if (registertime_min != "" && registertime_max != "") {
-			sql.append(" AND c.`registertime` >= '" + registertime_min
-					+ " 00:00:00' AND c.`registertime` <= '" + registertime_max
+		if (datetime_min != "" && datetime_max != "") {
+			sql.append(" AND c.`registertime` >= '" + datetime_min
+					+ " 00:00:00' AND c.`registertime` <= '" + datetime_max
 					+ " 23:59:59' ");
 		}
 		sql.append(" ORDER BY c.registerTime DESC ");
@@ -538,8 +538,8 @@ public class Sql4CountUtil {
 	private static StringBuffer getCcrsSql() {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		StringBuffer sql = new StringBuffer();
-		String createDateTime_min = request.getParameter("createDateTime_min");
-		String createDateTime_max = request.getParameter("createDateTime_max");
+		String datetime_min = request.getParameter("datetime_min");
+		String datetime_max = request.getParameter("datetime_max");
 		sql.append("SELECT COUNT(*) FROM (SELECT DATE_FORMAT( c.`CREATEDATETIME`, '%Y-%m-%d') AS '日期',"
 				+ " s.name AS '基站名称', SUM( CASE WHEN c.`CREATEDATETIME` > "
 				+ " DATE_FORMAT( c.`CREATEDATETIME`, '%Y-%m-%d 00:00:00') AND "
@@ -551,9 +551,9 @@ public class Sql4CountUtil {
 				+ " '%Y-%m-%d 00:00:00' ) THEN 1 ELSE 0 END ) AS '下午5点-凌晨0点' FROM "
 				+ " customer_log c, syorganization s, customer t WHERE c.`CREATEDATETIME` "
 				+ " >= '"
-				+ createDateTime_min
+				+ datetime_min
 				+ "' AND C.`CREATEDATETIME` <= '"
-				+ createDateTime_max
+				+ datetime_max
 				+ " 23:59:59' "
 				+ " AND t.`phoneno` = c.`PHONENO` AND s.`ID` = "
 				+ " t.`syorganization_id`  AND c.`OPERATION` IN ( '开启出差模式', "
@@ -585,23 +585,23 @@ public class Sql4CountUtil {
 	private static StringBuffer getWyhqSql() {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		StringBuffer sql = new StringBuffer();
-		String credit = request.getParameter("credit");// 最低金额
-		String type = request.getParameter("type");// 类型
-		String create_date = request.getParameter("create_date");// 选定日期
-		String code = request.getParameter("code");// 优惠券编码,以逗号,分隔
+		String deposit_credit = request.getParameter("deposit_credit");// 最低金额
+		String deposit_type = request.getParameter("deposit_type");// 类型
+		String datetime_begin = request.getParameter("datetime_begin");// 选定日期
+		String coupon_code = request.getParameter("coupon_code");// 优惠券编码,以逗号,分隔
 		sql.append("SELECT COUNT(*) FROM (SELECT DISTINCT  m.`mobile` AS '手机号' , cu.`name` AS '用户名'"
 				+ " FROM xx_deposit d, xx_member m, customer cu WHERE d.`member` = m.`id` "
 				+ " AND d.`credit` >= "
-				+ credit
+				+ deposit_credit
 				+ " AND d.`type` = "
-				+ type
+				+ deposit_type
 				+ " "
 				+ " AND d.`create_date` > '"
-				+ create_date
+				+ datetime_begin
 				+ "' "
 				+ " AND cu.`phoneno` = m.`mobile` AND NOT EXISTS (SELECT 1 "
 				+ " FROM xx_coupon_code c, xx_coupon cc WHERE c.`coupon` = cc.`id` "
-				+ " AND cc.`code` IN (" + code
+				+ " AND cc.`code` IN (" + coupon_code
 				+ ") AND d.`member` = c.`member`)) a");
 		return sql;
 	}
@@ -632,10 +632,10 @@ public class Sql4CountUtil {
 	private static StringBuffer getTyyhSql() {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		StringBuffer sql = new StringBuffer();
-		String registertime = request.getParameter("registertime");
+		String datetime_begin = request.getParameter("datetime_begin");
 		sql.append("SELECT COUNT(*) FROM  customer c LEFT JOIN syorganization s ON c.`syorganization_id` = s.`ID` "
 				+ " WHERE c.`registertime` >= '"
-				+ registertime
+				+ datetime_begin
 				+ "' AND c.`status` = 0 ");
 		return sql;
 	}
@@ -666,19 +666,19 @@ public class Sql4CountUtil {
 	private static StringBuffer getDtzcSql() {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		StringBuffer sql = new StringBuffer();
-		String syorganizationCode = request.getParameter("syorganizationCode");
-		String customerregistertime_min = request
-				.getParameter("customerregistertime_min");
-		String customerregistertime_max = request
-				.getParameter("customerregistertime_max");
+		String sycode = request.getParameter("sycode");
+		String datetime_min = request
+				.getParameter("datetime_min");
+		String datetime_max = request
+				.getParameter("datetime_max");
 		sql.append("SELECT  COUNT(*) FROM syorganization sy, "
 				+ " customer c LEFT JOIN syuser s ON c.`refereecode` = s.`LOGINNAME` WHERE ");
-		if (syorganizationCode != "") {
-			sql.append("sy.`CODE`='" + syorganizationCode + "' AND");
+		if (sycode != "") {
+			sql.append("sy.`CODE`='" + sycode + "' AND");
 		}
 		sql.append(" c.`syorganization_id` = sy.`id` "
-				+ " AND c.`registertime` BETWEEN '" + customerregistertime_min
-				+ "' " + " AND '" + customerregistertime_max
+				+ " AND c.`registertime` BETWEEN '" + datetime_min
+				+ "' " + " AND '" + datetime_max
 				+ " 23:59:59' ORDER BY s.`LOGINNAME` ");
 		return sql;
 	}
@@ -691,17 +691,17 @@ public class Sql4CountUtil {
 	private static StringBuffer getScsmSql() {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		StringBuffer sql = new StringBuffer();
-		String firstRecycleSuccessDate_min = request
-				.getParameter("firstRecycleSuccessDate_min");
-		String firstRecycleSuccessDate_max = request
-				.getParameter("firstRecycleSuccessDate_max");
+		String datetime_min = request
+				.getParameter("datetime_min");
+		String datetime_max = request
+				.getParameter("datetime_max");
 		sql.append("SELECT COUNT(*) FROM (SELECT COUNT(DISTINCT(c.`address`)) AS '首次上门数',sy.`NAME` AS '基站' "
 				+ " FROM syuser s,customer c, syorganization sy "
 				+ " WHERE 1 = 1 AND c.refereecode = s.loginname  "
 				+ " AND c.FIRSTRECYCLESUCCESSDATE BETWEEN '"
-				+ firstRecycleSuccessDate_min
+				+ datetime_min
 				+ "' AND '"
-				+ firstRecycleSuccessDate_max + " 23:59:59' ");
+				+ datetime_max + " 23:59:59' ");
 		String refereecode = request.getParameter("refereecode");
 		if (!refereecode.equals("")) {
 			sql.append(" AND c.`refereecode` = '" + refereecode + "' ");
@@ -719,12 +719,12 @@ public class Sql4CountUtil {
 	private static StringBuffer getTgrsSql() {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		StringBuffer sql = new StringBuffer();
-		String registertime_min = request.getParameter("registertime_min");
-		String registertime_max = request.getParameter("registertime_max");
+		String datetime_min = request.getParameter("datetime_min");
+		String datetime_max = request.getParameter("datetime_max");
 		sql.append("SELECT COUNT(*) FROM (SELECT COUNT(DISTINCT c.`address`) AS '推广人数', "
 				+ " s.`NAME` AS '基站' " + " FROM customer c , syorganization s "
-				+ " WHERE  c.`registertime` BETWEEN '" + registertime_min
-				+ "'  " + " AND '" + registertime_max
+				+ " WHERE  c.`registertime` BETWEEN '" + datetime_min
+				+ "'  " + " AND '" + datetime_max
 				+ " 23:59:59' AND c.`status` <> 0 "
 				+ " AND s.`ID`=c.`syorganization_id` ");
 		String refereecode = request.getParameter("refereecode");
@@ -745,10 +745,10 @@ public class Sql4CountUtil {
 	private static StringBuffer getNoOpenidSql() {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		StringBuffer sql = new StringBuffer();
-		String registertime_min = request.getParameter("registertime_min"); // 时间点_min
-		String registertime_max = request.getParameter("registertime_max");// 时间点_max
+		String datetime_min = request.getParameter("datetime_min"); // 时间点_min
+		String datetime_max = request.getParameter("datetime_max");// 时间点_max
 		sql.append("SELECT COUNT(*) FROM customer c WHERE c.`registertime` BETWEEN '"
-				+ registertime_min+ "' AND '"+ registertime_max
+				+ datetime_min+ "' AND '"+ datetime_max
 				+ " 23:59:59' AND NOT EXISTS (SELECT 1 "
 				+ " FROM  xx_member_wechat_openid t WHERE t.`phoneno` = c.`phoneno` "
 				+ " AND t.`modify_date` > c.`registertime`) ");
@@ -822,15 +822,15 @@ public class Sql4CountUtil {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		StringBuffer sql = new StringBuffer();
 		String refereecode = request.getParameter("refereecode");// 获取员工号
-		String firstrecyclesuccess_date_min = request
-				.getParameter("firstrecyclesuccess_date_min");// 获取时间段_min
-		String firstrecyclesuccess_date_max = request
-				.getParameter("firstrecyclesuccess_date_max");// 获取时间段_max
+		String datetime_min = request
+				.getParameter("datetime_min");// 获取时间段_min
+		String datetime_max = request
+				.getParameter("datetime_max");// 获取时间段_max
 		sql.append("SELECT COUNT(*) FROM customer c, xx_member t LEFT JOIN xx_order o ON t.id = o.member "
 				+ " WHERE c.phoneno = t.mobile " + " AND c.refereecode = "
 				+ refereecode + " AND c.FIRSTRECYCLESUCCESSDATE BETWEEN '"
-				+ firstrecyclesuccess_date_min + "' " + " AND '"
-				+ firstrecyclesuccess_date_max + "' ");
+				+ datetime_min + "' " + " AND '"
+				+ datetime_max + "' ");
 		return sql;
 	}
 
@@ -842,16 +842,16 @@ public class Sql4CountUtil {
 	private static StringBuffer getYhxxSql() {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String phoneno = request.getParameter("phoneno");
-		String registertime_min = request.getParameter("registertime_min");
-		String registertime_max = request.getParameter("registertime_max");
+		String datetime_min = request.getParameter("datetime_min");
+		String datetime_max = request.getParameter("datetime_max");
 		StringBuffer sql = new StringBuffer();
 		sql.append("SELECT COUNT(*) FROM customer c, xx_member m WHERE c.phoneno = m.mobile ");
 		if (phoneno != "") {
 			sql.append(" AND c.phoneno='" + phoneno + "' ");
 		}
-		if (registertime_min != "" && registertime_max != "") {
-			sql.append(" AND c.registertime BETWEEN '" + registertime_min
-					+ "' AND '" + registertime_max + " 23:59:59' ");
+		if (datetime_min != "" && datetime_max != "") {
+			sql.append(" AND c.registertime BETWEEN '" + datetime_min
+					+ "' AND '" + datetime_max + " 23:59:59' ");
 		}
 		sql.append(" ORDER BY c.registertime");
 		return sql;

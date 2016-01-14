@@ -37,9 +37,9 @@
 <%@ include file="../util/easyui.jsp"%>
 <script type="text/javascript">
 function find() {
-	var registertime_min =  $("#registertime_min").val();
-	var registertime_max =  $("#registertime_max").val();
-	if (registertime_min!=""&&registertime_max !="") {
+	var datetime_min =  $("#datetime_min").val();
+	var datetime_max =  $("#datetime_max").val();
+	if (datetime_min!=""&&datetime_max !="") {
 		$('#table').datagrid({
 			url : "../find/findAction_search.action?serialVersionUID=<%=request.getParameter("serialVersionUID")%>",
 			method : "post",//请求方式
@@ -53,9 +53,9 @@ function find() {
 			rownumbers : true,//显示序号
 			singleSelect : true,//单选，只能选择一行
 			queryParams : {
-				orgCode:$("#orgCode").val(),
-				registertime_min : $("#registertime_min").val(),
-				registertime_max : $("#registertime_max").val(),
+				sycode:$("#sycode").val(),
+				datetime_min : $("#datetime_min").val(),
+				datetime_max : $("#datetime_max").val(),
 			},//queryParams 传送的额外参数
 			frozenColumns:[ [ {
 				field : '手机号',
@@ -121,13 +121,13 @@ function find() {
 				.on(
 						"click",
 						function() {
-							var orgCode = document.getElementById("orgCode").value;
-							var registertime_min = document
-									.getElementById("registertime_min").value;
-							var registertime_max = document
-									.getElementById("registertime_max").value;
-							if (orgCode != ""
-									|| (registertime_min != "" && registertime_max != "")) {
+							var sycode = document.getElementById("sycode").value;
+							var datetime_min = document
+									.getElementById("datetime_min").value;
+							var datetime_max = document
+									.getElementById("datetime_max").value;
+							if (sycode != ""
+									|| (datetime_min != "" && datetime_max != "")) {
 								document.getElementById("form1").action = "../distribute/distribute_distribute.action?serialVersionUID=<%= request.getParameter("serialVersionUID")%>";
 								document.getElementById("form1").submit();
 							} else {
@@ -150,14 +150,14 @@ function find() {
 		<div class="text-c">
 			<form action="" name="form1" id="form1" method="post">
 				所属基站CODE：<input type="text" class="input-text"
-					placeholder="例如200001" style="width: 150px" name="orgCode"
-					id="orgCode"> 注册时间段： <input type="text"
-					onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'registertime_max\')||\'%y-%M-%d\'}'})"
-					name="registertime_min" id="registertime_min"
+					placeholder="例如200001" style="width: 150px" name="sycode"
+					id="sycode"> 注册时间段： <input type="text"
+					onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'datetime_max\')||\'%y-%M-%d\'}'})"
+					name="datetime_min" id="datetime_min"
 					class="input-text Wdate" placeholder="2015-10-05"
 					style="width: 120px;"> - <input type="text"
-					onfocus="WdatePicker({minDate:'#F{$dp.$D(\'registertime_min\')}',maxDate:'%y-%M-%d'})"
-					name="registertime_max" id="registertime_max"
+					onfocus="WdatePicker({minDate:'#F{$dp.$D(\'datetime_min\')}',maxDate:'%y-%M-%d'})"
+					name="datetime_max" id="datetime_max"
 					class="input-text Wdate" placeholder="2015-10-10"
 					style="width: 120px;">
 				<a href="javascript:;" name="find" id="find" class="btn btn-success"

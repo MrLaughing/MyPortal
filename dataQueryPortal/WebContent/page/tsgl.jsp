@@ -36,9 +36,9 @@
 <%@ include file="../util/easyui.jsp"%>
 <script type="text/javascript">
 function find() {
-	var complainTime_min =  $("#complainTime_min").val();
-	var complainTime_max =  $("#complainTime_max").val();
-	if (complainTime_min!=""&&complainTime_max !="") {
+	var datetime_min =  $("#datetime_min").val();
+	var datetime_max =  $("#datetime_max").val();
+	if (datetime_min!=""&&datetime_max !="") {
 		$('#table').datagrid({
 			url : "../find/findAction_search.action?serialVersionUID=<%=request.getParameter("serialVersionUID")%>",
 			method : "post",//请求方式
@@ -51,8 +51,8 @@ function find() {
 			rownumbers : true,//显示序号
 			singleSelect : true,//单选，只能选择一行
 			queryParams : {
-				complainTime_min : $("#complainTime_min").val(),
-				complainTime_max : $("#complainTime_max").val(),
+				datetime_min : $("#datetime_min").val(),
+				datetime_max : $("#datetime_max").val(),
 			},//queryParams 传送的额外参数
 			frozenColumns:[ [ {
 				field : '手机号',
@@ -100,9 +100,9 @@ function find() {
 
 	$(function (){
 		$("#export").on("click",function(){
-			var complainTime_min=document.getElementById("complainTime_min").value;
-			var complainTime_max=document.getElementById("complainTime_max").value;
-			if(complainTime_min!=""&&complainTime_max!=""){
+			var datetime_min=document.getElementById("datetime_min").value;
+			var datetime_max=document.getElementById("datetime_max").value;
+			if(datetime_min!=""&&datetime_max!=""){
 				document.getElementById("form1").action="../distribute/distribute_distribute.action?serialVersionUID=<%= request.getParameter("serialVersionUID")%>";
 				document.getElementById("form1").submit();
 			}else{
@@ -124,12 +124,12 @@ function find() {
 		<div class="text-c">
 			<form action="" name="form1" id="form1" method="post">
 				选择时间段：<input type="text"
-					onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'complainTime_max\')||\'%y-%M-%d\'}'})"
-					name="complainTime_min" id="complainTime_min"
+					onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'datetime_max\')||\'%y-%M-%d\'}'})"
+					name="datetime_min" id="datetime_min"
 					class="input-text Wdate" placeholder="如2015-01-26"
 					style="width: 160px;"> - <input type="text"
-					onfocus="WdatePicker({minDate:'#F{$dp.$D(\'complainTime_min\')}',maxDate:'%y-%M-%d'})"
-					name="complainTime_max" id="complainTime_max"
+					onfocus="WdatePicker({minDate:'#F{$dp.$D(\'datetime_min\')}',maxDate:'%y-%M-%d'})"
+					name="datetime_max" id="datetime_max"
 					class="input-text Wdate" placeholder="如2015-02-02"
 					style="width: 160px;">
 					

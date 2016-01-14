@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+  
+<!DOCTYPE struts PUBLIC  
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"  
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="test" namespace="/test" extends="struts-default,json-default">
+		<action name="testAction_*" class="com.zai360.portal.test.test.TestAction"
+			method="{1}">
+			<result name="error" type="redirect">../index.jsp</result>
+			<result name="success" type="redirect">../console/success.jsp</result>
+			<result name="write" type="redirect">../write/writeExcel.jsp</result>
+			<result name="ajax" type="stream">
+				<param name="contentType">text/html;charset=utf-8</param>
+				<param name="inputName">inputStream</param>
+			</result>
+			<interceptor-ref name="fileUpload">
+				<!-- <param name="allowedTypes">application/msexcel</param>限制上传类型 -->
+                <param name="maximumSize">20971520</param><!-- 单个文件允许的大小20M,默认限制上传大小为2M -->
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+		</action>
+	</package>
+</struts>

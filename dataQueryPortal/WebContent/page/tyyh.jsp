@@ -36,8 +36,8 @@
 <%@ include file="../util/easyui.jsp"%>
 <script type="text/javascript">
 function find() {
-	var registertime =  $("#registertime").val();
-	if (registertime!="") {
+	var datetime_begin =  $("#datetime_begin").val();
+	if (datetime_begin!="") {
 		$('#table').datagrid({
 			url : "../find/findAction_search.action?serialVersionUID=<%=request.getParameter("serialVersionUID")%>",
 			method : "post",//请求方式
@@ -51,7 +51,7 @@ function find() {
 			rownumbers : true,//显示序号
 			singleSelect : true,//单选，只能选择一行
 			queryParams : {
-				registertime:$("#registertime").val(),
+				datetime_begin:$("#datetime_begin").val(),
 			},//queryParams 传送的额外参数
 			frozenColumns:[ [ {
 				field : '手机号',
@@ -106,8 +106,8 @@ function find() {
 
 	$(function (){
 		$("#export").on("click",function(){
-			var registertime=document.getElementById("registertime").value;
-			if(registertime!=""){
+			var datetime_begin=document.getElementById("datetime_begin").value;
+			if(datetime_begin!=""){
 				document.getElementById("form1").action="../distribute/distribute_distribute.action?serialVersionUID=<%= request.getParameter("serialVersionUID")%>";
 				document.getElementById("form1").submit();
 			}else{
@@ -130,7 +130,7 @@ function find() {
 			<form action="" name="form1" id="form1" method="post">
 				选择注册时间起点： <input type="text"
 					onfocus="WdatePicker({maxDate:'%y-%M-%d'})"
-					name="registertime" id="registertime" class="input-text Wdate"
+					name="datetime_begin" id="datetime_begin" class="input-text Wdate"
 					placeholder="例如2015-03-01" style="width: 130px;">
 				<a href="javascript:;" name="find" id="find" class="btn btn-success"
 					onclick="find()"> <i class="Hui-iconfont">&#xe665;</i>

@@ -81,9 +81,12 @@ public class FindAction extends ActionSupport {
 			if (request.getParameter("serialVersionUID").equals(query.getId())) {
 				int pageNumber = Integer.parseInt(request.getParameter("page"));// 当前页，页码
 				int pageSize = Integer.parseInt(request.getParameter("rows"));// 每页记录数
-				this.page = this.findService.findPage(
-						Sql4CountUtil.getSql(query), query.getMappermethod(),
-						SqlUtil.getSql(query), pageNumber, pageSize);
+				StringBuffer countsql=Sql4CountUtil.getSql(query);
+				System.out.println(countsql);
+				StringBuffer sql=SqlUtil.getSql(query);
+				System.out.println(sql);
+				this.page = this.findService.findPage(countsql, query.getMappermethod(),
+						sql, pageNumber, pageSize);
 			}
 		}
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss")

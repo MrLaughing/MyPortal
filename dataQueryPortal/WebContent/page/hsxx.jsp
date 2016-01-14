@@ -37,9 +37,9 @@
 <%@ include file="../util/easyui.jsp"%>
 <script type="text/javascript">
 function find() {
-	var orderReceiveTime_min =  $("#orderReceiveTime_min").val();
-	var orderReceiveTime_max =  $("#orderReceiveTime_max").val();
-	if (orderReceiveTime_min!=""&&orderReceiveTime_max !="") {
+	var datetime_min =  $("#datetime_min").val();
+	var datetime_max =  $("#datetime_max").val();
+	if (datetime_min!=""&&datetime_max !="") {
 		$('#table').datagrid({
 			url : "../find/findAction_search.action?serialVersionUID=<%=request.getParameter("serialVersionUID")%>",
 			method : "post",//请求方式
@@ -53,8 +53,8 @@ function find() {
 			rownumbers : true,//显示序号
 			singleSelect : true,//单选，只能选择一行
 			queryParams : {
-				orderReceiveTime_min:$("#orderReceiveTime_min").val(),
-				orderReceiveTime_max : $("#orderReceiveTime_max").val(),
+				datetime_min:$("#datetime_min").val(),
+				datetime_max : $("#datetime_max").val(),
 			},//queryParams 传送的额外参数
 			columns : [ [{
 				field : '任务ID',
@@ -107,8 +107,8 @@ function find() {
 				.on(
 						"click",
 						function() {
-							var orderReceiveTime_max = document.getElementById("orderReceiveTime_max").value;
-							if (orderReceiveTime_max !="") {
+							var datetime_max = document.getElementById("datetime_max").value;
+							if (datetime_max !="") {
 								document.getElementById("form1").action = "../distribute/distribute_distribute.action?serialVersionUID=<%=request.getParameter("serialVersionUID")%>";
 								document.getElementById("form1").submit();
 							} else {
@@ -130,12 +130,12 @@ function find() {
 		<div class="text-c">
 			<form action="" name="form1" id="form1" method="post">
 				订单接受日期： <input type="text"
-					onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'orderReceiveTime_max\')||\'%y-%M-%d\'}'})"
-					name="orderReceiveTime_min" id="orderReceiveTime_min"
+					onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'datetime_max\')||\'%y-%M-%d\'}'})"
+					name="datetime_min" id="datetime_min"
 					class="input-text Wdate" placeholder="2015-08-03"
 					style="width: 120px;"> - <input type="text"
-					onfocus="WdatePicker({minDate:'#F{$dp.$D(\'orderReceiveTime_min\')}',maxDate:'%y-%M-%d'})"
-					name="orderReceiveTime_max" id="orderReceiveTime_max"
+					onfocus="WdatePicker({minDate:'#F{$dp.$D(\'datetime_min\')}',maxDate:'%y-%M-%d'})"
+					name="datetime_max" id="datetime_max"
 					class="input-text Wdate" placeholder="2015-08-20"
 					style="width: 120px;"> <a href="javascript:;" name="find"
 					id="find" class="btn btn-success" onclick="find()"> <i

@@ -36,10 +36,10 @@
 <%@ include file="../util/easyui.jsp"%>
 <script type="text/javascript">
 function find() {
-	var credit =  $("#credit").val();
-	var create_date =  $("#create_date").val();
-	var code =  $("#code").val();
-	if (credit!=""&&create_date !=""&&code!="") {
+	var deposit_credit =  $("#deposit_credit").val();
+	var datetime_begin =  $("#datetime_begin").val();
+	var coupon_code =  $("#coupon_code").val();
+	if (deposit_credit!=""&&datetime_begin !=""&&coupon_code!="") {
 		$('#table').datagrid({
 			url : "../find/findAction_search.action?serialVersionUID=<%=request.getParameter("serialVersionUID")%>",
 			method : "post",//请求方式
@@ -53,10 +53,10 @@ function find() {
 			rownumbers : true,//显示序号
 			singleSelect : true,//单选，只能选择一行
 			queryParams : {
-				credit:$("#credit").val(),
-				create_date : $("#create_date").val(),
-				code : $("#code").val(),
-				type : $("#type").val(),
+				deposit_credit:$("#deposit_credit").val(),
+				datetime_begin : $("#datetime_begin").val(),
+				coupon_code : $("#coupon_code").val(),
+				deposit_type : $("#deposit_type").val(),
 			},//queryParams 传送的额外参数
 			frozenColumns:[ [ {
 				field : '手机号',
@@ -84,10 +84,10 @@ function find() {
 
 	$(function (){
 		$("#export").on("click",function(){
-			var credit=document.getElementById("credit").value;
-			var create_date=document.getElementById("create_date").value;
-			var code=document.getElementById("code").value;
-			if(credit!=""&&create_date!=""&&code!=""){
+			var deposit_credit=document.getElementById("deposit_credit").value;
+			var datetime_begin=document.getElementById("datetime_begin").value;
+			var coupon_code=document.getElementById("coupon_code").value;
+			if(deposit_credit!=""&&datetime_begin!=""&&coupon_code!=""){
 				document.getElementById("form1").action="../distribute/distribute_distribute.action?serialVersionUID=<%= request.getParameter("serialVersionUID")%>";
 				document.getElementById("form1").submit();
 			}else{
@@ -109,18 +109,18 @@ function find() {
 		<div class="text-c">
 			<form action="" name="form1" id="form1" method="post">
 				起始收入金额：<input type="text" class="input-text" style="width: 150px"
-				 place-holder="4" name="credit" id="credit" />
+				 place-holder="4" name="deposit_credit" id="deposit_credit" />
 				日期起始点： <input type="text"
 					onfocus="WdatePicker({maxDate:'%y-%M-%d'})"
-					name="create_date" id="create_date" class="input-text Wdate"
+					name="datetime_begin" id="datetime_begin" class="input-text Wdate"
 					placeholder="例如2015-05-01" style="width: 130px;">	
 				选择类型：
-				<select name="type" id="type">
+				<select name="deposit_type" id="deposit_type">
 					<option value="6">环保回收</option>
 					<option value="13">手机回收</option>
 					<option value="14">家电回收</option>
 				</select>
-				未发放优惠券码：<input type="text" name="code" id="code" class="input-text" style="width: 150px" placeholder="以逗号,分隔100003,..." >	
+				未发放优惠券码：<input type="text" name="coupon_code" id="coupon_code" class="input-text" style="width: 150px" placeholder="以逗号,分隔100051,..." >	
 				<a href="javascript:;" name="find" id="find" class="btn btn-success"
 					onclick="find()"> <i class="Hui-iconfont">&#xe665;</i>
 					查询

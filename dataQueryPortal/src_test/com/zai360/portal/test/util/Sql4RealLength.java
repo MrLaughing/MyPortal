@@ -34,10 +34,10 @@ public class Sql4RealLength {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		StringBuffer sql = new StringBuffer();		
 		sql.append("SELECT CASE WHEN MAX(a.recycletimes) IS NULL THEN '1' ELSE MAX(a.recycletimes)+1 END AS '最大回收次数+1' ");
-		String orderReceiveDate_min = request
-				.getParameter("orderReceiveDate_min");
-		String orderReceiveDate_max = request
-				.getParameter("orderReceiveDate_max");
+		String datetime_min = request
+				.getParameter("datetime_min");
+		String datetime_max = request
+				.getParameter("datetime_max");
 		String city=request.getParameter("city");
 		sql.append(" FROM (SELECT COUNT(1) AS recycletimes, t.`CUSTOMERID` AS customerid FROM TASK t, "
 				+ " syorganization s WHERE t.`syorganization_id`=s.`ID` ");
@@ -46,8 +46,8 @@ public class Sql4RealLength {
 		}else if("021".equals(city)){
 			sql.append(" AND s.`tree_path` LIKE '%"+"99d685f2-a131-4df9-9046-1d02a858e169"+"%' ");
 		}
-		sql.append(" AND t.`ORDERRECEIVEDATE` >= '"+orderReceiveDate_min+"' AND t.`ORDERRECEIVEDATE` <= '"
-				+orderReceiveDate_max+" 23:59:59' AND t.`STATUS` = 4 ");
+		sql.append(" AND t.`ORDERRECEIVEDATE` >= '"+datetime_min+"' AND t.`ORDERRECEIVEDATE` <= '"
+				+datetime_max+" 23:59:59' AND t.`STATUS` = 4 ");
 		String[] taskType=request.getParameterValues("taskType"); 
 		StringBuffer taskType_str = new StringBuffer();
 		if (taskType != null) {

@@ -38,9 +38,9 @@
 <script type="text/javascript">
 	
 function find() {
-	var customerregistertime_min =  $("#customerregistertime_min").val();
-	var customerregistertime_max =  $("#customerregistertime_max").val();
-	if (customerregistertime_min!=""&&customerregistertime_max !="") {
+	var datetime_min =  $("#datetime_min").val();
+	var datetime_max =  $("#datetime_max").val();
+	if (datetime_min!=""&&datetime_max !="") {
 		$('#table').datagrid({
 			url : "../find/findAction_search.action?serialVersionUID=<%=request.getParameter("serialVersionUID")%>",
 			method : "post",//请求方式
@@ -54,9 +54,9 @@ function find() {
 			rownumbers : true,//显示序号
 			singleSelect : true,//单选，只能选择一行
 			queryParams : {
-				syorganizationCode:$("#syorganizationCode").val(),
-				customerregistertime_min : $("#customerregistertime_min").val(),
-				customerregistertime_max : $("#customerregistertime_max").val(),
+				sycode:$("#sycode").val(),
+				datetime_min : $("#datetime_min").val(),
+				datetime_max : $("#datetime_max").val(),
 			},//queryParams 传送的额外参数
 			frozenColumns:[ [ {
 				field : '手机号',
@@ -98,8 +98,8 @@ function find() {
 }
 	$(function (){
 		$("#export").on("click",function(){
-			var customerregistertime_max=document.getElementById("customerregistertime_max").value;
-			if(customerregistertime_max!=""){
+			var datetime_max=document.getElementById("datetime_max").value;
+			if(datetime_max!=""){
 				document.getElementById("form1").action="../distribute/distribute_distribute.action?serialVersionUID=<%=request.getParameter("serialVersionUID")%>";
 								document.getElementById("form1").submit();
 							} else {
@@ -120,15 +120,15 @@ function find() {
 	<div class="pd-20">
 		<div class="text-c">
 			<form action="" name="form1" id="form1" method="post">
-				输入基站编号：<input type="text" class="input-text" style="width: 150px" id="syorganizationCode"
-					name="syorganizationCode" placeholder="如100002" /> 时间段： <input
+				输入基站编号：<input type="text" class="input-text" style="width: 150px" id="sycode"
+					name="sycode" placeholder="如100002" /> 时间段： <input
 					type="text"
-					onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'customerregistertime_max\')||\'%y-%M-%d\'}'})"
-					name="customerregistertime_min" id="customerregistertime_min"
+					onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'datetime_max\')||\'%y-%M-%d\'}'})"
+					name="datetime_min" id="datetime_min"
 					class="input-text Wdate" placeholder="2015-08-03"
 					style="width: 120px;"> - <input type="text"
-					onfocus="WdatePicker({minDate:'#F{$dp.$D(\'customerregistertime_min\')}',maxDate:'%y-%M-%d'})"
-					name="customerregistertime_max" id="customerregistertime_max"
+					onfocus="WdatePicker({minDate:'#F{$dp.$D(\'datetime_min\')}',maxDate:'%y-%M-%d'})"
+					name="datetime_max" id="datetime_max"
 					class="input-text Wdate" placeholder="2015-08-20"
 					style="width: 120px;"> <a href="javascript:;" name="find"
 					id="find" class="btn btn-success" onclick="find()"> <i
