@@ -15,9 +15,8 @@
 		<action name="query" class="com.zai360.portal.test.controller.FindAction" method="search">
 			<interceptor-ref name="Myinterceptorstack"/><!-- 查询使用拦截器 -->
 			<result name="error" type="redirect">../index.jsp</result>
-			<result name="ajax" type="stream">
-				<param name="contentType">text/html;charset=utf-8</param>
-				<param name="inputName">inputStream</param>
+			<result name="ajax" type="json">
+				<param name="root">result</param>
 			</result>
 		</action>
 	</package>
