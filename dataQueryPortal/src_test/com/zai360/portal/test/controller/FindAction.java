@@ -4,7 +4,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -28,11 +27,10 @@ import com.zai360.portal.test.util.SqlUtil;
 import com.zai360.portal.test.util.jsonUtil;
 import com.zai360.portal.test.vo.ColumnInfo;
 
-/***
+/**
  * 处理前台分页查询
- * 
- * @author report
- *
+ * @author Laughing_Lz
+ * @date 2016年1月19日
  */
 @Controller
 public class FindAction extends ActionSupport {
@@ -51,6 +49,7 @@ public class FindAction extends ActionSupport {
 	public String dynamic() {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		List<ColumnInfo> columnInfoList = new ArrayList<ColumnInfo>();
+		ResponseInfo responseInfo = new ResponseInfo();
 		for (QueryEnum query : QueryEnum.values()) {
 			if (request.getParameter("serialVersionUID").equals(query.getId())) {
 				if (Sql4RealLength.ifDynamic(query)) {// 判断是否为动态sql
@@ -73,8 +72,17 @@ public class FindAction extends ActionSupport {
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss")
 				.create();// Gson处理Date格式
 		String columnInfo = gson.toJson(columnInfoList);
-		String info = "{\"columns\":" + columnInfo + "}";// 拼接json数据
-		inputStream = jsonUtil.string2stream(info);
+		List<ColumnInfo> newColumnInfoList = gson.fromJson(columnInfo,
+				new TypeToken<List<ColumnInfo>>() {
+				}.getType());// 处理日期格式带T问题
+		responseInfo.setSuccess("1");
+		responseInfo.setColumns(newColumnInfoList);
+		this.setResult(responseInfo);
+//		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss")
+//				.create();// Gson处理Date格式
+//		String columnInfo = gson.toJson(columnInfoList);
+//		String info = "{\"columns\":" + columnInfo + "}";// 拼接json数据
+//		inputStream = jsonUtil.string2stream(info);
 		return "ajax";
 	}
 
@@ -100,8 +108,9 @@ public class FindAction extends ActionSupport {
 					System.out.println(countsql);
 					StringBuffer sql = SqlUtil.getSql(query);
 					System.out.println(sql);
+					int pageIndex=(pageNumber - 1) * pageSize;//起始记录
 					this.page = this.findService.findPage(countsql,
-							query.getMappermethod(), sql, pageNumber, pageSize);
+							query.getMappermethod(), sql, pageNumber, pageSize,pageIndex);
 				}
 			}
 			if (uniqueserialVersionUID == 0) {//serialVersionUID若全无匹配，并不会报错，所以使用了标志位
@@ -128,8 +137,8 @@ public class FindAction extends ActionSupport {
 		List<HashMap<String, Object>> contentmap = gson.fromJson(content,
 				new TypeToken<List<HashMap<String, Object>>>() {
 				}.getType());// 处理日期格式带T问题
-		responseInfo.setSuccess("1");
 		responseInfo.setTotal(String.valueOf(page.getTotalNumber()));
+		responseInfo.setTotalPage(String.valueOf(page.getTotalPage()));
 		responseInfo.setRows(contentmap);
 		this.setResult(responseInfo);
 		// Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss")

@@ -5,14 +5,14 @@
     "http://struts.apache.org/dtds/struts-2.0.dtd">
 
 <struts>
-	<package name="query" extends="struts-default,json-default">
+	<package name="query" namespace="/query" extends="struts-default,json-default">
 		<interceptors><!-- 拦截器 -->
 			<interceptor name="1" class="com.zai360.portal.test.interceptor.Myinterceptor"></interceptor>
 			<interceptor-stack name="Myinterceptorstack">
 				<interceptor-ref name="1"></interceptor-ref>
 			</interceptor-stack>
 		</interceptors>
-		<action name="query" class="com.zai360.portal.test.controller.FindAction" method="search">
+		<action name="*" class="com.zai360.portal.test.controller.QueryAction" method="search">
 			<interceptor-ref name="Myinterceptorstack"/><!-- 查询使用拦截器 -->
 			<result name="error" type="redirect">../index.jsp</result>
 			<result name="ajax" type="json">

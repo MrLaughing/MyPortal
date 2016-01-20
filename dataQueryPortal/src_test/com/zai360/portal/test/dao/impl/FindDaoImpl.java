@@ -24,4 +24,9 @@ public class FindDaoImpl extends BaseDaoImpl implements FindDao {
 		return list;
 	}
 
+	@Override
+	public String havecolumn(StringBuffer sql) {
+		return this.getSqlSession().selectOne("common.havecolumn", new SQLAdapter(sql.toString()));
+	}
+
 }

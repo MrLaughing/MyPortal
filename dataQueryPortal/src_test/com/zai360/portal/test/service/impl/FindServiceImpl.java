@@ -20,7 +20,7 @@ public class FindServiceImpl extends FindDaoImpl implements FindService {
 
 	@Override
 	public Page<HashMap<String, Object>> findPage(StringBuffer sql4count,
-			String mappermethod, StringBuffer sql, int pageNumber, int pageSize) {
+			String mappermethod, StringBuffer sql, int pageNumber, int pageSize,int pageIndex) {
 		Page <HashMap<String,Object>> page =new Page<HashMap<String,Object>>();
 		if (pageNumber == 1) {
 			PageUtil.TOTALNUMBER = this.findDao.getTotal(sql4count);// 查询总条数
@@ -34,8 +34,9 @@ public class FindServiceImpl extends FindDaoImpl implements FindService {
 		page.setTotalPage(PageUtil.TOTALPAGE);
 		page.setPageNumber(pageNumber);// ?
 		page.setPageSize(pageSize);// ?
-		page.setPageIndex((pageNumber - 1) * pageSize);// /起始记录数
-		sql.append(" LIMIT " + page.getPageIndex() + "," + pageSize);// 拼接分页limit
+		page.setPageIndex(pageIndex);
+//		page.setPageIndex((pageNumber - 1) * pageSize);// /起始记录数(需要修改,做参数，不在此计算)
+		sql.append(" LIMIT " + pageIndex + "," + pageSize);// 拼接分页limit
 		List<HashMap<String, Object>> content = this.findDao.getList(
 				mappermethod, sql);
 		content=ResultUtil.convertList(content);//处理数据库查询结果List

@@ -23,5 +23,5 @@ public interface FindService extends FindDao {
 	 * @return
 	 */
 	Page<HashMap<String, Object>> findPage(StringBuffer sql4count,
-			String mappermethod, StringBuffer sql, int pageNumber, int pageSize);
+			String mappermethod, StringBuffer sql, int pageNumber, int pageSize,int pageIndex);
 }

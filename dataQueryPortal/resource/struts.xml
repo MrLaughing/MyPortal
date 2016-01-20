@@ -29,7 +29,7 @@
 	<include file="account_struts.xml"></include>
 	<include file="write_struts.xml"></include>
 	<include file="test_struts.xml"></include>
-	<include file="restful_struts.xml"></include>
+	<include file="query_struts.xml"></include>
 
 
 </struts>

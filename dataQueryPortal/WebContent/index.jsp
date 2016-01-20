@@ -34,7 +34,7 @@
 			request.setAttribute("shichangList", shichangList);
 	%>
 </shiro:hasAnyRoles>
-<shiro:hasAnyRoles name="后台导表--推广人员,后台导表--管理员">
+<shiro:hasAnyRoles name="后台导表--推广人员,后台导表--管理员,后台导表--推广人员（负责人）">
 	<%
 		List tuiguangList = PathUtil.tuiguangList();
 			request.setAttribute("tuiguangList", tuiguangList);
@@ -180,7 +180,7 @@
 				</dd>
 			</dl>
 		</shiro:hasAnyRoles>
-		<shiro:hasAnyRoles name="后台导表--推广人员,后台导表--管理员">
+		<shiro:hasAnyRoles name="后台导表--推广人员,后台导表--管理员,后台导表--推广人员（负责人）">
 			<dl id="menu-article">
 				<dt>
 					<i class="Hui-iconfont">&#xe6b6;</i>推广相关查询<i
@@ -199,7 +199,7 @@
 			</dl>
 		</shiro:hasAnyRoles>
 		<shiro:hasAnyRoles
-			name="后台导表--回收人员,后台导表--客服人员,后台导表--商城人员,后台导表--市场人员,后台导表--推广人员,后台导表--管理员">
+			name="后台导表--回收人员,后台导表--客服人员,后台导表--商城人员,后台导表--市场人员,后台导表--推广人员,后台导表--管理员,后台导表--推广人员（负责人）">
 			<dl id="menu-article">
 				<dt>
 					<i class="Hui-iconfont">&#xe611;</i>部门交互查询<i
