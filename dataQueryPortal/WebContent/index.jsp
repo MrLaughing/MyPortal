@@ -10,36 +10,22 @@
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
 %>
-<shiro:hasAnyRoles name="后台导表--回收人员,后台导表--管理员">
-	<%
-		List huishouList = PathUtil.huishouList();
-			request.setAttribute("huishouList", huishouList);
-	%>
-</shiro:hasAnyRoles>
-<shiro:hasAnyRoles name="后台导表--客服人员,后台导表--管理员">
-	<%
-		List kefuList = PathUtil.kefuList();
-			request.setAttribute("kefuList", kefuList);
-	%>
-</shiro:hasAnyRoles>
-<shiro:hasAnyRoles name="后台导表--商城人员,后台导表--管理员">
-	<%
-		List shangchengList = PathUtil.shangchengList();
-			request.setAttribute("shangchengList", shangchengList);
-	%>
-</shiro:hasAnyRoles>
-<shiro:hasAnyRoles name="后台导表--市场人员,后台导表--管理员">
-	<%
-		List shichangList = PathUtil.shichangList();
-			request.setAttribute("shichangList", shichangList);
-	%>
-</shiro:hasAnyRoles>
-<shiro:hasAnyRoles name="后台导表--推广人员,后台导表--管理员,后台导表--推广人员（负责人）">
-	<%
-		List tuiguangList = PathUtil.tuiguangList();
-			request.setAttribute("tuiguangList", tuiguangList);
-	%>
-</shiro:hasAnyRoles>
+<%
+	List huishouList = PathUtil.huishouList();
+		request.setAttribute("huishouList", huishouList);
+
+	List kefuList = PathUtil.kefuList();
+		request.setAttribute("kefuList", kefuList);
+
+	List shangchengList = PathUtil.shangchengList();
+		request.setAttribute("shangchengList", shangchengList);
+
+	List shichangList = PathUtil.shichangList();
+		request.setAttribute("shichangList", shichangList);
+
+	List tuiguangList = PathUtil.tuiguangList();
+		request.setAttribute("tuiguangList", tuiguangList);
+%>
 <%
 	/*部门交互查询  */
 	List jiaohuList = PathUtil.jiaohuList();
@@ -180,7 +166,7 @@
 				</dd>
 			</dl>
 		</shiro:hasAnyRoles>
-		<shiro:hasAnyRoles name="后台导表--推广人员,后台导表--管理员,后台导表--推广人员（负责人）">
+		<shiro:hasAnyRoles name="后台导表--推广人员,后台导表--管理员,后台导表--地推负责人,后台导表--地推队长">
 			<dl id="menu-article">
 				<dt>
 					<i class="Hui-iconfont">&#xe6b6;</i>推广相关查询<i
@@ -199,7 +185,8 @@
 			</dl>
 		</shiro:hasAnyRoles>
 		<shiro:hasAnyRoles
-			name="后台导表--回收人员,后台导表--客服人员,后台导表--商城人员,后台导表--市场人员,后台导表--推广人员,后台导表--管理员,后台导表--推广人员（负责人）">
+			name="后台导表--回收人员,后台导表--客服人员,后台导表--商城人员,后台导表--市场人员,后台导表--推广人员,
+			后台导表--管理员,后台导表--地推负责人,后台导表--地推队长">
 			<dl id="menu-article">
 				<dt>
 					<i class="Hui-iconfont">&#xe611;</i>部门交互查询<i

@@ -1,5 +1,6 @@
 package com.zai360.portal.test.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.zai360.portal.test.commons.BaseDao;
@@ -46,7 +47,7 @@ public interface AccountDao extends BaseDao{
 	 * 根据页码和记录数分页查询
 	 * @return
 	 */
-	List getList(String mappermethod, StringBuffer sql);
+	List<HashMap<String,Object>> getList(String mappermethod, StringBuffer sql);
 	/**
 	 * 用户注册--添加用户
 	 * @param sql

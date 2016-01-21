@@ -1,5 +1,6 @@
 package com.zai360.portal.test.dao.impl;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
@@ -35,8 +36,8 @@ public class AccountDaoImpl extends BaseDaoImpl implements
 	}
 
 	@Override
-	public List getList(String mappermethod, StringBuffer sql) {
-		List list=this.getSqlSession().selectList(mappermethod,new SQLAdapter(sql.toString()));
+	public List<HashMap<String,Object>> getList(String mappermethod, StringBuffer sql) {
+		List<HashMap<String,Object>> list=this.getSqlSession().selectList(mappermethod,new SQLAdapter(sql.toString()));
 		return list;
 	}
 

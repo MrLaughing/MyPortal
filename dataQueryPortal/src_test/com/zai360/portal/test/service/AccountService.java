@@ -1,5 +1,7 @@
 package com.zai360.portal.test.service;
 
+import java.util.HashMap;
+
 import com.zai360.portal.test.dao.AccountDao;
 import com.zai360.portal.test.util.Page;
 import com.zai360.portal.test.vo.Admin;
@@ -19,6 +21,6 @@ public interface AccountService extends AccountDao{
 	 *            每页记录数
 	 * @return
 	 */
-	Page findPage(StringBuffer sql4count,String mappermethod,
+	Page<HashMap<String, Object>> findPage(StringBuffer sql4count,String mappermethod,
 			 StringBuffer sql, int pageNumber, int pageSize);
 }

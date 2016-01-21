@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.zai360.portal.test.vo.ColumnInfo;
-
 /**
  * 分页
  * 
@@ -14,7 +12,7 @@ import com.zai360.portal.test.vo.ColumnInfo;
  */
 public class Page<T> implements Serializable {
 	/** 内容 */
-	private  List<T> content = new ArrayList<T>();
+	private List<T> contents = new ArrayList<T>();
 	/**
 	 * 页码
 	 */
@@ -24,28 +22,25 @@ public class Page<T> implements Serializable {
 	 */
 	private int pageSize;
 	/**
-	 * 起始记录数
-	 */
-	private int pageIndex;
-	/**
 	 * 总条数
 	 */
-	private int totalNumber;
+	private int totalNumber=0;
 	/**
 	 * 总页数
 	 */
-	private int totalPage;
+	private int totalPage=0;
+
 	/**
 	 * 获取内容
 	 * 
 	 * @return 内容
 	 */
-	public List<T> getContent() {
-		return content;
+	public List<T> getContents() {
+		return contents;
 	}
 
-	public void setContent(List<T> content) {
-		this.content = content;
+	public void setContents(List<T> contents) {
+		this.contents = contents;
 	}
 
 	public int getPageNumber() {
@@ -63,15 +58,6 @@ public class Page<T> implements Serializable {
 	public void setPageSize(int pageSize) {
 		this.pageSize = pageSize;
 	}
-
-	public int getPageIndex() {
-		return pageIndex;
-	}
-
-	public void setPageIndex(int pageIndex) {
-		this.pageIndex = pageIndex;
-	}
-
 	public int getTotalNumber() {
 		return totalNumber;
 	}
@@ -90,10 +76,9 @@ public class Page<T> implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Page [content=" + content + ", pageNumber=" + pageNumber
-				+ ", pageSize=" + pageSize + ", pageIndex=" + pageIndex
-				+ ", totalNumber=" + totalNumber + ", totalPage=" + totalPage
-				+ "]";
+		return "Page [contents=" + contents + ", pageNumber=" + pageNumber
+				+ ", pageSize=" + pageSize + ", totalNumber=" + totalNumber
+				+ ", totalPage=" + totalPage + "]";
 	}
-
+	
 }

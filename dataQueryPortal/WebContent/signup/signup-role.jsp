@@ -68,6 +68,7 @@
 							   <td width="140px"><input id="roles" name="roles" value="5" type="checkbox">推广人员</td>
 							</tr>
 							<tr height="28px">
+							   <td width="140px"><input id="roles" name="roles" value="31" type="checkbox">地推人员</td>
 							   <td width="140px"><input id="roles" name="roles" value="30" type="checkbox">地推负责人</td>
 							</tr>
 						</table>

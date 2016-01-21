@@ -15,12 +15,11 @@ public class RequestInfo {
 	private String url1;//请求路径
 	private String url2;//请求二级路径（表名）
 	/*******请求参数*********/
-	private String pageSize;//每页条数
-	private String pageNumber;//当前页码
-	private String pageIndex;//起始记录数
-	private String totalNumber;//总条数
-	private String totalPage;//总页数
-//	/********可选请求参数********/
+	private int pageSize;//每页条数
+	private int pageNumber;//当前页码
+	private int index;//查询第某条记录，默认不使用index查询
+	/********可选请求参数********/
+	private Map<String,Object> parameters;//包含？后的请求参数
 //	private String datetime_min;//时间段min
 //	private String datetime_max;//时间段max
 //	private String datetime_begin;//时间起点
@@ -33,7 +32,6 @@ public class RequestInfo {
 //	private String couponcode;//优惠券码
 //	private String recyclemancode;//再生侠code
 //	private String refereecode;//地推人员code
-	private Map<String,Object> parameters;//包含？后的请求参数
 	public String getHost() {
 		return host;
 	}
@@ -64,35 +62,17 @@ public class RequestInfo {
 	public void setUrl2(String url2) {
 		this.url2 = url2;
 	}
-	public String getPageSize() {
+	public int getPageSize() {
 		return pageSize;
 	}
-	public void setPageSize(String pageSize) {
+	public void setPageSize(int pageSize) {
 		this.pageSize = pageSize;
 	}
-	public String getPageNumber() {
+	public int getPageNumber() {
 		return pageNumber;
 	}
-	public void setPageNumber(String pageNumber) {
+	public void setPageNumber(int pageNumber) {
 		this.pageNumber = pageNumber;
-	}
-	public String getPageIndex() {
-		return pageIndex;
-	}
-	public void setPageIndex(String pageIndex) {
-		this.pageIndex = pageIndex;
-	}
-	public String getTotalNumber() {
-		return totalNumber;
-	}
-	public void setTotalNumber(String totalNumber) {
-		this.totalNumber = totalNumber;
-	}
-	public String getTotalPage() {
-		return totalPage;
-	}
-	public void setTotalPage(String totalPage) {
-		this.totalPage = totalPage;
 	}
 	public Map<String, Object> getParameters() {
 		return parameters;
@@ -100,5 +80,10 @@ public class RequestInfo {
 	public void setParameters(Map<String, Object> parameters) {
 		this.parameters = parameters;
 	}
-	
+	public int getIndex() {
+		return index;
+	}
+	public void setIndex(int index) {
+		this.index = index;
+	}
 }

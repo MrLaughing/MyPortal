@@ -2,6 +2,7 @@
 	import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
@@ -138,9 +139,11 @@ function find() {
 					onclick="find()"> <i class="Hui-iconfont">&#xe665;</i>
 					查询
 				</a> 
+				<shiro:hasAnyRoles name="后台导表--地推负责人,后台导表--管理员,后台导表--推广人员">
 				<a href="javascript:;" name="export" id="export" class="btn btn-success">
 					<i class="Hui-iconfont">&#xe665;</i> 导出excel
 				</a>
+				</shiro:hasAnyRoles>
 			</form>
 		</div>
 	</div>

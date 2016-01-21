@@ -21,19 +21,14 @@ import com.zai360.portal.test.service.WriteService;
 public class Myinterceptor implements Interceptor {
 
 	private static final long serialVersionUID = 1L;
-	@Autowired
-	private WriteService writeService;//为查询数据库中是否存在url2该表···
-	
 	@Override
 	public void destroy() {
 		System.out.println("Myinterceptor销毁");
 	}
-
 	@Override
 	public void init() {
 		System.out.println("Myinterceptor初始化");
 	}
-
 	@Override
 	public String intercept(ActionInvocation invocation) throws Exception {
 		System.out.println("初始后先走拦截器");
@@ -44,16 +39,6 @@ public class Myinterceptor implements Interceptor {
 		if(sessionmap.containsKey("org.apache.shiro.subject.support.DefaultSubjectContext_AUTHENTICATED_SESSION_KEY")
 				&&(boolean)sessionmap.get("org.apache.shiro.subject.support.DefaultSubjectContext_AUTHENTICATED_SESSION_KEY")){
 			System.out.println("已授权");
-			
-			//其实判断请求表是否存在
-			StringBuffer sql = new StringBuffer();
-			sql.append("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='polan' AND TABLE_NAME='"
-					+invocation.getInvocationContext().getName()+ "' ;");
-			String havetable = this.writeService.havetable(sql);
-			if (havetable == null) {
-				System.out.println("该表不存在！");
-				return null;
-			}
 			return invocation.invoke();//通过拦截器
 		}else {
 			System.out.println("未授权");

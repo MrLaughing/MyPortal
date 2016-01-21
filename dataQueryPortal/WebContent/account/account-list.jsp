@@ -155,6 +155,7 @@
 						<option value="商城">商城</option>
 						<option value="市场">市场</option>
 						<option value="推广">推广</option>
+						<option value="地推">地推</option>
 				</select>
 				</span> <span>&nbsp&nbsp&nbsp&nbsp</span> 用户名：<input type="text"
 					name="username" id="username" style="width: 120px"

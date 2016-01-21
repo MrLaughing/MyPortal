@@ -127,9 +127,9 @@ public class AccountAction extends ActionSupport {
 
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss")
 				.create();// Gson处理Date格式
-		String content = gson.toJson(page.getContent());
+		String contents = gson.toJson(page.getContents());
 		String info = "{\"total\":" + page.getTotalNumber() + ",\"rows\":"
-				+ content + "}";// 拼接json数据
+				+ contents + "}";// 拼接json数据
 		this.inputStream = jsonUtil.string2stream(info);
 		return "ajax";
 	}
@@ -200,9 +200,9 @@ public class AccountAction extends ActionSupport {
 				"account.findRoles", rolessql, pageNumber, pageSize);
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss")
 				.create();// Gson处理Date格式
-		String content = gson.toJson(page.getContent());
+		String contents = gson.toJson(page.getContents());
 		String info = "{\"total\":" + page.getTotalNumber() + ",\"rows\":"
-				+ content + "}";// 拼接json数据
+				+ contents + "}";// 拼接json数据
 		this.inputStream = jsonUtil.string2stream(info);
 		return "ajax";
 	}
@@ -288,9 +288,9 @@ public class AccountAction extends ActionSupport {
 						authoritiessql, pageNumber, pageSize);
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss")
 				.create();// Gson处理Date格式
-		String content = gson.toJson(page.getContent());
+		String contents = gson.toJson(page.getContents());
 		String info = "{\"total\":" + page.getTotalNumber() + ",\"rows\":"
-				+ content + "}";// 拼接json数据
+				+ contents + "}";// 拼接json数据
 		this.inputStream = jsonUtil.string2stream(info);
 		return "ajax";
 	}

@@ -11,24 +11,31 @@ import org.apache.shiro.web.mgt.WebSecurityManager;
 import org.apache.shiro.web.util.WebUtils;
 
 import com.zai360.portal.test.vo.Path;
+
 /**
  * 存储左侧下拉栏信息
+ * 
  * @author report
  *
  */
 public class PathUtil {
 	/**
 	 * 回收人员权限
+	 * 
 	 * @return
 	 */
 	public static List<Path> huishouList() {
 		List<Path> huishouList = new ArrayList<Path>();
-		huishouList.add(new Path("ccrs.jsp", "各基站出差人数", QueryEnum.CCRS.getId()));
-		huishouList.add(new Path("smwy.jsp", "首次上门违约用户", QueryEnum.SMWY.getId()));
+		huishouList
+				.add(new Path("ccrs.jsp", "各基站出差人数", QueryEnum.CCRS.getId()));
+		huishouList
+				.add(new Path("smwy.jsp", "首次上门违约用户", QueryEnum.SMWY.getId()));
 		return huishouList;
 	}
+
 	/**
 	 * 客服人员权限
+	 * 
 	 * @return
 	 */
 	public static List<Path> kefuList() {
@@ -37,103 +44,135 @@ public class PathUtil {
 		kefuList.add(new Path("dhgw.jsp", "电话购物信息", QueryEnum.DHGW.getId()));
 		return kefuList;
 	}
+
 	/**
 	 * 商城人员权限
+	 * 
 	 * @return
 	 */
 	public static List<Path> shangchengList() {
 		List<Path> shangchengList = new ArrayList<Path>();
-		shangchengList.add(new Path("appxdxx.jsp", "app下单信息", QueryEnum.APPXX.getId()));
-		shangchengList.add(new Path("wyhq.jsp", "未发放优惠券用户", QueryEnum.WYHQ.getId()));
+		shangchengList.add(new Path("appxdxx.jsp", "app下单信息", QueryEnum.APPXX
+				.getId()));
+		shangchengList.add(new Path("wyhq.jsp", "未发放优惠券用户", QueryEnum.WYHQ
+				.getId()));
 		return shangchengList;
 	}
+
 	/**
 	 * 市场人员权限
+	 * 
 	 * @return
 	 */
 	public static List<Path> shichangList() {
 		List<Path> shichangList = new ArrayList<Path>();
-		shichangList.add(new Path("tgrs.jsp", "基站推广人数", QueryEnum.TGRS.getId()));
+		shichangList
+				.add(new Path("tgrs.jsp", "基站推广人数", QueryEnum.TGRS.getId()));
 		return shichangList;
 	}
+
 	/**
 	 * 推广人员权限
+	 * 
 	 * @return
 	 */
 	public static List<Path> tuiguangList() {
 		List<Path> tuiguangList = new ArrayList<Path>();
-		tuiguangList.add(new Path("dtzc.jsp", "地推注册明细", QueryEnum.DTZC.getId()));
-		tuiguangList.add(new Path("fwrq.jsp", "地推推荐服务日期", QueryEnum.FWRQ.getId()));
+		Subject currentUser = SecurityUtils.getSubject();
+		if (currentUser.hasRole("后台导表--推广人员")
+				|| currentUser.hasRole("后台导表--管理员")) {
+			tuiguangList.add(new Path("dtzc.jsp", "地推注册明细", QueryEnum.DTZC
+					.getId()));
+		}
+		if (currentUser.hasRole("后台导表--推广人员")
+				|| currentUser.hasRole("后台导表--管理员")
+				|| currentUser.hasRole("后台导表--地推队长")
+				|| currentUser.hasRole("后台导表--地推负责人")) {
+			tuiguangList.add(new Path("fwrq.jsp", "地推推荐服务日期", QueryEnum.FWRQ
+					.getId()));
+		}
 		return tuiguangList;
 	}
+
 	/**
 	 * 交互查询权限
+	 * 
 	 * @return
 	 */
 	public static List<Path> jiaohuList() {
 		List<Path> jiaohuList = new ArrayList<Path>();
 		Subject currentUser = SecurityUtils.getSubject();
-		if(currentUser.isPermitted("admin:report_findyhxx")){
-			jiaohuList.add(new Path("yhxx.jsp", "查询用户信息", QueryEnum.YHXX.getId()));
+		if (currentUser.isPermitted("admin:report_findyhxx")) {
+			jiaohuList.add(new Path("yhxx.jsp", "查询用户信息", QueryEnum.YHXX
+					.getId()));
 		}
-		if(currentUser.isPermitted("admin:report_findcfdz")){
-			jiaohuList.add(new Path("cfdz.jsp", "重复地址用户信息", QueryEnum.CFDZ.getId()));
+		if (currentUser.isPermitted("admin:report_findcfdz")) {
+			jiaohuList.add(new Path("cfdz.jsp", "重复地址用户信息", QueryEnum.CFDZ
+					.getId()));
 		}
-		if(currentUser.isPermitted("admin:report_findzxyy")){
-			jiaohuList.add(new Path("zxyy.jsp", "客户注销原因", QueryEnum.ZXYY.getId()));
+		if (currentUser.isPermitted("admin:report_findzxyy")) {
+			jiaohuList.add(new Path("zxyy.jsp", "客户注销原因", QueryEnum.ZXYY
+					.getId()));
 		}
 		return jiaohuList;
 	}
+
 	/**
 	 * 额外查询权限
+	 * 
 	 * @return
 	 */
 	public static List<Path> ewaiList() {
 		List<Path> ewaiList = new ArrayList<Path>();
 		Subject currentUser = SecurityUtils.getSubject();
-		if(currentUser.hasRole("仅查各基站出差人数")){
+		if (currentUser.hasRole("仅查各基站出差人数")) {
 			ewaiList.add(new Path("ccrs.jsp", "各基站出差人数", QueryEnum.CCRS.getId()));
 		}
-		if(currentUser.hasRole("仅查首次上门违约用户")){
-			ewaiList.add(new Path("smwy.jsp", "首次上门违约用户", QueryEnum.SMWY.getId()));
+		if (currentUser.hasRole("仅查首次上门违约用户")) {
+			ewaiList.add(new Path("smwy.jsp", "首次上门违约用户", QueryEnum.SMWY
+					.getId()));
 		}
-		if(currentUser.hasRole("仅查停用用户数")){
+		if (currentUser.hasRole("仅查停用用户数")) {
 			ewaiList.add(new Path("tyyh.jsp", "停用用户数", QueryEnum.TYYH.getId()));
 		}
-		if(currentUser.hasRole("仅查电话购物信息")){
-			ewaiList.add(new Path("dhgw.jsp", "电话购物信息", QueryEnum.DHGW.getId()));	
+		if (currentUser.hasRole("仅查电话购物信息")) {
+			ewaiList.add(new Path("dhgw.jsp", "电话购物信息", QueryEnum.DHGW.getId()));
 		}
-		if(currentUser.hasRole("仅查app下单信息")){
-			ewaiList.add(new Path("appxdxx.jsp", "app下单信息", QueryEnum.APPXX.getId()));
+		if (currentUser.hasRole("仅查app下单信息")) {
+			ewaiList.add(new Path("appxdxx.jsp", "app下单信息", QueryEnum.APPXX
+					.getId()));
 		}
-		if(currentUser.hasRole("仅查未发放优惠券用户")){
-			ewaiList.add(new Path("wyhq.jsp", "未发放优惠券用户", QueryEnum.WYHQ.getId()));
+		if (currentUser.hasRole("仅查未发放优惠券用户")) {
+			ewaiList.add(new Path("wyhq.jsp", "未发放优惠券用户", QueryEnum.WYHQ
+					.getId()));
 		}
-		if(currentUser.hasRole("仅查基站推广人数")){
+		if (currentUser.hasRole("仅查基站推广人数")) {
 			ewaiList.add(new Path("tgrs.jsp", "基站推广人数", QueryEnum.TGRS.getId()));
 		}
-		if(currentUser.hasRole("仅查地推注册明细")){
+		if (currentUser.hasRole("仅查地推注册明细")) {
 			ewaiList.add(new Path("dtzc.jsp", "地推注册明细", QueryEnum.DTZC.getId()));
 		}
-		if(currentUser.hasRole("仅查地推推荐服务日期")){
-			ewaiList.add(new Path("fwrq.jsp", "地推推荐服务日期", QueryEnum.FWRQ.getId()));
+		if (currentUser.hasRole("仅查地推推荐服务日期")) {
+			ewaiList.add(new Path("fwrq.jsp", "地推推荐服务日期", QueryEnum.FWRQ
+					.getId()));
 		}
-		if(currentUser.hasRole("仅查查询用户信息")){
+		if (currentUser.hasRole("仅查查询用户信息")) {
 			ewaiList.add(new Path("yhxx.jsp", "查询用户信息", QueryEnum.YHXX.getId()));
 		}
-		if(currentUser.hasRole("仅查重复地址用户信息")){
-			ewaiList.add(new Path("cfdz.jsp", "重复地址用户信息", QueryEnum.CFDZ.getId()));
+		if (currentUser.hasRole("仅查重复地址用户信息")) {
+			ewaiList.add(new Path("cfdz.jsp", "重复地址用户信息", QueryEnum.CFDZ
+					.getId()));
 		}
-		if(currentUser.hasRole("仅查客户注销原因")){
+		if (currentUser.hasRole("仅查客户注销原因")) {
 			ewaiList.add(new Path("zxyy.jsp", "客户注销原因", QueryEnum.ZXYY.getId()));
 		}
 		return ewaiList;
 	}
-	
+
 	public static List<Path> PathCollection() {
 		List<Path> list = new ArrayList<Path>();
-		Subject currentSubject=SecurityUtils.getSubject();
-		boolean flag=currentSubject.hasRole("");
+		Subject currentSubject = SecurityUtils.getSubject();
+		boolean flag = currentSubject.hasRole("");
 		currentSubject.getPrincipal();
 		currentSubject.isPermitted("");
 		list.add(new Path("appxdxx.jsp", "app下单信息", QueryEnum.APPXX.getId()));
@@ -166,7 +205,7 @@ public class PathUtil {
 		list.add(new Path("hssj.jsp", "回收手机任务信息", QueryEnum.HSSJ.getId()));
 		list.add(new Path("tsgl.jsp", "用户投诉管理", QueryEnum.TSGL.getId()));
 		list.add(new Path("smkh.jsp", "上门客户数", QueryEnum.SMKH.getId()));
-		list.add(new Path("dhgw.jsp", "电话购物信息", QueryEnum.DHGW.getId()));		
+		list.add(new Path("dhgw.jsp", "电话购物信息", QueryEnum.DHGW.getId()));
 		return list;
 	}
 }

@@ -92,6 +92,7 @@
 							<option value="商城">商城</option>
 							<option value="市场">市场</option>
 							<option value="推广">推广</option>
+							<option value="地推">地推</option>
 					</select>
 					</span>
 				</div>
