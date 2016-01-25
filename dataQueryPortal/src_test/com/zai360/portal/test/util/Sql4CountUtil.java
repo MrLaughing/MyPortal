@@ -633,9 +633,6 @@ public class Sql4CountUtil {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		StringBuffer sql = new StringBuffer();
 		String datetime_begin = request.getParameter("datetime_begin");
-		if(datetime_begin==null){
-			throw new NullPointerException("datetime_begin参数缺失");
-		}
 		sql.append("SELECT COUNT(*) FROM  customer c LEFT JOIN syorganization s ON c.`syorganization_id` = s.`ID` "
 				+ " WHERE c.`registertime` >= '"
 				+ datetime_begin

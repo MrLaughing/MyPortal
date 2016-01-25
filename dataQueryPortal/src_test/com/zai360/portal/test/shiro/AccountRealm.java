@@ -46,8 +46,10 @@ public class AccountRealm extends AuthorizingRealm {
 			//增加判断验证码逻辑
 			String captcha=token.getCaptcha();//用户输入的验证码
 			String existcode=(String) SecurityUtils.getSubject().getSession().getAttribute(CaptchaServlet.KEY_CAPTCHA);//服务器生成的验证码
-			if (null == captcha || !captcha.equalsIgnoreCase(existcode)) {
-				throw new CaptchaException("验证码错误");
+			if(existcode!=null){//若服务器未生成验证码,不比较。??(用于oauth2和简易的登录接口)
+				if (captcha!=null&&!captcha.equalsIgnoreCase(existcode)) {
+					throw new CaptchaException("验证码错误");
+				}
 			}
 			Admin admin = this.accountService.findAdmin(username);//将按照表单username查询结果存入SimpleAuthenticationInfo
 			if (admin != null) {

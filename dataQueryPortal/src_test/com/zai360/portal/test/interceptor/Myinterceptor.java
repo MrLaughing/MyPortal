@@ -1,20 +1,18 @@
 package com.zai360.portal.test.interceptor;
 
 import java.util.Map;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.ServletActionContext;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.Interceptor;
-import com.zai360.portal.test.service.WriteService;
+import com.zai360.portal.test.util.jsonUtil;
 
 /**
- * 拦截器，获取Request信息和参数，有何用呢？
+ * 拦截器，判断是否登录及授权
  * @author Laughing_Lz
  * @date 2016年1月14日
  */
@@ -38,9 +36,15 @@ public class Myinterceptor implements Interceptor {
 		Map<String,Object> sessionmap=invocation.getInvocationContext().getSession();
 		if(sessionmap.containsKey("org.apache.shiro.subject.support.DefaultSubjectContext_AUTHENTICATED_SESSION_KEY")
 				&&(boolean)sessionmap.get("org.apache.shiro.subject.support.DefaultSubjectContext_AUTHENTICATED_SESSION_KEY")){
-			System.out.println("已授权");
-			return invocation.invoke();//通过拦截器
-		}else {
+			if(sessionmap.containsKey("authorizationCode")&jsonUtil.authorizationCode.equals(sessionmap.get("authorizationCode"))){
+				System.out.println("已授权");
+				return invocation.invoke();//通过拦截器
+			}else {
+				System.out.println("授权标识错误");
+				response.sendRedirect(request.getContextPath()+"/login.jsp");
+				return null;
+			}
+		}else{
 			System.out.println("未授权");
 			response.sendRedirect(request.getContextPath()+"/login.jsp");
 			return null;

@@ -82,5 +82,8 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/org.restlet.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/xbean.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/dom4j-1.6.1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/org.apache.oltu.oauth2.authzserver-0.31.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/org.apache.oltu.oauth2.resourceserver-0.31.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/org.apache.oltu.oauth2.common-0.31.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

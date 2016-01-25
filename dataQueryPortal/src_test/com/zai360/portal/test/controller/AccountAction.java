@@ -23,7 +23,6 @@ import org.springframework.stereotype.Controller;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.ndktools.javamd5.Mademd5;
 import com.opensymphony.xwork2.ActionSupport;
 import com.zai360.portal.test.captcha.CaptchaException;
 import com.zai360.portal.test.service.AccountService;
@@ -37,8 +36,8 @@ import com.zai360.portal.test.vo.Role;
 import com.zai360.portal.test.vo.Role_authority;
 
 /**
- * 账户相关
- * 
+ * 账户相关：登入登出查询
+ * 角色权限相关
  * @author report
  *
  */
@@ -63,7 +62,7 @@ public class AccountAction extends ActionSupport {
 		boolean rememberMe = request.getParameter("rememberMe") != null;// 记住密码
 		String login_ip = request.getRemoteAddr();// 接收请求端的P地址
 		password=Md5Util.toMd5(password);// MD5加密 字母小写
-		ThreadContext.bind(SecurityUtils.getSubject()); //
+//		ThreadContext.bind(SecurityUtils.getSubject()); //
 		Subject currentUser = SecurityUtils.getSubject();
 
 		UsernamePasswordCaptchaToken token = new UsernamePasswordCaptchaToken(

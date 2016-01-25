@@ -30,6 +30,7 @@
 	<include file="write_struts.xml"></include>
 	<include file="test_struts.xml"></include>
 	<include file="query_struts.xml"></include>
-
+	<include file="oauth2_struts.xml"></include>
+	<include file="login_struts.xml"></include>
 
 </struts>

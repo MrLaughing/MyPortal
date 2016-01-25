@@ -9,6 +9,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
+import org.apache.commons.lang.RandomStringUtils;
+
 import com.opensymphony.xwork2.util.logging.LoggerFactory;
 
 /**
@@ -34,6 +36,8 @@ public class jsonUtil {
 	public static final String LOGIN_TYPE_LOGOUT = "2";
 	public static final String LOGIN_TYPE_UPDATEPWD = "3";
 	public static final String LOGIN_TYPE_ACCESS = "4";
+	//随机授权码
+	public static String authorizationCode="未生成授权码";
 	/**
 	 * 将字符串转成输入流
 	 * @param inputStream
@@ -51,6 +55,26 @@ public class jsonUtil {
 			e.printStackTrace();
 		}
 		return inputStream;
+	}
+	/**
+	 * 生成n位的随机字符串
+	 * 生成授权码
+	 * @param n 位
+	 * @return
+	 */
+	public static String generateRandomCode(int n){
+//		String randomCode=RandomStringUtils.randomAlphanumeric(n);
+//		authorizationCode=randomCode;
+//		return randomCode;
+		String str="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+	    Random random=new Random();
+	    StringBuffer sb=new StringBuffer();
+	    for(int i=0;i<n;i++){
+	      int number=random.nextInt(62);
+	      sb.append(str.charAt(number));
+	    }
+	    authorizationCode=sb.toString();
+	    return sb.toString();
 	}
 
 	/**

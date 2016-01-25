@@ -111,7 +111,7 @@ public class QueryAction extends ActionSupport {
 					StringBuffer havacolumnsql=new StringBuffer(havacolumnsql1+" AND column_name='"+key+"' ");
 					if(this.findService.havecolumn(havacolumnsql)!=null){
 						String[] keyvalue=(String[]) parametersmap.get(key);
-						if(keyvalue!=null&&"".equals(keyvalue[0])){
+						if(keyvalue!=null&&!"".equals(keyvalue[0])){
 							querycountsql.append("AND a.`"+key+"` = '"+keyvalue[0]+"'");
 							querysql.append("AND a.`"+key+"` = '"+keyvalue[0]+"'");
 						}
@@ -128,7 +128,7 @@ public class QueryAction extends ActionSupport {
 				System.out.println(querycountsql);
 				System.out.println(querysql);
 				this.page = this.findService.findPage(querycountsql, "common.query", querysql, querypageNumber, querypageSize);
-				if(requestInfo.getIndex()>page.getTotalNumber()){
+				if(page.getTotalNumber()!=0&&requestInfo.getIndex()>page.getTotalNumber()){//在有返回数据的情况下
 					throw new ErrorMsgException("index参数错误");
 				}
 			}else{//分页查询

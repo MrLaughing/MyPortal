@@ -1,7 +1,7 @@
 package com.zai360.portal.test.interceptor;
 /**
  * 自定义异常
- * 响应错误信息
+ * 捕获错误信息
  * @author Laughing_Lz
  * @date 2016年1月20日
  */

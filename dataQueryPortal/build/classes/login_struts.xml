@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+  
+<!DOCTYPE struts PUBLIC  
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"  
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="shiro" namespace="/shiro" extends="struts-default,json-default">
+		<action name="login" class="com.zai360.portal.test.controller.LoginAction" method="login">
+			<result name="error" type="redirect">../console/error.jsp</result>
+			<result name="success" type="redirect">../index.jsp</result>
+			<result name="ajax" type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+		<action name="logout" class="com.zai360.portal.test.controller.LoginAction" method="logout">
+			<result name="logout" type="redirect">../console/logout.jsp</result>
+			<result name="error" type="redirect">../console/error.jsp</result>
+			<result name="success" type="redirect">../index.jsp</result>
+			<result name="ajax" type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+	</package>
+</struts>
