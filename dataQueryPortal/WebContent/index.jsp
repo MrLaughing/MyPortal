@@ -25,16 +25,9 @@
 
 	List tuiguangList = PathUtil.tuiguangList();
 		request.setAttribute("tuiguangList", tuiguangList);
-%>
-<%
 	/*部门交互查询  */
 	List jiaohuList = PathUtil.jiaohuList();
 	request.setAttribute("jiaohuList", jiaohuList);
-%>
-<%
-	/*额外查询  */
-	List ewaiList = PathUtil.ewaiList();
-	request.setAttribute("ewaiList", ewaiList);
 %>
 <html>
 <head>
@@ -94,7 +87,7 @@
 	<aside class="Hui-aside"> <input runat="server"
 		id="divScrollValue" type="hidden" value="" />
 	<div class="menu_dropdown bk_2">
-		<shiro:hasAnyRoles name="后台导表--回收人员,后台导表--管理员">
+			<c:if test="${!empty requestScope.huishouList}">
 			<dl id="menu-article">
 				<dt>
 					<i class="Hui-iconfont">&#xe653;</i>回收相关查询<i
@@ -111,8 +104,8 @@
 					</ul>
 				</dd>
 			</dl>
-		</shiro:hasAnyRoles>
-		<shiro:hasAnyRoles name="后台导表--客服人员,后台导表--管理员">
+		</c:if>
+		<c:if test="${!empty requestScope.kefuList}">
 			<dl id="menu-article">
 				<dt>
 					<i class="Hui-iconfont">&#xe6d0;</i>客服相关查询<i
@@ -129,8 +122,8 @@
 					</ul>
 				</dd>
 			</dl>
-		</shiro:hasAnyRoles>
-		<shiro:hasAnyRoles name="后台导表--商城人员,后台导表--管理员">
+		</c:if>
+		<c:if test="${!empty requestScope.shangchengList}">
 			<dl id="menu-article">
 				<dt>
 					<i class="Hui-iconfont">&#xe66a;</i>商城相关查询<i
@@ -147,8 +140,8 @@
 					</ul>
 				</dd>
 			</dl>
-		</shiro:hasAnyRoles>
-		<shiro:hasAnyRoles name="后台导表--市场人员,后台导表--管理员">
+		</c:if>
+		<c:if test="${!empty requestScope.shichangList}">
 			<dl id="menu-article">
 				<dt>
 					<i class="Hui-iconfont">&#xe627;</i>市场相关查询<i
@@ -165,8 +158,8 @@
 					</ul>
 				</dd>
 			</dl>
-		</shiro:hasAnyRoles>
-		<shiro:hasAnyRoles name="后台导表--推广人员,后台导表--管理员,后台导表--地推负责人,后台导表--地推队长">
+		</c:if>
+		<c:if test="${!empty requestScope.tuiguangList}">
 			<dl id="menu-article">
 				<dt>
 					<i class="Hui-iconfont">&#xe6b6;</i>推广相关查询<i
@@ -183,10 +176,8 @@
 					</ul>
 				</dd>
 			</dl>
-		</shiro:hasAnyRoles>
-		<shiro:hasAnyRoles
-			name="后台导表--回收人员,后台导表--客服人员,后台导表--商城人员,后台导表--市场人员,后台导表--推广人员,
-			后台导表--管理员,后台导表--地推负责人,后台导表--地推队长">
+		</c:if>
+		<c:if test="${!empty requestScope.jiaohuList}">
 			<dl id="menu-article">
 				<dt>
 					<i class="Hui-iconfont">&#xe611;</i>部门交互查询<i
@@ -203,27 +194,7 @@
 					</ul>
 				</dd>
 			</dl>
-		</shiro:hasAnyRoles>
-		<shiro:hasAnyRoles
-			name="仅查各基站出差人数,仅查首次上门违约用户,仅查停用用户数,仅查电话购物信息,仅查app下单信息,仅查未发放优惠券用户,
-			仅查基站推广人数,仅查地推注册明细,仅查地推推荐服务日期,仅查查询用户信息,仅查重复地址用户信息,仅查客户注销原因">
-			<dl id="menu-article">
-				<dt>
-					<i class="Hui-iconfont">&#xe681;</i>额外查询<i
-						class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i>
-				</dt>
-				<dd>
-					<ul>
-						<c:forEach items="${requestScope.ewaiList }" var="var"
-							varStatus="id">
-							<li><a
-								_href="page/${var.path}?serialVersionUID=${var.serialVersionUID}"><i
-									class="Hui-iconfont">&#xe64b;</i>${id.index+1}.${var.name}</a></li>
-						</c:forEach>
-					</ul>
-				</dd>
-			</dl>
-		</shiro:hasAnyRoles>
+		</c:if>
 		<dl id="menu-comments">
 			<dt>
 				<i class="Hui-iconfont">&#xe622;</i> 评论管理<i
@@ -256,7 +227,6 @@
 				</dt>
 				<dd>
 					<ul>
-						<li><a _href="signup/signup-account.jsp" href="javascript:;">用户注册</a></li>
 						<li><a _href="account/account-list.jsp" href="javascript:;">用户管理</a></li>
 						<li><a _href="role/role-list.jsp" href="javascript:;">角色管理</a></li>
 						<li><a _href="authority/authority-list.jsp"

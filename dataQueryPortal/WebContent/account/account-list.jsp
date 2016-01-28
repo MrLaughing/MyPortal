@@ -45,7 +45,7 @@
 	function delUser(obj,index){
 		$('#table').datagrid('selectRow',index);// 关键在这里  
 	    var row = $('#table').datagrid('getSelected'); //拿到该行数据
-		layer.confirm("确认要删除吗？",function(index){
+		layer.confirm("确认要删除吗?",function(index){
 			//此处请求后台程序，下方是成功后的前台处理……
 			<%-- document.location.href="<%=basePath%>account/account_deleteAccount.action?username="+row.username; --%>
 			$.ajax({
@@ -67,9 +67,14 @@
         $('#table').datagrid('selectRow',index);// 关键在这里  
         var row = $('#table').datagrid('getSelected'); //拿到该行数据
         if (row){  
-        	layer_show('编辑用户','<%=basePath%>account/account_findaccount.action?username='+row.username,'500','450');
+        	layer_show('编辑用户','<%=basePath%>account/account_findaccount.action?username='+row.username,'800','510');
         }  
     }  
+	/* 添加用户 */
+    function addUser(){  
+      layer_show('添加用户','<%=basePath%>account/account-add.jsp','800','510');
+    } 
+	
 	function find() {
 		if (true) {
 			$('#table').datagrid({
@@ -162,6 +167,10 @@
 					class="input-text" /> <span>&nbsp&nbsp&nbsp&nbsp</span> <a
 					href="javascript:;" name="find" id="find" class="btn btn-success"
 					onclick="find()"> <i class="Hui-iconfont">&#xe665;</i> 查询
+				</a>
+				<a
+					href="javascript:;" name="find" id="find" class="btn btn-success"
+					onclick="addUser()"> <i class="Hui-iconfont">&#xe604;</i> 添加用户
 				</a>
 			</form>
 		</div>

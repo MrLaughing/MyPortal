@@ -16,9 +16,16 @@
 				<param name="inputName">inputStream</param>
 			</result>
 			<result name="findaccount" type="dispatcher">account-edit.jsp</result>
-			<result name="signupAccount" type="dispatcher">../signup/signup-role.jsp</result>
-			<result name="signuprole" type="dispatcher">../console/updatesuccess.jsp</result>
-			<result name="findrole" type="dispatcher">../role/role-edit.jsp</result>
+			<!-- <result name="signupAccount" type="dispatcher">../account/account-add-role.jsp</result> -->
+			<result name="signupAccount" type="chain">account_findallRoles</result>
+			<result name="findallRoles" type="dispatcher">../account/account-add-role.jsp</result>
+
+			<!-- chain 用于把相关的几个action连接起来，共同完成一个功能
+			且这些action属于同一个http请求，共享一个ActionContext -->
+			<result name="updateAccount" type="chain">account_findrole</result>
+			<result name="findrole" type="dispatcher">../account/account-edit-role.jsp</result>
+			<result name="findRoleByRolename" type="dispatcher">../role/role-edit.jsp</result>
+			
 			<result name="findauthority" type="dispatcher">../authority/authority-edit.jsp</result>
 			<result name="updatesuccess" type="dispatcher">../console/updatesuccess.jsp</result>
 			<result name="norole" type="dispatcher">../console/norole.jsp</result>

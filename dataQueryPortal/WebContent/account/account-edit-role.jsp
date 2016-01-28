@@ -2,6 +2,7 @@
 	import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
@@ -35,54 +36,40 @@
 <script type="text/javascript" src="<%=basePath%>js/H-ui.js"></script>
 <script type="text/javascript" src="<%=basePath%>js/H-ui.admin.js"></script>
 <script type="text/javascript" src="<%=basePath%>lib/Validform/5.3.2/Validform.min.js"></script>
-<title>编辑用户</title>
+<title>编辑角色</title>
 </head>
 <body>
 	<div class="pd-20">
-		<form id="form1" name="form1" action="<%=basePath%>account/account_updateAccount.action" method="post" class="form form-horizontal"
+		<form action="<%=basePath%>account/account_updateRole.action" method="post" class="form form-horizontal"
 			id="form-user-character-add">
 			<div class="row cl">
 				<label class="form-label col-2"><span class="c-red">*</span>用户名：</label>
 				<div class="formControls col-5">
-					<input type="text" class="input-text" value="${requestScope.account.username}" readonly="readonly"
+					<input type="text" class="input-text" value="${requestScope.username}" readonly="readonly"
 						id="username" name="username" datatype="*2-16"
 						nullmsg="用户名不能为空">
 				</div>
 				<div class="col-4"></div>
 			</div>
-			<div class="row cl">
-				<label class="form-label col-2"><span class="c-red">*</span>姓名：</label>
-				<div class="formControls col-5">
-					<input type="text" class="input-text" value="${requestScope.account.name}"
-						id="name" name="name" datatype="*2-16" nullmsg="请填写姓名！">
+						<div class="row cl">
+				<label class="form-label col-2">用户角色：</label>
+				<div class="formControls col-10">
+					<div class="check-box" >
+						<p><b>基本角色</b></p>
+						<c:forEach items="${requestScope.allRoles }" var="role" >
+							<c:if test="${role.type == '基本角色' }">
+							<span style="display:inline-block;width:32%;"><input id="roles" name="roles" value="${role.id }" type="checkbox">${role.name }</span>
+							</c:if>
+						</c:forEach>
+						<p></p>
+						<p><b>额外角色</b></p>
+						<c:forEach items="${requestScope.allRoles }" var="role" >
+							<c:if test="${role.type == '额外角色' }">
+							<span style="display:inline-block;width:32%;"><input id="roles" name="roles" value="${role.id }" type="checkbox">${role.name }</span>
+							</c:if>
+						</c:forEach>
+					</div>
 				</div>
-				<div class="col-4"></div>
-			</div>
-			<div class="row cl">
-				<label class="form-label col-2"><span class="c-red">*</span>邮箱：</label>
-				<div class="formControls col-5">
-					<input type="text" class="input-text" value="${requestScope.account.email}" name="email"
-						id="email" datatype="e" nullmsg="请输入邮箱！">
-				</div>
-				<div class="col-4"></div>
-			</div>
-			<div class="row cl">
-				<label class="form-label col-2">部门：</label>
-				<div class="formControls col-5">
-					<span class="select-box"> <select class="select" size="1" 
-						name="department" id="department" datatype="*" nullmsg="请选择部门！">
-							<option value="" selected>--未选择--</option>
-							<option value="管理员">管理员</option>
-							<option value="回收">回收</option>
-							<option value="客服">客服</option>
-							<option value="商城">商城</option>
-							<option value="市场">市场</option>
-							<option value="推广">推广</option>
-							<option value="地推">地推</option>
-					</select>
-					</span>
-				</div>
-				<div class="col-4"></div>
 			</div>
 			<div class="row cl">
 				<div class="col-10 col-offset-2">
@@ -95,26 +82,50 @@
 		</form>
 	</div>
 	<script type="text/javascript">
+	/* 处理角色权限选择 */
 		$(function() {
-			/* 处理格式验证后提交 */
-			$("#form1").Validform({
+			/* 处理格式验证 */
+			$("#form-user-character-add").Validform({
 				tiptype:2,
 				callback:function(form){
 					form[0].submit();
+				/* 	var index = parent.layer.getFrameIndex(window.name);
+					parent.$('.btn-refresh').click();
+					parent.layer.close(index); */
 				}
 			});
 		});
-	window.onload=department;
-	/* 初始select标签下部门、角色权限 */
-	function department(){
-		var	selected='<%= request.getAttribute("department")%>';
-		var departments=document.getElementById("department");
-		for(var i=0;i<departments.options.length;i++){
-			if(departments.options[i].value==selected){
-				departments.options[i].selected=true;
-				break;
-			};
+	window.onload=role;
+	/* 初始用户角色checkbox */
+	function role(){
+		var roleidsJson=<%= request.getAttribute("roleidsJson")%>;
+		var ewairoleidsJson=<%= request.getAttribute("ewairoleidsJson") %>;
+	/* 	alert(roleidsJson.roleids.length); */
+		for(var i=0;i<roleidsJson.roleids.length;i++){
+		/* 	alert(roleidsJson.roleids[i]); */
+			var input = document.getElementsByTagName("input");
+			for (var j = 0; j < input.length; j++) {
+				if(input[j].type == "checkbox"){
+				/* 	alert(input[j].value+","+roleidsJson.roleids[i]); */
+					if(input[j].value==roleidsJson.roleids[i]){
+						input[j].checked=true;//已有角色初始选中
+						/* input[j].disabled=true;//已有的角色不再提交 */
+					}
+				}
+			}
 		};
+		for(var i=0;i<ewairoleidsJson.ewairoleids.length;i++){
+			var input = document.getElementsByTagName("input");
+			for(var j = 0; j < input.length; j++){
+				if(input[j].type=="checkbox"){
+					if(input[j].value==ewairoleidsJson.ewairoleids[i]){
+						/* input[j].style.display=""; */
+						input[j].disabled=true;/* 已重叠的额外角色不再tijiao */
+					}
+				}
+			}
+		}
+		
 	};
 	</script>
 </body>

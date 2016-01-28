@@ -14,6 +14,8 @@
 	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
  	<!-- 整个项目所上传文件的最大的Size为20M -->
  	<constant name="struts.multipart.maxSize" value="20971520"/>
+	
+	
 	<package name="first" namespace="/" extends="struts-default,json-default"></package>
 	<package name="distribute" namespace="/distribute"
 		extends="struts-default,json-default">
@@ -29,8 +31,8 @@
 	<include file="account_struts.xml"></include>
 	<include file="write_struts.xml"></include>
 	<include file="test_struts.xml"></include>
+	<include file="login_struts.xml"></include>
 	<include file="query_struts.xml"></include>
 	<include file="oauth2_struts.xml"></include>
-	<include file="login_struts.xml"></include>
 
 </struts>

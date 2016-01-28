@@ -1,5 +1,6 @@
 package com.zai360.portal.test.dao.impl;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -53,6 +54,11 @@ public class AccountDaoImpl extends BaseDaoImpl implements
 	}
 
 	@Override
+	public void addRole(StringBuffer sql) {
+		this.getSqlSession().insert("account.addRole",new SQLAdapter(sql.toString()));
+	}
+	
+	@Override
 	public void insertRole(StringBuffer sql) {
 		this.getSqlSession().insert("account.insertRole", new SQLAdapter(sql.toString()));
 	}
@@ -90,5 +96,16 @@ public class AccountDaoImpl extends BaseDaoImpl implements
 	@Override
 	public void deleteAccount(StringBuffer sql) {
 		this.getSqlSession().delete("account.deleteAccount", new SQLAdapter(sql.toString()));
+	}
+
+	@Override
+	public void realUpdateRole(StringBuffer sql) {
+		this.getSqlSession().update("account.realUpdateRole", new SQLAdapter(sql.toString()));
+	}
+
+	@Override
+	public List<HashMap<String,Object>> findallRoles(StringBuffer sql) {
+		List<HashMap<String,Object>> list = this.getSqlSession().selectList("account.findRoles", new SQLAdapter(sql.toString()));
+		return list;
 	}
 }

@@ -5,6 +5,7 @@ import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -16,7 +17,6 @@ import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authz.UnauthorizedException;
 import org.apache.shiro.subject.Subject;
-import org.apache.shiro.util.ThreadContext;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,8 +36,8 @@ import com.zai360.portal.test.vo.Role;
 import com.zai360.portal.test.vo.Role_authority;
 
 /**
- * 账户相关：登入登出查询
- * 角色权限相关
+ * 账户相关：登入登出查询 角色权限相关
+ * 
  * @author report
  *
  */
@@ -61,31 +61,16 @@ public class AccountAction extends ActionSupport {
 		String captchacode = request.getParameter("captchacode");// 接收验证码
 		boolean rememberMe = request.getParameter("rememberMe") != null;// 记住密码
 		String login_ip = request.getRemoteAddr();// 接收请求端的P地址
-		password=Md5Util.toMd5(password);// MD5加密 字母小写
-//		ThreadContext.bind(SecurityUtils.getSubject()); //
+		password = Md5Util.toMd5(password);// MD5加密 字母小写
+		// ThreadContext.bind(SecurityUtils.getSubject()); //
 		Subject currentUser = SecurityUtils.getSubject();
 
 		UsernamePasswordCaptchaToken token = new UsernamePasswordCaptchaToken(
 				username, password, rememberMe, login_ip, captchacode);
-		try {
+		
 			currentUser.login(token);// 登录 这里会回调reaml里的一个方法 AuthenticationInfo
 										// doGetAuthenticationInfo()
-		} catch (UnknownAccountException uae) {
-			request.setAttribute("msg", "用户不存在");
-			return "error";
-		} catch (IncorrectCredentialsException ice) {
-			request.setAttribute("msg", "密码不正确");
-			return "error";
-		} catch (UnauthorizedException ue) {
-			request.setAttribute("msg", "没有权限");
-			return "error";
-		} catch (CaptchaException ce) {
-			request.setAttribute("msg", "验证码错误");
-			return "error";
-		} catch (AuthenticationException e) {
-			request.setAttribute("msg", "其它错误");
-			return "error";
-		}
+		
 		// 更新用户信息
 		Date now = new Date();
 		SimpleDateFormat dateformat = new SimpleDateFormat(
@@ -132,18 +117,30 @@ public class AccountAction extends ActionSupport {
 		this.inputStream = jsonUtil.string2stream(info);
 		return "ajax";
 	}
+
 	/**
-	 * 用户注册--1、添加用户
-	 * 并返回用户的用户名
+	 * 用户注册--1、添加用户 并返回用户的用户名
+	 * 
 	 * @return
 	 */
-	public String signupAccount(){
-		HttpServletRequest request= ServletActionContext.getRequest();
-		String username=request.getParameter("username");//获取用户名（基本为工号）
-		StringBuffer sql=Sql4Account.insertAccount();
-		this.accountService.insertAccount(sql);//添加用户
-		request.setAttribute("username", username);//将新注册用户的用户名返回给下级页面
+	public String signupAccount() {
+		HttpServletRequest request = ServletActionContext.getRequest();
+		String username = request.getParameter("username");// 获取用户名（基本为工号）
+		StringBuffer sql = Sql4Account.insertAccount();
+		this.accountService.insertAccount(sql);// 添加用户
+		request.setAttribute("username", username);// 将新注册用户的用户名返回给下级页面
 		return "signupAccount";
+	}
+	/**
+	 * 获取所有角色
+	 * @return
+	 */
+	public String findallRoles(){
+		HttpServletRequest request=ServletActionContext.getRequest();
+		StringBuffer sql=Sql4Account.findallRoles();
+		List<HashMap<String,Object>> allRoles = this.accountService.findallRoles(sql);
+		request.setAttribute("allRoles", allRoles);
+		return "findallRoles";
 	}
 	/**
 	 * 编辑用户： 1、根据用户名查询用户对象
@@ -168,47 +165,10 @@ public class AccountAction extends ActionSupport {
 	public String updateAccount() {
 		StringBuffer sql = Sql4Account.updateAccount();// 获取更新用户SQL
 		this.accountService.updateAccount(sql);// 更新用户信息
-		return "updatesuccess";
+		return "updateAccount";
 	}
 	/**
-	 * 删除用户
-	 * @return
-	 */
-	public String deleteAccount(){
-		HttpServletRequest request=ServletActionContext.getRequest();
-		String username=request.getParameter("username");
-		Long id=this.accountService.findAdmin(username).getId();//获取用户id
-		this.accountService.deleteRole(Sql4Account.deleteRole(id));//删除用户角色
-		this.accountService.deleteAccount(Sql4Account.deleteAccount(username));//删除用户
-		this.inputStream=jsonUtil.string2stream("删除成功");//做标志位
-		return "ajax";//返回ajax
-	}
-
-	/**
-	 * 根据条件查询角色（分页）
-	 * 
-	 * @return
-	 */
-	public String findRoles() {
-		HttpServletRequest request = ServletActionContext.getRequest();
-		int pageNumber = Integer.parseInt(request.getParameter("page"));// 当前页，页码
-		int pageSize = Integer.parseInt(request.getParameter("rows"));// 每页记录数
-		StringBuffer rolestotalsql = Sql4Account.findRolesTotal();
-		StringBuffer rolessql = Sql4Account.findRoles(pageNumber, pageSize);
-		this.page = this.accountService.findPage(rolestotalsql,
-				"account.findRoles", rolessql, pageNumber, pageSize);
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss")
-				.create();// Gson处理Date格式
-		String contents = gson.toJson(page.getContents());
-		String info = "{\"total\":" + page.getTotalNumber() + ",\"rows\":"
-				+ contents + "}";// 拼接json数据
-		this.inputStream = jsonUtil.string2stream(info);
-		return "ajax";
-	}
-
-	/**
-	 * 编辑用户角色： 1、根据用户名查询用户角色
-	 * 同时查询同权限的其他额外角色id
+	 * 编辑用户角色： 1、根据用户名查询用户角色 同时查询同权限的其他额外角色id
 	 * 
 	 * @return
 	 */
@@ -218,22 +178,28 @@ public class AccountAction extends ActionSupport {
 		List<Role> roles = this.accountService.findRole(username);
 		Iterator<Role> it = roles.iterator();
 		List<String> roleids = new ArrayList<String>();
-		List<String> ewairoleids=new ArrayList<String>();
-		while (it.hasNext()) {//遍历该用户的角色's
-			Role role=it.next();//获取角色
-			String id=String.valueOf(role.getId());// 获取角色id
+		List<String> ewairoleids = new ArrayList<String>();
+		while (it.hasNext()) {// 遍历该用户的角色's
+			Role role = it.next();// 获取角色
+			String id = String.valueOf(role.getId());// 获取角色id
 			roleids.add(String.valueOf(role.getId()));
-			if("基本角色".equals(role.getType())){//为用户筛选基本角色已有的权限（id）
-				List<String> findAuthorityByIdList=new ArrayList<String>();
-				findAuthorityByIdList=this.accountService.findAuthorityById(Sql4Account.findAuthorityById(id));
+			if ("基本角色".equals(role.getType())) {// 为用户筛选基本角色已有的权限（id）
+				List<String> findAuthorityByIdList = new ArrayList<String>();
+				findAuthorityByIdList = this.accountService
+						.findAuthorityById(Sql4Account.findAuthorityById(id));
 				ewairoleids.addAll(findAuthorityByIdList);
 			}
 		}
+		StringBuffer sql=Sql4Account.findallRoles();
+		List<HashMap<String,Object>> allRoles = this.accountService.findallRoles(sql);
+		request.setAttribute("allRoles", allRoles);
+		
+		
 		request.setAttribute("username", username);// 存入request域中
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss")
 				.create();// Gson处理Date格式
 		String roleidsJson = gson.toJson(roleids);
-		String ewairoleidsJson=gson.toJson(ewairoleids);
+		String ewairoleidsJson = gson.toJson(ewairoleids);
 		roleidsJson = "{\"roleids\":" + roleidsJson + "}";// 拼接json数据
 		ewairoleidsJson = "{\"ewairoleids\":" + ewairoleidsJson + "}";
 		request.setAttribute("roleidsJson", roleidsJson);// 存入request域中
@@ -245,8 +211,8 @@ public class AccountAction extends ActionSupport {
 	/**
 	 * 编辑用户角色： 2、更新用户角色
 	 * 
-	 * 用户注册--2、添加角色
-	 * 并返回用户的用户名
+	 * 用户注册--2、添加角色 并返回用户的用户名
+	 * 
 	 * @return
 	 */
 	public String updateRole() {
@@ -270,6 +236,75 @@ public class AccountAction extends ActionSupport {
 			}
 		}
 	}
+	/**
+	 * 删除用户
+	 * 
+	 * @return
+	 */
+	public String deleteAccount() {
+		HttpServletRequest request = ServletActionContext.getRequest();
+		String username = request.getParameter("username");
+		Long id = this.accountService.findAdmin(username).getId();// 获取用户id
+		this.accountService.deleteRole(Sql4Account.deleteRole(id));// 删除用户角色
+		this.accountService.deleteAccount(Sql4Account.deleteAccount(username));// 删除用户
+		this.inputStream = jsonUtil.string2stream("删除成功");// 做标志位
+		return "ajax";// 返回ajax
+	}
+
+	/**
+	 * 根据条件查询角色（分页）
+	 * 
+	 * @return
+	 */
+	public String findRoles() {
+		HttpServletRequest request = ServletActionContext.getRequest();
+		int pageNumber = Integer.parseInt(request.getParameter("page"));// 当前页，页码
+		int pageSize = Integer.parseInt(request.getParameter("rows"));// 每页记录数
+		StringBuffer rolestotalsql = Sql4Account.findRolesTotal();
+		StringBuffer rolessql = Sql4Account.findRoles(pageNumber, pageSize);
+		this.page = this.accountService.findPage(rolestotalsql,
+				"account.findRoles", rolessql, pageNumber, pageSize);
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss")
+				.create();// Gson处理Date格式
+		String contents = gson.toJson(page.getContents());
+		String info = "{\"total\":" + page.getTotalNumber() + ",\"rows\":"
+				+ contents + "}";// 拼接json数据
+		this.inputStream = jsonUtil.string2stream(info);
+		return "ajax";
+	}
+	/**
+	 * 编辑角色：1、查询角色信息
+	 * @return
+	 * @throws UnsupportedEncodingException 
+	 */
+	public String findRoleByRolename() throws UnsupportedEncodingException{
+		HttpServletRequest request=ServletActionContext.getRequest();
+		String name = request.getParameter("name");//角色名
+		name = new String(name.getBytes("iso-8859-1"), "utf-8");// 将ASCII解码，ISO-8859-1编码是单字节编码，向下兼容ASCII
+		Role role=this.accountService.findRoleByRoleName(name);
+		request.setAttribute("role", role);//传回前台
+		request.setAttribute("type", role.getType());//角色类型
+		return "findRoleByRolename";
+	}
+	/**
+	 * （真！）更新角色信息
+	 * @return
+	 */
+	public String realUpdateRole(){
+		StringBuffer sql = Sql4Account.realUpdateRole();
+		this.accountService.realUpdateRole(sql);
+		return "updatesuccess";
+	}
+	/**
+	 * 添加角色
+	 * 
+	 * @return
+	 */
+	public String addRole() {
+		StringBuffer sql = Sql4Account.addRole();// 添加角色sql
+		this.accountService.addRole(sql);
+		return "updatesuccess";
+	}
 
 	/**
 	 * 查询所有角色权限信息（分页）
@@ -281,7 +316,8 @@ public class AccountAction extends ActionSupport {
 		int pageNumber = Integer.parseInt(request.getParameter("page"));// 当前页，页码
 		int pageSize = Integer.parseInt(request.getParameter("rows"));// 每页记录数
 		StringBuffer authoritiestotalsql = Sql4Account.findAuthoritiesTotal();
-		StringBuffer authoritiessql = Sql4Account.findAuthorities(pageNumber, pageSize);
+		StringBuffer authoritiessql = Sql4Account.findAuthorities(pageNumber,
+				pageSize);
 		this.page = this.accountService
 				.findPage(authoritiestotalsql, "account.findAuthorities",
 						authoritiessql, pageNumber, pageSize);
@@ -347,7 +383,7 @@ public class AccountAction extends ActionSupport {
 			}
 		}
 	}
-
+	
 	/********************************************/
 	public InputStream getInputStream() {
 		return inputStream;

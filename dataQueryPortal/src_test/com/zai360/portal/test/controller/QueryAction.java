@@ -1,5 +1,6 @@
 package com.zai360.portal.test.controller;
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +22,7 @@ import com.zai360.portal.test.interceptor.ResponseInfo;
 import com.zai360.portal.test.service.FindService;
 import com.zai360.portal.test.service.WriteService;
 import com.zai360.portal.test.util.Page;
+import com.zai360.portal.test.util.UrlUtil;
 /**
  * 查询接口
  * 不需要columns表头信息，无dynamic方法
@@ -60,7 +62,7 @@ public class QueryAction extends ActionSupport {
 			querycountsql.append("SELECT COUNT(*) FROM "+requestInfo.getUrl2()+" a WHERE 1=1 ");//查询总条数
 			StringBuffer querysql = new StringBuffer();
 			querysql.append("SELECT * FROM "+requestInfo.getUrl2()+" a WHERE 1=1 ");//查询结果
-			Map<String,Object> parametersmap = requestInfo.getParameters();	
+			Map<String,String[]> parametersmap = requestInfo.getParameters();	
 			for(String key:parametersmap.keySet()){
 				if(key.endsWith("_min")||key.endsWith("_max")){//判断查询参数是否含有日期间隔
 					String realkey=key.substring(0, key.length()-4);
@@ -148,6 +150,13 @@ public class QueryAction extends ActionSupport {
 				this.page = this.findService.findPage(querycountsql, "common.query", querysql, querypageNumber, querypageSize);
 			}
 			
+		} catch(UnsupportedEncodingException e){
+			e.printStackTrace();
+			responseInfo.setSuccess("0");
+			responseInfo.setMsg("只支持utf-8编码");
+			responseInfo.setErrorCode(ErrorCode.URL_UNSUPPORT_ENCODE);
+			this.setResult(responseInfo);
+			return "ajax";
 		} catch (ErrorMsgException e) {
 			e.printStackTrace();
 			responseInfo.setSuccess("0");
@@ -193,17 +202,19 @@ public class QueryAction extends ActionSupport {
 	 * @param request
 	 * @return
 	 * @throws ErrorMsgException 
+	 * @throws UnsupportedEncodingException 
 	 */
-	public static RequestInfo getRequestInfo(HttpServletRequest request) throws ErrorMsgException {
+	public static RequestInfo getRequestInfo(HttpServletRequest request) throws ErrorMsgException, UnsupportedEncodingException {
 		RequestInfo requestInfo=new RequestInfo();
 		requestInfo.setHost(request.getRemoteAddr());
 		requestInfo.setPort(request.getRemotePort());
 		requestInfo.setMethod(request.getMethod());
 		requestInfo.setUrl1(request.getServletPath());// /query/dtxx
 		requestInfo.setUrl2(ActionContext.getContext().getName());// 即为表名
-		Map<String,Object> parametersmap=ActionContext.getContext().getParameters();
+//		Map<String,String[]> parametersmap = request.getParameterMap();
+		Map<String,String[]> parametersmap = UrlUtil.decodeurl(request);
 		if(parametersmap.containsKey("pageSize")){
-			String[] pageSize=(String[])parametersmap.get("pageSize");
+			String[] pageSize=parametersmap.get("pageSize");
 			if(!"".equals(pageSize[0])&&pageSize!=null){
 				requestInfo.setPageSize(Integer.parseInt(pageSize[0]));
 			}else{
@@ -211,7 +222,7 @@ public class QueryAction extends ActionSupport {
 			}
 		}
 		if(parametersmap.containsKey("pageNumber")){
-			String[] pageNumber=(String[])parametersmap.get("pageNumber");
+			String[] pageNumber=parametersmap.get("pageNumber");
 			if(!"".equals(pageNumber[0])&&pageNumber!=null){
 			requestInfo.setPageNumber(Integer.parseInt(pageNumber[0]));
 			}else{
@@ -219,7 +230,7 @@ public class QueryAction extends ActionSupport {
 			}
 		}
 		if(parametersmap.containsKey("index")){
-			String[] index=(String[])parametersmap.get("index");
+			String[] index=parametersmap.get("index");
 			if(!"".equals(index[0])&&index!=null){
 				requestInfo.setIndex(Integer.parseInt(index[0]));
 			}else{

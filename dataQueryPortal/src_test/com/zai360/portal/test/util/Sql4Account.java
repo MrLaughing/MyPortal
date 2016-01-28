@@ -126,25 +126,23 @@ public class Sql4Account {
 		
 	}
 	/**
-	 * 查询用户角色条目数
+	 * 查询角色条目数
 	 * 
 	 * @return
 	 */
 	public static StringBuffer findRolesTotal() {
 		HttpServletRequest request = ServletActionContext.getRequest();
-		String username = request.getParameter("username");
+		String type = request.getParameter("type");
 		StringBuffer sql = new StringBuffer();
-		sql.append("SELECT COUNT(*) FROM xx_admin_report a LEFT JOIN (SELECT r.`name`, "
-				+ " r.`description`, ar.`admins` FROM xx_role_report r, xx_admin_role_report ar "
-				+ " WHERE r.`id` = ar.`roles`) role ON a.`id` = role.`admins`");
-		if (username != "") {
-			sql.append(" WHERE a.`username`='" + username + "' ");
+		sql.append("SELECT COUNT(*) FROM xx_role_report r ");
+		if (!"".equals(type)&&type!=null) {
+			sql.append(" WHERE r.`type`='"+type+"' ");
 		}
 		return sql;
 	}
 
 	/**
-	 * 按条件查询用户角色
+	 * 按条件查询角色
 	 * 
 	 * @param pageNumber
 	 * @param pageSize
@@ -152,19 +150,59 @@ public class Sql4Account {
 	 */
 	public static StringBuffer findRoles(int pageNumber, int pageSize) {
 		HttpServletRequest request = ServletActionContext.getRequest();
-		String username = request.getParameter("username");
+		String type = request.getParameter("type");
 		StringBuffer sql = new StringBuffer();
-		sql.append("SELECT a.`username` AS '用户名', a.`name` AS '姓名', role.`name` AS '角色', role.`type` AS '角色类型', "
-				+ " role.`description` AS '角色描述' FROM xx_admin_report a LEFT JOIN (SELECT r.`name`, "
-				+ " r.`description`, r.`type`, ar.`admins` FROM xx_role_report r, xx_admin_role_report ar "
-				+ " WHERE r.`id` = ar.`roles`) role ON a.`id` = role.`admins` ");
-		if (username != "") {
-			sql.append(" WHERE a.`username`='" + username + "' ");
+		sql.append("SELECT * FROM xx_role_report r ");
+		if (!"".equals(type)&&type!=null) {
+			sql.append(" WHERE r.`type`='"+type+"' ");
 		}
 		sql.append(" LIMIT " + (pageNumber - 1) * pageSize + "," + pageSize);
 		return sql;
 	}
-
+	/**
+	 * 添加角色
+	 * @return
+	 */
+	public static StringBuffer addRole(){
+		HttpServletRequest request=ServletActionContext.getRequest();
+		String name = request.getParameter("name");
+		String type = request.getParameter("type");
+		String description = request.getParameter("description");
+		SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String create_date = sdf.format(new Date());
+		String modify_date = sdf.format(new Date());
+		StringBuffer sql = new StringBuffer();
+		sql.append("INSERT INTO xx_role_report(create_date,modify_date,"
+				+ "description,NAME,TYPE) VALUES('"+create_date+"','"+modify_date
+				+"','"+description+"','"+name+"','"+type+"')");
+		return sql;
+	}
+	/**
+	 * （真！）更新用户信息
+	 * @return
+	 */
+	public static StringBuffer realUpdateRole(){
+		HttpServletRequest request=ServletActionContext.getRequest();
+		String name = request.getParameter("name");
+		String type =request.getParameter("type");
+		String description=request.getParameter("description");
+		SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String modify_date = sdf.format(new Date());
+		StringBuffer sql =new StringBuffer();
+		sql.append("UPDATE xx_role_report r SET r.`description`='"+description
+				+"', r.`type`='"+type+"', r.`modify_date`='"+modify_date+"' WHERE r.`name`='"+name+"' ");
+		return sql;
+	}
+	/**
+	 * 获取所有角色
+	 * @return
+	 */
+	public static StringBuffer findallRoles(){
+		StringBuffer sql=new StringBuffer();
+		sql.append("SELECT * FROM xx_role_report r ");
+		return sql;
+	}
+	
 	/**
 	 * 删除用户原有角色
 	 * 

@@ -31,13 +31,6 @@
 		<result column="authorities" property="authorities" />
 	</resultMap>
 
-	<resultMap type="java.util.Map" id="rolesResult">
-		<result column="用户名" property="用户名" javaType="String" />
-		<result column="姓名" property="姓名" javaType="String" />
-		<result column="角色" property="角色" javaType="String" />
-		<result column="角色类型" property="角色类型" javaType="String"/>
-		<result column="角色描述" property="角色描述" javaType="String" />
-	</resultMap>
 	<resultMap type="java.util.Map" id="authoritiesResult">
 		<result column="角色" property="角色" javaType="String" />
 		<result column="角色描述" property="角色描述" javaType="String" />
@@ -62,6 +55,19 @@
 		resultMap="authoritiesResult">
 		${sql}
 	</select>
+	<!-- (真！)更新用户信息 -->
+	<update id="realUpdateRole" parameterType="com.zai360.portal.test.util.SQLAdapter">
+		${sql}
+	</update>
+	<!-- 添加角色 -->
+	<insert id="addRole" parameterType="com.zai360.portal.test.util.SQLAdapter">
+		${sql}
+	</insert>
+	<!-- 按条件查询角色 -->
+	<select id="findRoles" parameterType="com.zai360.portal.test.util.SQLAdapter"
+		resultType="java.util.Map">
+		${sql}
+	</select>
 	<!-- 重新添加用户角色 -->
 	<insert id="insertRole" parameterType="com.zai360.portal.test.util.SQLAdapter">
 		${sql}
@@ -74,11 +80,6 @@
 	<delete id="deleteAccount" parameterType="com.zai360.portal.test.util.SQLAdapter">
 		${sql}
 	</delete>
-	<!-- 查询用户角色 -->
-	<select id="findRoles" parameterType="com.zai360.portal.test.util.SQLAdapter"
-		resultMap="rolesResult">
-		${sql}
-	</select>
 	<!-- 更新用户信息 -->
 	<update id="updateAccount" parameterType="com.zai360.portal.test.util.SQLAdapter">
 		${sql}
@@ -121,5 +122,4 @@
 		a.* FROM xx_admin_report a WHERE
 		a.`username`=#{username};
 	</select>
-
 </mapper>

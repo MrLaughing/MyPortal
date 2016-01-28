@@ -14,5 +14,6 @@ public class ErrorCode {
 	/*************empty*****************/
 	public static String PARAM_EMPTY_TABLE="2001";//查询表不存在
 	public static String PARAM_EMPTY_PARAMETER="2002";//查询表中不包含参数列
-	
+	/*************unsupport*****************/
+	public static String URL_UNSUPPORT_ENCODE="3001";//不支持的编码格式
 }

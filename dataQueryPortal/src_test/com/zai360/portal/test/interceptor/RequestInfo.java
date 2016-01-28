@@ -19,7 +19,7 @@ public class RequestInfo {
 	private int pageNumber;//当前页码
 	private int index;//查询第某条记录，默认不使用index查询
 	/********可选请求参数********/
-	private Map<String,Object> parameters;//包含？后的请求参数
+	private Map<String,String[]> parameters;//包含？后的请求参数
 //	private String datetime_min;//时间段min
 //	private String datetime_max;//时间段max
 //	private String datetime_begin;//时间起点
@@ -74,10 +74,10 @@ public class RequestInfo {
 	public void setPageNumber(int pageNumber) {
 		this.pageNumber = pageNumber;
 	}
-	public Map<String, Object> getParameters() {
+	public Map<String, String[]> getParameters() {
 		return parameters;
 	}
-	public void setParameters(Map<String, Object> parameters) {
+	public void setParameters(Map<String, String[]> parameters) {
 		this.parameters = parameters;
 	}
 	public int getIndex() {

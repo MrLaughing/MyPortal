@@ -7,9 +7,9 @@
 <struts>
 	<package name="query" namespace="/query" extends="struts-default,json-default">
 		<interceptors><!-- 拦截器 -->
-			<interceptor name="1" class="com.zai360.portal.test.interceptor.Myinterceptor"></interceptor>
+			<interceptor name="myinterceptor" class="com.zai360.portal.test.interceptor.Myinterceptor"></interceptor>
 			<interceptor-stack name="Myinterceptorstack">
-				<interceptor-ref name="1"></interceptor-ref>
+				<interceptor-ref name="myinterceptor"></interceptor-ref>
 			</interceptor-stack>
 		</interceptors>
 		<action name="*" class="com.zai360.portal.test.controller.QueryAction" method="search">

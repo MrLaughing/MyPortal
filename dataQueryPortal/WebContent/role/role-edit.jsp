@@ -2,7 +2,6 @@
 	import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
@@ -40,63 +39,36 @@
 </head>
 <body>
 	<div class="pd-20">
-		<form action="<%=basePath%>account/account_updateRole.action" method="post" class="form form-horizontal"
+		<form id="form1" name="form1" action="<%=basePath%>account/account_realUpdateRole.action" method="post" class="form form-horizontal"
 			id="form-user-character-add">
 			<div class="row cl">
-				<label class="form-label col-2"><span class="c-red">*</span>用户名：</label>
+				<label class="form-label col-2"><span class="c-red">*</span>角色：</label>
 				<div class="formControls col-5">
-					<input type="text" class="input-text" value="${requestScope.username}" readonly="readonly"
-						id="username" name="username" datatype="*2-16"
-						nullmsg="用户名不能为空">
+					<input type="text" class="input-text" value="${requestScope.role.name}" readonly="readonly"
+						id="name" name="name" datatype="*2-16" nullmsg="角色不能为空">
 				</div>
 				<div class="col-4"></div>
 			</div>
 			<div class="row cl">
-				<label class="form-label col-2">用户角色：</label>
-				<div class="formControls col-10">
-					<div class="check-box" >
-						<b>基本角色</b>
-						<table border="0" cellpadding="0" cellspacing="0" style="text-align:left; ">
-							<tr height="28px">
-							   <td width="140px"><input id="roles" name="roles" value="0" type="checkbox">管理员</td>
-							   <td width="140px"><input id="roles" name="roles" value="1" type="checkbox">回收人员</td>
-							   <td width="140px"><input id="roles" name="roles" value="2" type="checkbox">客服人员</td>
-							</tr>
-						 	<tr height="28px">
-							   <td width="140px"><input id="roles" name="roles" value="3" type="checkbox">商城人员</td>
-							   <td width="140px"><input id="roles" name="roles" value="4" type="checkbox">市场人员</td>
-							   <td width="140px"><input id="roles" name="roles" value="5" type="checkbox">推广人员</td>
-							</tr>
-							<tr height="28px">
-							   <td width="140px"><input id="roles" name="roles" value="31" type="checkbox">地推人员</td>
-							   <td width="140px"><input id="roles" name="roles" value="30" type="checkbox">地推负责人</td>
-							</tr>
-						</table>
-						<b>额外角色</b>
-						<table border="0" cellpadding="0" cellspacing="0" style="text-align:left; ">
-							<tr height="28px">
-							   <td width="140px"><input id="roles" name="roles" value="6" type="checkbox">仅查各基站出差人数</td>
-							   <td width="140px"><input id="roles" name="roles" value="7" type="checkbox">仅查首次上门违约用户</td>
-							   <td width="140px"><input id="roles" name="roles" value="8" type="checkbox">仅查停用用户数</td>
-							</tr>
-						 	<tr height="28px">
-							   <td width="140px"><input id="roles" name="roles" value="9" type="checkbox">仅查电话购物信息</td>
-							   <td width="140px"><input id="roles" name="roles" value="10" type="checkbox">仅查app下单信息</td>
-							   <td width="140px"><input id="roles" name="roles" value="11" type="checkbox">仅查未发放优惠券用户</td>
-							</tr>
-						 	<tr height="28px">
-							   <td width="140px"><input id="roles" name="roles" value="12" type="checkbox">仅查基站推广人数</td>
-							   <td width="140px"><input id="roles" name="roles" value="13" type="checkbox">仅查地推注册明细</td>
-							   <td width="140px"><input id="roles" name="roles" value="14" type="checkbox">仅查地推推荐服务日期</td>
-							</tr>
-						 	<tr height="28px">
-							   <td width="140px"><input id="roles" name="roles" value="15" type="checkbox">仅查查询用户信息</td>
-							   <td width="140px"><input id="roles" name="roles" value="16" type="checkbox">仅查重复地址用户信息</td>
-							   <td width="140px"><input id="roles" name="roles" value="17" type="checkbox">仅查客户注销原因</td>
-							</tr>
-						</table>
-					</div>
+				<label class="form-label col-2"><span class="c-red">*</span>角色描述：</label>
+				<div class="formControls col-5">
+					<input type="text" class="input-text" name="description" value="${requestScope.role.description}"
+						id="description" datatype="*2-32" nullmsg="请输入描述信息！">
 				</div>
+				<div class="col-4"></div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-2">角色类型：</label>
+				<div class="formControls col-5">
+					<span class="select-box"> <select class="select" size="1" 
+						name="type" id="type" datatype="*" nullmsg="请选择类型！">
+							<option value="" selected>--未选择--</option>
+							<option value="基本角色">基本角色</option>
+							<option value="额外角色">额外角色</option>
+					</select>
+					</span>
+				</div>
+				<div class="col-4"></div>
 			</div>
 			<div class="row cl">
 				<div class="col-10 col-offset-2">
@@ -109,50 +81,26 @@
 		</form>
 	</div>
 	<script type="text/javascript">
-	/* 处理角色权限选择 */
 		$(function() {
-			/* 处理格式验证 */
-			$("#form-user-character-add").Validform({
+			/* 处理格式验证后提交 */
+			$("#form1").Validform({
 				tiptype:2,
 				callback:function(form){
 					form[0].submit();
-				/* 	var index = parent.layer.getFrameIndex(window.name);
-					parent.$('.btn-refresh').click();
-					parent.layer.close(index); */
 				}
 			});
 		});
-	window.onload=role;
-	/* 初始用户角色checkbox */
-	function role(){
-		var roleidsJson=<%= request.getAttribute("roleidsJson")%>;
-		var ewairoleidsJson=<%= request.getAttribute("ewairoleidsJson") %>;
-	/* 	alert(roleidsJson.roleids.length); */
-		for(var i=0;i<roleidsJson.roleids.length;i++){
-		/* 	alert(roleidsJson.roleids[i]); */
-			var input = document.getElementsByTagName("input");
-			for (var j = 0; j < input.length; j++) {
-				if(input[j].type == "checkbox"){
-				/* 	alert(input[j].value+","+roleidsJson.roleids[i]); */
-					if(input[j].value==roleidsJson.roleids[i]){
-						input[j].checked=true;//已有角色初始选中
-						/* input[j].disabled=true;//已有的角色不再提交 */
-					}
-				}
-			}
+	window.onload=type;
+	/* 初始select标签下角色信息 */
+	function type(){
+		var	selected='<%= request.getAttribute("type")%>';
+		var types=document.getElementById("type");
+		for(var i=0;i<types.options.length;i++){
+			if(types.options[i].value==selected){
+				types.options[i].selected=true;
+				break;
+			};
 		};
-		for(var i=0;i<ewairoleidsJson.ewairoleids.length;i++){
-			var input = document.getElementsByTagName("input");
-			for(var j = 0; j < input.length; j++){
-				if(input[j].type=="checkbox"){
-					if(input[j].value==ewairoleidsJson.ewairoleids[i]){
-						/* input[j].style.display=""; */
-						input[j].disabled=true;/* 已重叠的额外角色不再tijiao */
-					}
-				}
-			}
-		}
-		
 	};
 	</script>
 </body>

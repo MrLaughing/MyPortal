@@ -37,22 +37,26 @@
 <%@ include file="../util/easyui.jsp"%>
 <script type="text/javascript">
 	function formatOper(value,row,index){  
-	    return "<a style='text-decoration:none' class='ml-5' onClick='editUser("+index+")' title='编辑' href='javascript:;'><i class='Hui-iconfont'>&#xe6df;</i></a>";  
+	    return "<a style='text-decoration:none' class='ml-5' onClick='editRole("+index+")' title='编辑' href='javascript:;'><i class='Hui-iconfont'>&#xe6df;</i></a>";  
 	}
 	/* 编辑角色 */
-    function editUser(index){  
+    function editRole(index){  
         $('#table').datagrid('selectRow',index);// 关键在这里  
         var row = $('#table').datagrid('getSelected'); //拿到该行数据
-        if (row){  
-        	layer_show('修改角色','<%=basePath%>account/account_findrole.action?username='+row.用户名,'800','510');
+        if (row){ 
+        	layer_show('编辑角色','<%=basePath%>account/account_findRoleByRolename.action?name='+row.name,'800','510');
         }  
-    }  
+    }
+    /*添加角色*/
+    function addRole(){
+    	layer_show('添加角色','<%=basePath%>role/role-add.jsp','600','510');
+    }
 	function find() {
 		if (true) {
 			$('#table').datagrid({
 				url : "<%=basePath%>account/account_findRoles.action",
 				method : "post",//请求方式
-				title : "用户角色",//标题
+				title : "角色信息",//标题
 				collapsible : true,//是否可以折叠
 				fitColumns : false,//自动适应列宽
 				striped : true,//隔行变色
@@ -61,23 +65,23 @@
 				rownumbers : true,//显示序号
 				singleSelect : true,//单选，只能选择一行
 				queryParams : {
-					username : $("#username").val(),
+					type : $("#type").val(),
 				},//queryParams 传送的额外参数
 				columns : [ [ {
-					field : '用户名',
-					title : '用户名'
-				}, {
-					field : '姓名',
-					title : '姓名'
-				}, {
-					field : '角色',
+					field : 'name',
 					title : '角色'
 				} , {
-					field : '角色类型',
-					title : '角色类型'
-				} , {
-					field : '角色描述',
+					field : 'description',
 					title : '角色描述'
+				} , {
+					field : 'create_date',
+					title : '创建时间'
+				} , {
+					field : 'modify_date',
+					title : '修改时间'
+				} , {
+					field : 'type',
+					title : '角色类型'
 				} , {
 					field : 'id',
 					title : '操作',
@@ -110,11 +114,19 @@
 	<div class="pd-20">
 		<div class="text-c">
 			<form action="" id="form1" name="form1" method="post">
-				用户名：<input type="text"
-					name="username" id="username" style="width: 120px"
-					class="input-text" placeholder="可不填" /> <span>&nbsp&nbsp&nbsp&nbsp</span> <a
+			角色类型：<span class="select-box inline"> <select name="type"
+					id="type" class="select" size="1">
+						<option selected="selected" value="">--未选择--</option>
+						<option value="基本角色">基本角色</option>
+						<option value="额外角色">额外角色</option>
+				</select>
+				</span><span>&nbsp&nbsp&nbsp&nbsp</span> <a
 					href="javascript:;" name="find" id="find" class="btn btn-success"
 					onclick="find()"> <i class="Hui-iconfont">&#xe665;</i> 查询
+				</a>
+				<a
+					href="javascript:;" name="addRole" id="addRole" class="btn btn-success"
+					onclick="addRole()"> <i class="Hui-iconfont">&#xe604;</i> 添加角色
 				</a>
 			</form>
 		</div>

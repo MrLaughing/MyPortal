@@ -26,10 +26,13 @@ public class PathUtil {
 	 */
 	public static List<Path> huishouList() {
 		List<Path> huishouList = new ArrayList<Path>();
-		huishouList
-				.add(new Path("ccrs.jsp", "各基站出差人数", QueryEnum.CCRS.getId()));
-		huishouList
-				.add(new Path("smwy.jsp", "首次上门违约用户", QueryEnum.SMWY.getId()));
+		Subject currentUser = SecurityUtils.getSubject();
+		if(currentUser.isPermitted("admin:report_findccrs")){
+			huishouList.add(new Path("ccrs.jsp", "各基站出差人数", QueryEnum.CCRS.getId()));
+		}
+		if(currentUser.isPermitted("admin:report_findsmwy")){
+			huishouList.add(new Path("smwy.jsp", "首次上门违约用户", QueryEnum.SMWY.getId()));
+		}
 		return huishouList;
 	}
 
@@ -40,8 +43,13 @@ public class PathUtil {
 	 */
 	public static List<Path> kefuList() {
 		List<Path> kefuList = new ArrayList<Path>();
-		kefuList.add(new Path("tyyh.jsp", "停用用户数", QueryEnum.TYYH.getId()));
-		kefuList.add(new Path("dhgw.jsp", "电话购物信息", QueryEnum.DHGW.getId()));
+		Subject currentUser = SecurityUtils.getSubject();
+		if(currentUser.isPermitted("admin:report_findtyyh")){
+			kefuList.add(new Path("tyyh.jsp", "停用用户数", QueryEnum.TYYH.getId()));
+		}
+		if(currentUser.isPermitted("admin:report_finddhgw")){
+			kefuList.add(new Path("dhgw.jsp", "电话购物信息", QueryEnum.DHGW.getId()));
+		}
 		return kefuList;
 	}
 
@@ -52,10 +60,14 @@ public class PathUtil {
 	 */
 	public static List<Path> shangchengList() {
 		List<Path> shangchengList = new ArrayList<Path>();
-		shangchengList.add(new Path("appxdxx.jsp", "app下单信息", QueryEnum.APPXX
-				.getId()));
-		shangchengList.add(new Path("wyhq.jsp", "未发放优惠券用户", QueryEnum.WYHQ
-				.getId()));
+		Subject currentUser = SecurityUtils.getSubject();
+		if(currentUser.isPermitted("admin:report_findappxdxx")){
+			shangchengList.add(new Path("appxdxx.jsp", "app下单信息", QueryEnum.APPXX.getId()));
+			
+		}
+		if(currentUser.isPermitted("admin:report_findwyhq")){
+			shangchengList.add(new Path("wyhq.jsp", "未发放优惠券用户", QueryEnum.WYHQ.getId()));
+		}
 		return shangchengList;
 	}
 
@@ -66,8 +78,10 @@ public class PathUtil {
 	 */
 	public static List<Path> shichangList() {
 		List<Path> shichangList = new ArrayList<Path>();
-		shichangList
-				.add(new Path("tgrs.jsp", "基站推广人数", QueryEnum.TGRS.getId()));
+		Subject currentUser = SecurityUtils.getSubject();
+		if(currentUser.isPermitted("admin:report_findtgrs")){
+			shichangList.add(new Path("tgrs.jsp", "基站推广人数", QueryEnum.TGRS.getId()));
+		}
 		return shichangList;
 	}
 
@@ -79,17 +93,13 @@ public class PathUtil {
 	public static List<Path> tuiguangList() {
 		List<Path> tuiguangList = new ArrayList<Path>();
 		Subject currentUser = SecurityUtils.getSubject();
-		if (currentUser.hasRole("后台导表--推广人员")
-				|| currentUser.hasRole("后台导表--管理员")) {
+		if(currentUser.isPermitted("admin:report_finddtzc")){
 			tuiguangList.add(new Path("dtzc.jsp", "地推注册明细", QueryEnum.DTZC
-					.getId()));
+			.getId()));
 		}
-		if (currentUser.hasRole("后台导表--推广人员")
-				|| currentUser.hasRole("后台导表--管理员")
-				|| currentUser.hasRole("后台导表--地推队长")
-				|| currentUser.hasRole("后台导表--地推负责人")) {
+		if(currentUser.isPermitted("admin:report_findfwrq")){
 			tuiguangList.add(new Path("fwrq.jsp", "地推推荐服务日期", QueryEnum.FWRQ
-					.getId()));
+			.getId()));
 		}
 		return tuiguangList;
 	}
@@ -116,64 +126,10 @@ public class PathUtil {
 		}
 		return jiaohuList;
 	}
-
-	/**
-	 * 额外查询权限
-	 * 
-	 * @return
-	 */
-	public static List<Path> ewaiList() {
-		List<Path> ewaiList = new ArrayList<Path>();
-		Subject currentUser = SecurityUtils.getSubject();
-		if (currentUser.hasRole("仅查各基站出差人数")) {
-			ewaiList.add(new Path("ccrs.jsp", "各基站出差人数", QueryEnum.CCRS.getId()));
-		}
-		if (currentUser.hasRole("仅查首次上门违约用户")) {
-			ewaiList.add(new Path("smwy.jsp", "首次上门违约用户", QueryEnum.SMWY
-					.getId()));
-		}
-		if (currentUser.hasRole("仅查停用用户数")) {
-			ewaiList.add(new Path("tyyh.jsp", "停用用户数", QueryEnum.TYYH.getId()));
-		}
-		if (currentUser.hasRole("仅查电话购物信息")) {
-			ewaiList.add(new Path("dhgw.jsp", "电话购物信息", QueryEnum.DHGW.getId()));
-		}
-		if (currentUser.hasRole("仅查app下单信息")) {
-			ewaiList.add(new Path("appxdxx.jsp", "app下单信息", QueryEnum.APPXX
-					.getId()));
-		}
-		if (currentUser.hasRole("仅查未发放优惠券用户")) {
-			ewaiList.add(new Path("wyhq.jsp", "未发放优惠券用户", QueryEnum.WYHQ
-					.getId()));
-		}
-		if (currentUser.hasRole("仅查基站推广人数")) {
-			ewaiList.add(new Path("tgrs.jsp", "基站推广人数", QueryEnum.TGRS.getId()));
-		}
-		if (currentUser.hasRole("仅查地推注册明细")) {
-			ewaiList.add(new Path("dtzc.jsp", "地推注册明细", QueryEnum.DTZC.getId()));
-		}
-		if (currentUser.hasRole("仅查地推推荐服务日期")) {
-			ewaiList.add(new Path("fwrq.jsp", "地推推荐服务日期", QueryEnum.FWRQ
-					.getId()));
-		}
-		if (currentUser.hasRole("仅查查询用户信息")) {
-			ewaiList.add(new Path("yhxx.jsp", "查询用户信息", QueryEnum.YHXX.getId()));
-		}
-		if (currentUser.hasRole("仅查重复地址用户信息")) {
-			ewaiList.add(new Path("cfdz.jsp", "重复地址用户信息", QueryEnum.CFDZ
-					.getId()));
-		}
-		if (currentUser.hasRole("仅查客户注销原因")) {
-			ewaiList.add(new Path("zxyy.jsp", "客户注销原因", QueryEnum.ZXYY.getId()));
-		}
-		return ewaiList;
-	}
-
 	public static List<Path> PathCollection() {
 		List<Path> list = new ArrayList<Path>();
 		Subject currentSubject = SecurityUtils.getSubject();
 		boolean flag = currentSubject.hasRole("");
-		currentSubject.getPrincipal();
 		currentSubject.isPermitted("");
 		list.add(new Path("appxdxx.jsp", "app下单信息", QueryEnum.APPXX.getId()));
 		list.add(new Path("yhxx.jsp", "查询用户信息", QueryEnum.YHXX.getId()));

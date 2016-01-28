@@ -35,64 +35,36 @@
 <script type="text/javascript" src="<%=basePath%>js/H-ui.js"></script>
 <script type="text/javascript" src="<%=basePath%>js/H-ui.admin.js"></script>
 <script type="text/javascript" src="<%=basePath%>lib/Validform/5.3.2/Validform.min.js"></script>
-<title>用户注册-添加账户</title>
+<title>添加角色</title>
 </head>
 <body>
-	<nav class="breadcrumb"> <i class="Hui-iconfont">&#xe67f;</i> 首页
-	<span class="c-gray en">&gt;</span>系统管理 <span class="c-gray en">&gt;</span>
-	用户注册 <a class="btn btn-success radius r mr-20"
-		style="line-height: 1.6em; margin-top: 3px"
-		href="javascript:location.replace(location.href);" title="刷新"><i
-		class="Hui-iconfont">&#xe68f;</i>刷新</a> </nav>
 	<div class="pd-20">
-		<form id="form1" name="form1" action="<%=basePath%>account/account_signupAccount.action" method="post" class="form form-horizontal"
+		<form id="form1" name="form1" action="<%=basePath%>account/account_addRole.action" method="post" class="form form-horizontal"
 			id="form-user-character-add">
 			<div class="row cl">
-				<label class="form-label col-2"><span class="c-red">*</span>用户名：</label>
+				<label class="form-label col-2"><span class="c-red">*</span>角色：</label>
 				<div class="formControls col-5">
-					<input type="text" class="input-text" value=""
-						id="username" name="username" datatype="*2-16" placeholder="一般为工号"
-						nullmsg="用户名不能为空">
-				</div>
-				<div class="col-4"></div>
-			</div>
-			<div class="row cl">
-				<label class="form-label col-2"><span class="c-red">*</span>姓名：</label>
-				<div class="formControls col-5">
-					<input type="text" class="input-text" value=""
+					<input type="text" class="input-text" placeholder="后台导表--**人员"
 						id="name" name="name" datatype="*2-16" nullmsg="请填写姓名！">
 				</div>
 				<div class="col-4"></div>
 			</div>
 			<div class="row cl">
-				<label class="form-label col-2"><span class="c-red">*</span>密码：</label>
+				<label class="form-label col-2"><span class="c-red">*</span>角色描述：</label>
 				<div class="formControls col-5">
-					<input type="text" class="input-text" value=""
-						id="password" name="password" datatype="*6-16" nullmsg="请填写密码！">
+					<input type="text" class="input-text" name="description"
+						id="description" datatype="*2-16" nullmsg="请输入描述信息！">
 				</div>
 				<div class="col-4"></div>
 			</div>
 			<div class="row cl">
-				<label class="form-label col-2"><span class="c-red">*</span>邮箱：</label>
-				<div class="formControls col-5">
-					<input type="text" class="input-text" value="" name="email"
-						id="email" datatype="e" nullmsg="请输入邮箱！">
-				</div>
-				<div class="col-4"></div>
-			</div>
-			<div class="row cl">
-				<label class="form-label col-2">部门：</label>
+				<label class="form-label col-2">角色类型：</label>
 				<div class="formControls col-5">
 					<span class="select-box"> <select class="select" size="1" 
-						name="department" id="department" datatype="*" nullmsg="请选择部门！">
+						name="type" id="type" datatype="*" nullmsg="请选择类型！">
 							<option value="" selected>--未选择--</option>
-							<option value="管理员">管理员</option>
-							<option value="回收">回收</option>
-							<option value="客服">客服</option>
-							<option value="商城">商城</option>
-							<option value="市场">市场</option>
-							<option value="推广">推广</option>
-							<option value="地推">地推</option>
+							<option value="基本角色">基本角色</option>
+							<option value="额外角色">额外角色</option>
 					</select>
 					</span>
 				</div>
@@ -118,6 +90,18 @@
 				}
 			});
 		});
+	window.onload=department;
+	/* 初始select标签下部门、角色权限 */
+	function department(){
+		var	selected='<%= request.getAttribute("department")%>';
+		var departments=document.getElementById("department");
+		for(var i=0;i<departments.options.length;i++){
+			if(departments.options[i].value==selected){
+				departments.options[i].selected=true;
+				break;
+			};
+		};
+	};
 	</script>
 </body>
 </html>

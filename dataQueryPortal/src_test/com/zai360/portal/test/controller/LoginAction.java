@@ -1,7 +1,9 @@
 package com.zai360.portal.test.controller;
 
+import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -21,6 +23,7 @@ import com.zai360.portal.test.interceptor.ResponseInfo;
 import com.zai360.portal.test.service.AccountService;
 import com.zai360.portal.test.shiro.UsernamePasswordCaptchaToken;
 import com.zai360.portal.test.util.Sql4Account;
+import com.zai360.portal.test.util.UrlUtil;
 import com.zai360.portal.test.util.jsonUtil;
 
 public class LoginAction extends ActionSupport{
@@ -30,15 +33,19 @@ public class LoginAction extends ActionSupport{
 	private ResponseInfo result;
 	/**
 	 * 登录入口
+	 * @throws UnsupportedEncodingException 
 	 */
-	public String login() {
+	public String login() throws UnsupportedEncodingException {
 		HttpServletRequest request = ServletActionContext.getRequest();
-		String username = request.getParameter("username");
-		String password = request.getParameter("password");
+		Map<String,String[]> newparametersmap =UrlUtil.decodeurl(request);
+		String username = newparametersmap.get("username")[0];
+		String password = newparametersmap.get("password")[0];
+		
+//		String username = request.getParameter("username");
+//		String password = request.getParameter("password");
 		String captchacode =(String) request.getSession().getAttribute(CaptchaServlet.KEY_CAPTCHA);
 		boolean rememberMe = request.getParameter("rememberMe") != null;// 记住密码
 		String login_ip = request.getRemoteAddr();// 接收请求端的P地址
-//		password=Md5Util.toMd5(password);// MD5加密 字母小写
 		Subject currentUser = SecurityUtils.getSubject();
 		UsernamePasswordCaptchaToken token = new UsernamePasswordCaptchaToken(
 				username, password, rememberMe, login_ip,captchacode);

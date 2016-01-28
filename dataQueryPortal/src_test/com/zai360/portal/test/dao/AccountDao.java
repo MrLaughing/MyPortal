@@ -64,6 +64,11 @@ public interface AccountDao extends BaseDao{
 	 */
 	void updateAccount(StringBuffer sql);
 	/**
+	 * 添加角色
+	 * @param sql
+	 */
+	void addRole(StringBuffer sql);
+	/**
 	 * 通过基本角色id获取同权限的其他额外角色id
 	 * @param sql
 	 * @return
@@ -89,4 +94,15 @@ public interface AccountDao extends BaseDao{
 	 * @param sql
 	 */
 	void insertAuthority(StringBuffer sql);
+	/**
+	 * （真！）更新角色信息
+	 * @param sql
+	 */
+	void realUpdateRole(StringBuffer sql);
+	/**
+	 * 查询出所有角色
+	 * @param sql
+	 * @return
+	 */
+	List<HashMap<String,Object>> findallRoles(StringBuffer sql);
 }

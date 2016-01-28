@@ -35,17 +35,17 @@
 <script type="text/javascript" src="<%=basePath%>js/H-ui.js"></script>
 <script type="text/javascript" src="<%=basePath%>js/H-ui.admin.js"></script>
 <script type="text/javascript" src="<%=basePath%>lib/Validform/5.3.2/Validform.min.js"></script>
-<title>编辑用户</title>
+<title>用户注册-添加账户</title>
 </head>
 <body>
 	<div class="pd-20">
-		<form id="form1" name="form1" action="<%=basePath%>account/account_updateAccount.action" method="post" class="form form-horizontal"
+		<form id="form1" name="form1" action="<%=basePath%>account/account_signupAccount.action" method="post" class="form form-horizontal"
 			id="form-user-character-add">
 			<div class="row cl">
 				<label class="form-label col-2"><span class="c-red">*</span>用户名：</label>
 				<div class="formControls col-5">
-					<input type="text" class="input-text" value="${requestScope.account.username}" readonly="readonly"
-						id="username" name="username" datatype="*2-16"
+					<input type="text" class="input-text" value=""
+						id="username" name="username" datatype="*2-16" placeholder="一般为工号"
 						nullmsg="用户名不能为空">
 				</div>
 				<div class="col-4"></div>
@@ -53,15 +53,23 @@
 			<div class="row cl">
 				<label class="form-label col-2"><span class="c-red">*</span>姓名：</label>
 				<div class="formControls col-5">
-					<input type="text" class="input-text" value="${requestScope.account.name}"
+					<input type="text" class="input-text" value=""
 						id="name" name="name" datatype="*2-16" nullmsg="请填写姓名！">
+				</div>
+				<div class="col-4"></div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-2"><span class="c-red">*</span>密码：</label>
+				<div class="formControls col-5">
+					<input type="password" class="input-text" value=""
+						id="password" name="password" datatype="*6-16" nullmsg="请填写密码！">
 				</div>
 				<div class="col-4"></div>
 			</div>
 			<div class="row cl">
 				<label class="form-label col-2"><span class="c-red">*</span>邮箱：</label>
 				<div class="formControls col-5">
-					<input type="text" class="input-text" value="${requestScope.account.email}" name="email"
+					<input type="text" class="input-text" value="" name="email"
 						id="email" datatype="e" nullmsg="请输入邮箱！">
 				</div>
 				<div class="col-4"></div>
@@ -104,18 +112,6 @@
 				}
 			});
 		});
-	window.onload=department;
-	/* 初始select标签下部门、角色权限 */
-	function department(){
-		var	selected='<%= request.getAttribute("department")%>';
-		var departments=document.getElementById("department");
-		for(var i=0;i<departments.options.length;i++){
-			if(departments.options[i].value==selected){
-				departments.options[i].selected=true;
-				break;
-			};
-		};
-	};
 	</script>
 </body>
 </html>
