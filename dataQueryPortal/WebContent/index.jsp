@@ -41,21 +41,31 @@
 <LINK rel="Shortcut Icon" href="/favicon.ico" />
 
 <!-- <script type="text/javascript" src="lib/PIE_IE678.js"></script>  -->
-<script type="text/javascript" src="lib/jquery/jquery.js"></script>
-<script type="text/javascript" src="lib/layer/1.9.3/layer.js"></script>
-<script type="text/javascript" src="js/H-ui.js"></script>
-<script type="text/javascript" src="js/H-ui.admin.js"></script>
+<script type="text/javascript" src="<%=basePath%>lib/jquery/jquery.js"></script>
+<script type="text/javascript" src="<%=basePath%>lib/layer/1.9.3/layer.js"></script>
+<script type="text/javascript" src="<%=basePath%>js/H-ui.js"></script>
+<script type="text/javascript" src="<%=basePath%>js/H-ui.admin.js"></script>
 <!-- <script type="text/javascript" src="lib/html5.js"></script>
 <script type="text/javascript" src="lib/respond.min.js"></script> -->
-<link href="css/H-ui.min.css" rel="stylesheet" type="text/css" />
-<link href="css/H-ui.admin.css" rel="stylesheet" type="text/css" />
-<link href="skin/default/skin.css" rel="stylesheet" type="text/css"
+<link href="<%=basePath%>css/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="<%=basePath%>css/H-ui.admin.css" rel="stylesheet" type="text/css" />
+<link href="<%=basePath%>skin/default/skin.css" rel="stylesheet" type="text/css"
 	id="skin" />
-<link href="lib/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet"
+<link href="<%=basePath%>lib/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet"
 	type="text/css" />
-<link href="css/style.css" rel="stylesheet" type="text/css" />
+<link href="<%=basePath%>css/style.css" rel="stylesheet" type="text/css" />
 
 <title>再生活（北京）信息技术有限公司</title>
+<script type="text/javascript">
+	/* 修改密码 */
+	function updatepassword(username){
+		layer_show('修改密码','<%=basePath%>account/account-edit-password.jsp?username='+username,'800','510');
+	}
+	<%-- /* 修改个人信息 */
+	function updatepassword(username){
+		layer_show('修改个人信息','<%=basePath%>account/account_findaccount.action?username='+username,'800','510');
+	} --%>
+</script>
 </head>
 <body>
 	<header class="Hui-header cl"> <a class="Hui-logo l"
@@ -67,7 +77,7 @@
 				class="dropDown_A"><shiro:principal></shiro:principal> <i
 				class="Hui-iconfont">&#xe6d5;</i></a>
 			<ul class="dropDown-menu radius box-shadow">
-				<li><a href="#">个人信息</a></li>
+				<li><a onclick="updatepassword(<shiro:principal></shiro:principal>)">修改密码</a></li>
 				<li><a href="<%=basePath%>account/account_logout.action">退出</a></li>
 			</ul></li>
 		<li id="Hui-skin" class="dropDown right dropDown_hover"><a
@@ -245,7 +255,7 @@
 	<div id="Hui-tabNav" class="Hui-tabNav">
 		<div class="Hui-tabNav-wp">
 			<ul id="min_title_list" class="acrossTab cl">
-				<li class="active"><span data-href="welcome.jsp">我的桌面</span><em></em></li>
+				<li class="active"><span data-href="<%=basePath%>welcome.jsp">我的桌面</span><em></em></li>
 			</ul>
 		</div>
 		<div class="Hui-tabNav-more btn-group">

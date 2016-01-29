@@ -45,7 +45,7 @@ public class LoginAction extends ActionSupport{
 //		String password = request.getParameter("password");
 		String captchacode =(String) request.getSession().getAttribute(CaptchaServlet.KEY_CAPTCHA);
 		boolean rememberMe = request.getParameter("rememberMe") != null;// 记住密码
-		String login_ip = request.getRemoteAddr();// 接收请求端的P地址
+		String login_ip = request.getRemoteAddr();// 接收请求端的IP地址
 		Subject currentUser = SecurityUtils.getSubject();
 		UsernamePasswordCaptchaToken token = new UsernamePasswordCaptchaToken(
 				username, password, rememberMe, login_ip,captchacode);

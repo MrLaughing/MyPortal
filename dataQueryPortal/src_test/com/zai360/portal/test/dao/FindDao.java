@@ -27,5 +27,5 @@ public interface FindDao extends BaseDao {
 	 * @param sql
 	 * @return
 	 */
-	String havecolumn(StringBuffer sql); 
+	List<String> havecolumn(StringBuffer sql); 
 }

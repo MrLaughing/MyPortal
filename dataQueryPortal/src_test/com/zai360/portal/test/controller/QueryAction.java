@@ -56,7 +56,7 @@ public class QueryAction extends ActionSupport {
 			}
 			requestInfo = getRequestInfo(request);//获取请求参数
 			//根据url2和参数进行查询
-			String havacolumnsql1="SELECT * FROM information_schema.columns "
+			String havacolumnsql1="SELECT COLUMN_NAME FROM information_schema.columns "
 					+ " WHERE table_name='"+requestInfo.getUrl2()+"' ";
 			StringBuffer querycountsql = new StringBuffer();
 			querycountsql.append("SELECT COUNT(*) FROM "+requestInfo.getUrl2()+" a WHERE 1=1 ");//查询总条数
@@ -67,7 +67,7 @@ public class QueryAction extends ActionSupport {
 				if(key.endsWith("_min")||key.endsWith("_max")){//判断查询参数是否含有日期间隔
 					String realkey=key.substring(0, key.length()-4);
 					StringBuffer havacolumnsql=new StringBuffer(havacolumnsql1+" AND column_name='"+realkey+"' ");
-					if(this.findService.havecolumn(havacolumnsql)!=null){//判断表中是否含有该参数
+					if(!this.findService.havecolumn(havacolumnsql).isEmpty()){//判断表中是否含有该参数
 						if(parametersmap.keySet().contains(realkey+"_max")&&parametersmap.keySet().contains(realkey+"_min")){//min和max不缺失
 							String[] realkeyminvalue=(String[]) parametersmap.get((realkey+"_min"));
 							String[] realkeymaxvalue=(String[]) parametersmap.get((realkey+"_max"));

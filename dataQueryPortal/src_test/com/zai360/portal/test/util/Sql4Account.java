@@ -30,7 +30,19 @@ public class Sql4Account {
 				+ username + "';");
 		return sql;
 	}
+	/**
+	 * 修改密码
+	 * 
+	 * @return
+	 */
+	public static StringBuffer updateAdminpwd(String username, String newpwd) {
+		HttpServletRequest request = ServletActionContext.getRequest();
 
+		StringBuffer sql = new StringBuffer();
+		sql.append("UPDATE xx_admin_report a SET a.`password`='" + newpwd
+				+ "' WHERE a.`username`='"+ username + "';");
+		return sql;
+	}
 	/**
 	 * 查询用户条目数
 	 * 

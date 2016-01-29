@@ -57,7 +57,7 @@
 	});
 	var _captcha_id = "#img_captcha";
 	function refreshCaptcha() {
-		$(_captcha_id).attr("src","/portal/captchaCode.jpg?t=" + Math.random());
+		$(_captcha_id).attr("src","<%=basePath%>/captchaCode.jpg?t=" + Math.random());
 	};
 </script>
 </head>
@@ -82,7 +82,7 @@
       <div class="row cl">
         <div class="formControls col-8 col-offset-3">
           <input class="input-text size-L" type="text" name="captchacode" id="captchacode" placeholder="验证码"  value="" style="width:150px;">
-          <img id="img_captcha" src="/portal/captchaCode.jpg"> <a id="kanbuqing" href="javascript:;" onclick="refreshCaptcha()">看不清，换一张</a> </div>
+          <img id="img_captcha" src="<%=basePath%>/captchaCode.jpg"> <a id="kanbuqing" href="javascript:;" onclick="refreshCaptcha()">看不清，换一张</a> </div>
       </div>
       <div class="row">
         <div class="formControls col-8 col-offset-3">

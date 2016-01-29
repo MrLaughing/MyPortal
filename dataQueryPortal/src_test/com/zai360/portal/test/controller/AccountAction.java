@@ -67,10 +67,25 @@ public class AccountAction extends ActionSupport {
 
 		UsernamePasswordCaptchaToken token = new UsernamePasswordCaptchaToken(
 				username, password, rememberMe, login_ip, captchacode);
-		
+		try {
 			currentUser.login(token);// 登录 这里会回调reaml里的一个方法 AuthenticationInfo
 										// doGetAuthenticationInfo()
-		
+		} catch (UnknownAccountException uae) {
+			request.setAttribute("msg", "用户不存在");
+			return "error";
+		} catch (IncorrectCredentialsException ice) {
+			request.setAttribute("msg", "密码不正确");
+			return "error";
+		} catch (UnauthorizedException ue) {
+			request.setAttribute("msg", "没有权限");
+			return "error";
+		} catch (CaptchaException ce) {
+			request.setAttribute("msg", "验证码错误");
+			return "error";
+		} catch (AuthenticationException e) {
+			request.setAttribute("msg", "其它错误");
+			return "error";
+		}
 		// 更新用户信息
 		Date now = new Date();
 		SimpleDateFormat dateformat = new SimpleDateFormat(
@@ -79,6 +94,7 @@ public class AccountAction extends ActionSupport {
 		StringBuffer updatesql = Sql4Account.updateAdmin(username, login_ip,
 				login_date);
 		this.accountService.updateAccount(updatesql);// 更新用户登录ip和登录时间
+		request.setAttribute("username", token.getUsername());
 		return SUCCESS;
 	}
 
@@ -94,7 +110,27 @@ public class AccountAction extends ActionSupport {
 		// currentUser.logout(); //报错！栈溢出
 		return "logout";
 	}
-
+	/**
+	 * 修改密码
+	 * @return
+	 */
+	public String updatePassword(){
+		HttpServletRequest request = ServletActionContext.getRequest();
+		String username=request.getParameter("username");
+		String oldpwd = request.getParameter("oldpwd");
+		String newpwd = request.getParameter("newpwd");
+		oldpwd = Md5Util.toMd5(oldpwd);// MD5加密 字母小写
+		newpwd = Md5Util.toMd5(newpwd);// MD5加密 字母小写
+		Admin admin = this.accountService.findAdmin(username);
+		if(oldpwd.equals(admin.getPassword())){
+			StringBuffer sql = Sql4Account.updateAdminpwd(username, newpwd);
+			this.accountService.updateAccount(sql);
+		}else{
+			request.setAttribute("msg", "原密码错误");
+			return "wrong";
+		}
+		return "updatesuccess";
+	}
 	/**
 	 * 根据条件查询用户（分页）
 	 * 

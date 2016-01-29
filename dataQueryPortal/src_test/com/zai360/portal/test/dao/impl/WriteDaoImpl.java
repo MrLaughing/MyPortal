@@ -1,5 +1,7 @@
 package com.zai360.portal.test.dao.impl;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import com.zai360.portal.test.commons.BaseDaoImpl;
