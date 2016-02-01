@@ -26,8 +26,12 @@
 			<result name="updateAccount" type="chain">account_findrole</result>
 			<result name="findrole" type="dispatcher">../account/account-edit-role.jsp</result>
 			<result name="findRoleByRolename" type="dispatcher">../role/role-edit.jsp</result>
+			<result name="realUpdateRole" type="chain">account_findauthority</result>
+			<result name="findauthority" type="dispatcher">../role/role-edit-authority.jsp</result>
+			<result name="addRole" type="dispatcher">../role/role-add-authority.jsp</result>
 			
-			<result name="findauthority" type="dispatcher">../authority/authority-edit.jsp</result>
+			
+			<!-- <result name="findauthority" type="dispatcher">../authority/authority-edit.jsp</result> -->
 			<result name="updatesuccess" type="dispatcher">../console/updatesuccess.jsp</result>
 			<result name="norole" type="dispatcher">../console/norole.jsp</result>
 			<result name="noauthority" type="dispatcher">../console/noauthority.jsp</result>

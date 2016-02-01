@@ -32,6 +32,7 @@ import com.zai360.portal.test.util.Page;
 import com.zai360.portal.test.util.Sql4Account;
 import com.zai360.portal.test.util.jsonUtil;
 import com.zai360.portal.test.vo.Admin;
+import com.zai360.portal.test.vo.Authority;
 import com.zai360.portal.test.vo.Role;
 import com.zai360.portal.test.vo.Role_authority;
 
@@ -329,17 +330,19 @@ public class AccountAction extends ActionSupport {
 	public String realUpdateRole(){
 		StringBuffer sql = Sql4Account.realUpdateRole();
 		this.accountService.realUpdateRole(sql);
-		return "updatesuccess";
+		return "realUpdateRole";
 	}
 	/**
-	 * 添加角色
+	 * 添加角色--1、添加角色信息
 	 * 
 	 * @return
 	 */
 	public String addRole() {
+		HttpServletRequest request = ServletActionContext.getRequest();
 		StringBuffer sql = Sql4Account.addRole();// 添加角色sql
 		this.accountService.addRole(sql);
-		return "updatesuccess";
+		request.setAttribute("name", request.getParameter("name"));
+		return "addRole";
 	}
 
 	/**
@@ -374,14 +377,15 @@ public class AccountAction extends ActionSupport {
 	 */
 	public String findauthority() throws UnsupportedEncodingException {
 		HttpServletRequest request = ServletActionContext.getRequest();
-		String role = request.getParameter("role");
-		role = new String(role.getBytes("iso-8859-1"), "utf-8");// 将ASCII解码，ISO-8859-1编码是单字节编码，向下兼容ASCII
-		List<Role_authority> role_authorities = this.accountService
+//		String role = request.getParameter("role");
+		String role = request.getParameter("name");
+//		role = new String(role.getBytes("iso-8859-1"), "utf-8");// 将ASCII解码，ISO-8859-1编码是单字节编码，向下兼容ASCII
+		List<Authority> role_authorities = this.accountService
 				.findAuthority(role);
-		Iterator<Role_authority> it = role_authorities.iterator();
+		Iterator<Authority> it = role_authorities.iterator();
 		List<String> authorities = new ArrayList<String>();
 		while (it.hasNext()) {
-			authorities.add(it.next().getAuthorities());// 获取角色权限
+			authorities.add(String.valueOf(it.next().getId()));// 获取角色权限id
 		}
 		request.setAttribute("role", role);// 存入request域中
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss")
@@ -394,7 +398,7 @@ public class AccountAction extends ActionSupport {
 
 	/**
 	 * 编辑角色权限： 2、更新角色的权限
-	 * 
+	 * 添加角色--2、添加角色权限
 	 * @return
 	 */
 	public String updateAuthority() {
@@ -419,7 +423,21 @@ public class AccountAction extends ActionSupport {
 			}
 		}
 	}
-	
+	/**
+	 * 删除角色
+	 * 
+	 * @return
+	 */
+	public String deleteRole() {
+		HttpServletRequest request = ServletActionContext.getRequest();
+		String name = request.getParameter("name");
+		Long id = this.accountService.findRoleByRoleName(name).getId();// 获取角色id
+		this.accountService.deleteRole(Sql4Account.deleteAuthority(id));// 1、删除角色权限
+		this.accountService.deleteRole(Sql4Account.deleteRoleAccount(id));//2、删除角色用户
+		this.accountService.deleteRealRole(Sql4Account.deleteRealRole(id));// 3、删除（真）角色
+		this.inputStream = jsonUtil.string2stream("删除成功");// 做标志位
+		return "ajax";// 返回ajax
+	}
 	/********************************************/
 	public InputStream getInputStream() {
 		return inputStream;

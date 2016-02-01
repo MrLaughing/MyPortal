@@ -44,7 +44,7 @@
 			<div class="row cl">
 				<label class="form-label col-2"><span class="c-red">*</span>角色：</label>
 				<div class="formControls col-5">
-					<input type="text" class="input-text" value="${requestScope.role}" readonly="readonly"
+					<input type="text" class="input-text" value="${requestScope.name}" readonly="readonly"
 						id="role" name="role" datatype="*2-16"
 						nullmsg="角色不能为空">
 				</div>

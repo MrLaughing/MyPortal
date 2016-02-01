@@ -25,10 +25,13 @@
 		<result property="name" column="name" />
 		<result property="type" column="type" />
 	</resultMap>
-	<resultMap type="com.zai360.portal.test.vo.Role_authority"
+	<resultMap type="com.zai360.portal.test.vo.Authority"
 		id="authorityResult">
-		<result column="role" property="role" />
-		<result column="authorities" property="authorities" />
+		<result column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="description" property="description" />
+		<result column="type" property="type" />
+
 	</resultMap>
 
 	<resultMap type="java.util.Map" id="authoritiesResult">
@@ -55,6 +58,10 @@
 		resultMap="authoritiesResult">
 		${sql}
 	</select>
+	<!-- 删除(真)角色 -->
+	<delete id="deleteRealRole" parameterType="com.zai360.portal.test.util.SQLAdapter">
+		${sql}
+	</delete>
 	<!-- (真！)更新用户信息 -->
 	<update id="realUpdateRole" parameterType="com.zai360.portal.test.util.SQLAdapter">
 		${sql}
@@ -98,10 +105,10 @@
 		resultType="int">
 		${sql}
 	</select>
-	<!-- 通过角色名获取权限 -->
+	<!-- 通过角色名获取权限对象 -->
 	<select id="findAuthority" parameterType="String" resultMap="authorityResult">
-		SELECT ra.* FROM xx_role_authority_report ra,xx_role_report r WHERE
-		ra.`role`=r.`id` AND r.`name`=#{name};
+		SELECT a.* FROM xx_role_authority_report ra, xx_role_report r, xx_authority_report a 
+		WHERE ra.`role` = r.`id` AND ra.`authority`=a.`id` AND r.`name` = #{name}
 	</select>
 	<!-- 通过角色名获取角色对象 -->
 	<select id="findRoleByRoleName" parameterType="String"

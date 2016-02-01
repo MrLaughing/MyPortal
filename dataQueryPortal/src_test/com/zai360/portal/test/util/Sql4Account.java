@@ -214,6 +214,26 @@ public class Sql4Account {
 		sql.append("SELECT * FROM xx_role_report r ");
 		return sql;
 	}
+	/**
+	 * 删除角色原有用户
+	 * 
+	 * @return
+	 */
+	public static StringBuffer deleteRoleAccount(Long id) {
+		StringBuffer sql = new StringBuffer();
+		sql.append("DELETE FROM xx_admin_role_report WHERE roles='" + id + "'");
+		return sql;
+	}
+	/**
+	 * 删除（真）角色
+	 * @param id
+	 * @return
+	 */
+	public static StringBuffer deleteRealRole(Long id){
+		StringBuffer sql = new StringBuffer();
+		sql.append("DELETE FROM xx_role_report WHERE id='" + id + "'");
+		return sql;
+	}
 	
 	/**
 	 * 删除用户原有角色
@@ -290,8 +310,7 @@ public class Sql4Account {
 	 */
 	public static StringBuffer deleteAuthority(Long id) {
 		StringBuffer sql = new StringBuffer();
-		sql.append("DELETE FROM xx_role_authority_report WHERE role='" + id
-				+ "' AND authorities LIKE 'admin:report_find%';");
+		sql.append("DELETE FROM xx_role_authority_report WHERE role='" + id+"'");
 		return sql;
 	}
 
@@ -304,7 +323,7 @@ public class Sql4Account {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String[] authorities = request.getParameterValues("authorities");
 		StringBuffer sql = new StringBuffer();
-		sql.append("INSERT INTO xx_role_authority_report(role,authorities) VALUES");
+		sql.append("INSERT INTO xx_role_authority_report(role,authority) VALUES");
 		StringBuffer authority_str = new StringBuffer();
 		if (authorities != null) {
 			if (authorities.length > 0 & authorities[0] != "") {
@@ -335,8 +354,8 @@ public class Sql4Account {
 	 */
 	public static StringBuffer findAuthorityById(String id) {
 		StringBuffer sql = new StringBuffer();
-		sql.append("SELECT ra.`role` FROM xx_role_authority_report ra ,xx_role_report r WHERE ra.`authorities` "
-				+ " IN (SELECT ra.`authorities` FROM xx_role_authority_report ra WHERE "
+		sql.append("SELECT ra.`role` FROM xx_role_authority_report ra ,xx_role_report r WHERE ra.`authority` "
+				+ " IN (SELECT ra.`authority` FROM xx_role_authority_report ra WHERE "
 				+ " ra.`role`='"
 				+ id
 				+ "') AND ra.`role`=r.`id` AND r.`type`='额外角色'");

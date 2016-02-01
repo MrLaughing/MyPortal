@@ -37,7 +37,28 @@
 <%@ include file="../util/easyui.jsp"%>
 <script type="text/javascript">
 	function formatOper(value,row,index){  
-	    return "<a style='text-decoration:none' class='ml-5' onClick='editRole("+index+")' title='编辑' href='javascript:;'><i class='Hui-iconfont'>&#xe6df;</i></a>";  
+	    return "<a style='text-decoration:none' class='ml-5' onClick='editRole("+index+")' title='编辑' href='javascript:;'>"
+	    +"<i class='Hui-iconfont'>&#xe6df;</i></a><a style='text-decoration:none' class='ml-5' onClick='delRole(this,"+index+")' "
+	    +"title='删除' href='javascript:;'><i class='Hui-iconfont'>&#xe6e2;</i></a>";  
+	}
+	/*删除角色*/
+	function delRole(obj,index){
+		$('#table').datagrid('selectRow',index);// 关键在这里  
+	    var row = $('#table').datagrid('getSelected'); //拿到该行数据
+		layer.confirm("确认要删除吗?",function(index){
+			$.ajax({
+				type:'post',
+				data:{name:row.name},
+				url:'<%=basePath%>account/account_deleteRole.action',
+				success:function(result){
+					if(result=='删除成功'){
+					$('#table').datagrid('reload');//删除成功后刷新表格
+					}
+				}
+			});
+			$(obj).parents("tr").remove();
+			layer.msg('已删除!',{icon:1,time:1000});
+		});
 	}
 	/* 编辑角色 */
     function editRole(index){  

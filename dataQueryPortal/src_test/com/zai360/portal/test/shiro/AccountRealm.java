@@ -19,6 +19,7 @@ import com.zai360.portal.test.captcha.CaptchaException;
 import com.zai360.portal.test.captcha.CaptchaServlet;
 import com.zai360.portal.test.service.AccountService;
 import com.zai360.portal.test.vo.Admin;
+import com.zai360.portal.test.vo.Authority;
 import com.zai360.portal.test.vo.Role;
 import com.zai360.portal.test.vo.Role_authority;
 
@@ -74,12 +75,11 @@ public class AccountRealm extends AuthorizingRealm {
 		}
 		authorizationInfo.addRoles(rolenames);//添加角色
 		for (String rolename : rolenames) {
-			List<Role_authority> role_authority = accountService.findAuthority(rolename);// 获取资源
+			List<Authority> role_authority = accountService.findAuthority(rolename);// 获取资源
 			List<String> authorities=new ArrayList<String>();//角色id list
-			Iterator<Role_authority> it1=role_authority.iterator();
+			Iterator<Authority> it1=role_authority.iterator();
 			while(it1.hasNext()){
-//				System.out.print(it1.next().getAuthorities()+" ");
-				authorities.add(it1.next().getAuthorities());
+				authorities.add(it1.next().getName());//获取角色权限
 			}
 			authorizationInfo.addStringPermissions(authorities);//添加权限
 		}

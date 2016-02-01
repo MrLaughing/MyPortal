@@ -1,6 +1,5 @@
 package com.zai360.portal.test.dao.impl;
 
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -10,8 +9,8 @@ import com.zai360.portal.test.commons.BaseDaoImpl;
 import com.zai360.portal.test.dao.AccountDao;
 import com.zai360.portal.test.util.SQLAdapter;
 import com.zai360.portal.test.vo.Admin;
+import com.zai360.portal.test.vo.Authority;
 import com.zai360.portal.test.vo.Role;
-import com.zai360.portal.test.vo.Role_authority;
 @Repository
 public class AccountDaoImpl extends BaseDaoImpl implements
 		AccountDao {
@@ -31,8 +30,8 @@ public class AccountDaoImpl extends BaseDaoImpl implements
 	}
 
 	@Override
-	public List<Role_authority> findAuthority(String name) {
-		List<Role_authority> authority = this.getSqlSession().selectList("account.findAuthority", name);
+	public List<Authority> findAuthority(String name) {
+		List<Authority> authority = this.getSqlSession().selectList("account.findAuthority", name);
 		return authority;
 	}
 
@@ -107,5 +106,10 @@ public class AccountDaoImpl extends BaseDaoImpl implements
 	public List<HashMap<String,Object>> findallRoles(StringBuffer sql) {
 		List<HashMap<String,Object>> list = this.getSqlSession().selectList("account.findRoles", new SQLAdapter(sql.toString()));
 		return list;
+	}
+
+	@Override
+	public void deleteRealRole(StringBuffer sql) {
+		this.getSqlSession().delete("account.deleteRealRole", new SQLAdapter(sql.toString()));
 	}
 }

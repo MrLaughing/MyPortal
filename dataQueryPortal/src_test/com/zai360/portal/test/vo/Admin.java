@@ -1,6 +1,5 @@
 package com.zai360.portal.test.vo;
 import java.util.Date;
-import java.util.Set;
 
 /**
  * @author report

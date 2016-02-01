@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.zai360.portal.test.commons.BaseDao;
 import com.zai360.portal.test.vo.Admin;
+import com.zai360.portal.test.vo.Authority;
 import com.zai360.portal.test.vo.Role;
 import com.zai360.portal.test.vo.Role_authority;
 /**
@@ -32,11 +33,11 @@ public interface AccountDao extends BaseDao{
 	 */
 	Role findRoleByRoleName(String name);
 	/**
-	 * 通过角色名获取权限
+	 * 通过角色名获取权限对象
 	 * @param name
 	 * @return
 	 */
-	List<Role_authority> findAuthority(String name);
+	List<Authority> findAuthority(String name);
 	/**
 	 * 查询总用户数
 	 * @param sql
@@ -105,4 +106,9 @@ public interface AccountDao extends BaseDao{
 	 * @return
 	 */
 	List<HashMap<String,Object>> findallRoles(StringBuffer sql);
+	/**
+	 * 删除（真）用户
+	 * @param sql
+	 */
+	void deleteRealRole(StringBuffer sql);
 }
