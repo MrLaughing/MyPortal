@@ -45,8 +45,8 @@
 <script type="text/javascript" src="<%=basePath%>lib/layer/1.9.3/layer.js"></script>
 <script type="text/javascript" src="<%=basePath%>js/H-ui.js"></script>
 <script type="text/javascript" src="<%=basePath%>js/H-ui.admin.js"></script>
-<!-- <script type="text/javascript" src="lib/html5.js"></script>
-<script type="text/javascript" src="lib/respond.min.js"></script> -->
+<%-- <script type="text/javascript" src="<%=basePath%>lib/html5.js"></script>
+<script type="text/javascript" src="<%=basePath%>lib/respond.min.js"></script> --%>
 <link href="<%=basePath%>css/H-ui.min.css" rel="stylesheet" type="text/css" />
 <link href="<%=basePath%>css/H-ui.admin.css" rel="stylesheet" type="text/css" />
 <link href="<%=basePath%>skin/default/skin.css" rel="stylesheet" type="text/css"
@@ -62,7 +62,7 @@
 		layer_show('修改密码','<%=basePath%>account/account-edit-password.jsp?username='+username,'800','510');
 	}
 	<%-- /* 修改个人信息 */
-	function updatepassword(username){
+	function updateAdmin(username){
 		layer_show('修改个人信息','<%=basePath%>account/account_findaccount.action?username='+username,'800','510');
 	} --%>
 </script>
@@ -76,21 +76,23 @@
 			<li class="dropDown dropDown_hover"><a href="#"
 				class="dropDown_A"><shiro:principal></shiro:principal> <i
 				class="Hui-iconfont">&#xe6d5;</i></a>
-			<ul class="dropDown-menu radius box-shadow">
-				<li><a onclick="updatepassword(<shiro:principal></shiro:principal>)">修改密码</a></li>
-				<li><a href="<%=basePath%>account/account_logout.action">退出</a></li>
-			</ul></li>
-		<li id="Hui-skin" class="dropDown right dropDown_hover"><a
-			href="javascript:;" title="换肤"><i class="Hui-iconfont"
+				<ul class="dropDown-menu radius box-shadow">
+					<li><a onclick="updatepassword('<shiro:principal></shiro:principal>')">修改密码</a></li>
+					<li><a href="<%=basePath%>account/account_logout.action">退出</a></li>
+				</ul>
+			</li>
+			<li id="Hui-skin" class="dropDown right dropDown_hover"><a
+				href="javascript:;" title="换肤"><i class="Hui-iconfont"
 				style="font-size: 18px">&#xe62a;</i></a>
-			<ul class="dropDown-menu radius box-shadow">
-				<li><a href="javascript:;" data-val="default" title="默认（黑色）">默认（黑色）</a></li>
-				<li><a href="javascript:;" data-val="blue" title="蓝色">蓝色</a></li>
-				<li><a href="javascript:;" data-val="green" title="绿色">绿色</a></li>
-				<li><a href="javascript:;" data-val="red" title="红色">红色</a></li>
-				<li><a href="javascript:;" data-val="yellow" title="黄色">黄色</a></li>
-				<li><a href="javascript:;" data-val="orange" title="绿色">橙色</a></li>
-			</ul></li>
+				<ul class="dropDown-menu radius box-shadow">
+					<li><a href="javascript:;" data-val="default" title="默认（黑色）">默认（黑色）</a></li>
+					<li><a href="javascript:;" data-val="blue" title="蓝色">蓝色</a></li>
+					<li><a href="javascript:;" data-val="green" title="绿色">绿色</a></li>
+					<li><a href="javascript:;" data-val="red" title="红色">红色</a></li>
+					<li><a href="javascript:;" data-val="yellow" title="黄色">黄色</a></li>
+					<li><a href="javascript:;" data-val="orange" title="绿色">橙色</a></li>
+				</ul>
+			</li>
 		</ul>
 		<a aria-hidden="false" class="Hui-nav-toggle" href="#"></a> 
 	</header>

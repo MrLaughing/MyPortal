@@ -163,8 +163,9 @@
 					name="order_status" value="0">未确认 <input type="checkbox"
 					name="order_status" value="1">已确认 <input type="checkbox"
 					name="order_status" value="2">已完成<span>&nbsp&nbsp&nbsp&nbsp</span>
-				手机机型： <input type="checkbox" name="source_type" value="0">iOS
+				终端： <input type="checkbox" name="source_type" value="0">iOS
 				<input type="checkbox" name="source_type" value="1">Android
+				<input type="checkbox" name="source_type" value="2">微信
 				<a href="javascript:;" name="find" id="find" class="btn btn-success"
 					onclick="find()"> <i class="Hui-iconfont">&#xe665;</i> 查询
 				</a> <a href="javascript:;" name="export" class="btn btn-success"
