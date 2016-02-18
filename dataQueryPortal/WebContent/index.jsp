@@ -241,8 +241,7 @@
 					<ul>
 						<li><a _href="account/account-list.jsp" href="javascript:;">用户管理</a></li>
 						<li><a _href="role/role-list.jsp" href="javascript:;">角色管理</a></li>
-						<li><a _href="authority/authority-list.jsp"
-							href="javascript:void(0)">权限管理</a></li>
+						<li><a _href="authority/authority-list.jsp" href="javascript:void(0)">权限管理</a></li>
 					</ul>
 				</dd>
 			</dl>

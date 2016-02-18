@@ -277,28 +277,38 @@ public class Sql4Account {
 	}
 
 	/**
-	 * 查询角色权限条目数
+	 * 查询权限条目数
 	 * 
 	 * @return
 	 */
 	public static StringBuffer findAuthoritiesTotal() {
+		HttpServletRequest request = ServletActionContext.getRequest();
+		String type = request.getParameter("type");
 		StringBuffer sql = new StringBuffer();
-		sql.append("SELECT COUNT(*) FROM xx_role_report r LEFT JOIN xx_role_authority_report ra "
-				+ " ON r.`id` = ra.`role` ");
+		if(!"".equals(type)&&type!=null){
+			sql.append("SELECT COUNT(*) FROM xx_authority_report a WHERE a.`type`= '"+type+"' ");
+		}else{
+			sql.append("SELECT COUNT(*) FROM xx_authority_report a ");
+		}
 		return sql;
 	}
 
 	/**
-	 * 查询角色权限信息
+	 * 查询权限信息
 	 * 
 	 * @param pageNumber
 	 * @param pageSize
 	 * @return
 	 */
 	public static StringBuffer findAuthorities(int pageNumber, int pageSize) {
+		HttpServletRequest request = ServletActionContext.getRequest();
+		String type = request.getParameter("type");
 		StringBuffer sql = new StringBuffer();
-		sql.append("SELECT r.`name` AS '角色', r.`description` AS '角色描述', ra.`authorities` "
-				+ " AS '权限' FROM xx_role_report r LEFT JOIN xx_role_authority_report ra ON r.`id` = ra.`role`");
+		if(!"".equals(type)&&type!=null){
+			sql.append("SELECT * FROM xx_authority_report a WHERE a.`type`= '"+type+"' ");
+		}else{
+			sql.append("SELECT * FROM xx_authority_report a ");
+		}
 		sql.append(" LIMIT " + (pageNumber - 1) * pageSize + "," + pageSize);
 		return sql;
 	}
@@ -313,7 +323,6 @@ public class Sql4Account {
 		sql.append("DELETE FROM xx_role_authority_report WHERE role='" + id+"'");
 		return sql;
 	}
-
 	/**
 	 * 重新添加角色权限
 	 * 
@@ -359,6 +368,63 @@ public class Sql4Account {
 				+ " ra.`role`='"
 				+ id
 				+ "') AND ra.`role`=r.`id` AND r.`type`='额外角色'");
+		return sql;
+	}
+	/**
+	 * 更新权限信息
+	 * @return
+	 */
+	public static StringBuffer updaterealAuthority(){
+		HttpServletRequest request=ServletActionContext.getRequest();
+		String name = request.getParameter("name");
+		String type =request.getParameter("type");
+		String description=request.getParameter("description");
+		StringBuffer sql =new StringBuffer();
+		sql.append("UPDATE xx_authority_report a SET a.`description`='"+description
+				+"', a.`type`='"+type+"' WHERE a.`name`='"+name+"' ");
+		return sql;
+	}
+	/**
+	 * 添加单条权限
+	 * @return
+	 */
+	public static StringBuffer addAuthority(){
+		HttpServletRequest request=ServletActionContext.getRequest();
+		String name = request.getParameter("name");
+		String type =request.getParameter("type");
+		String description=request.getParameter("description");
+		StringBuffer sql =new StringBuffer();
+		sql.append("INSERT INTO xx_authority_report(name,description,type) VALUES('"
+				+ name+ "','"+ description+ "','"+ type+ "')");
+		return sql;
+	}
+	/**
+	 * 1、删除权限-角色关系
+	 * 
+	 * @return
+	 */
+	public static StringBuffer deleteAuthorityrole(Long id) {
+		StringBuffer sql = new StringBuffer();
+		sql.append("DELETE FROM xx_role_authority_report WHERE authority='" + id+"'");
+		return sql;
+	}
+	/**
+	 * 2、删除单条权限
+	 * 
+	 * @return
+	 */
+	public static StringBuffer deleterealAuthority(Long id) {
+		StringBuffer sql = new StringBuffer();
+		sql.append("DELETE FROM xx_authority_report WHERE id='" + id+"'");
+		return sql;
+	}
+	/**
+	 * 获取所有权限
+	 * @return
+	 */
+	public static StringBuffer findallAuthorities(){
+		StringBuffer sql=new StringBuffer();
+		sql.append("SELECT * FROM xx_authority_report a ");
 		return sql;
 	}
 }

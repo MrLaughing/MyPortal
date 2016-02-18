@@ -51,7 +51,7 @@
 				</div>
 				<div class="col-4"></div>
 			</div>
-						<div class="row cl">
+			<div class="row cl">
 				<label class="form-label col-2">用户角色：</label>
 				<div class="formControls col-10">
 					<div class="check-box" >
@@ -120,7 +120,7 @@
 				if(input[j].type=="checkbox"){
 					if(input[j].value==ewairoleidsJson.ewairoleids[i]){
 						/* input[j].style.display=""; */
-						input[j].disabled=true;/* 已重叠的额外角色不再tijiao */
+						input[j].disabled=true;/* 已重叠的额外角色不再提交 */
 					}
 				}
 			}

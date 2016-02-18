@@ -7,7 +7,6 @@ import com.zai360.portal.test.commons.BaseDao;
 import com.zai360.portal.test.vo.Admin;
 import com.zai360.portal.test.vo.Authority;
 import com.zai360.portal.test.vo.Role;
-import com.zai360.portal.test.vo.Role_authority;
 /**
  * 
  * @author report
@@ -38,6 +37,13 @@ public interface AccountDao extends BaseDao{
 	 * @return
 	 */
 	List<Authority> findAuthority(String name);
+	/**
+	 * 通过权限名获取权限对象
+	 * @param name
+	 * @return
+	 */
+	Authority findrealAuthority(String name);
+	
 	/**
 	 * 查询总用户数
 	 * @param sql
@@ -111,4 +117,20 @@ public interface AccountDao extends BaseDao{
 	 * @param sql
 	 */
 	void deleteRealRole(StringBuffer sql);
+	/**
+	 * 更新权限信息
+	 * @param sql
+	 */
+	void updaterealAuthority(StringBuffer sql);
+	/**
+	 * 添加单条权限
+	 * @param sql
+	 */
+	void insertrealAuthority(StringBuffer sql);
+	/**
+	 * 查询出所有权限
+	 * @param sql
+	 * @return
+	 */
+	List<HashMap<String,Object>> findallAuthorities(StringBuffer sql);
 }

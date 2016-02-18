@@ -70,7 +70,7 @@
     }
     /*添加角色*/
     function addRole(){
-    	layer_show('添加角色','<%=basePath%>role/role-add.jsp','600','510');
+    	layer_show('添加角色','<%=basePath%>role/role-add.jsp','800','510');
     }
 	function find() {
 		if (true) {

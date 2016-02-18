@@ -4,8 +4,8 @@ package com.zai360.portal.test.vo;
 public class Role_authority {
     private Long role;
 
-    private String authorities;
-
+    private Long authority;
+    
     public Long getRole() {
         return role;
     }
@@ -14,11 +14,18 @@ public class Role_authority {
         this.role = role;
     }
 
-    public String getAuthorities() {
-        return authorities;
-    }
+    public Long getAuthority() {
+		return authority;
+	}
 
-    public void setAuthorities(String authorities) {
-        this.authorities = authorities == null ? null : authorities.trim();
-    }
+	public void setAuthority(Long authority) {
+		this.authority = authority;
+	}
+
+	@Override
+	public String toString() {
+		return "Role_authority [role=" + role + ", authority=" + authority
+				+ "]";
+	}
+
 }

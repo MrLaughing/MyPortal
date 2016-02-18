@@ -34,7 +34,6 @@ import com.zai360.portal.test.util.jsonUtil;
 import com.zai360.portal.test.vo.Admin;
 import com.zai360.portal.test.vo.Authority;
 import com.zai360.portal.test.vo.Role;
-import com.zai360.portal.test.vo.Role_authority;
 
 /**
  * 账户相关：登入登出查询 角色权限相关
@@ -227,6 +226,7 @@ public class AccountAction extends ActionSupport {
 				ewairoleids.addAll(findAuthorityByIdList);
 			}
 		}
+		//here 也需要先查询所有角色！
 		StringBuffer sql=Sql4Account.findallRoles();
 		List<HashMap<String,Object>> allRoles = this.accountService.findallRoles(sql);
 		request.setAttribute("allRoles", allRoles);
@@ -341,12 +341,16 @@ public class AccountAction extends ActionSupport {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		StringBuffer sql = Sql4Account.addRole();// 添加角色sql
 		this.accountService.addRole(sql);
-		request.setAttribute("name", request.getParameter("name"));
+		request.setAttribute("name", request.getParameter("name"));//向下传递参数
+		//获取所有权限以生成table
+		StringBuffer sql4allAuthorities=Sql4Account.findallAuthorities();//获取所有权限
+		List<HashMap<String,Object>> allAuthorities = this.accountService.findallAuthorities(sql4allAuthorities);
+		request.setAttribute("allAuthorities", allAuthorities);
 		return "addRole";
 	}
 
 	/**
-	 * 查询所有角色权限信息（分页）
+	 * 查询所有权限信息（分页）
 	 * 
 	 * @return
 	 */
@@ -387,6 +391,12 @@ public class AccountAction extends ActionSupport {
 		while (it.hasNext()) {
 			authorities.add(String.valueOf(it.next().getId()));// 获取角色权限id
 		}
+		
+		//获取所有权限以生成table
+		StringBuffer sql4allAuthorities=Sql4Account.findallAuthorities();//获取所有权限
+		List<HashMap<String,Object>> allAuthorities = this.accountService.findallAuthorities(sql4allAuthorities);
+		request.setAttribute("allAuthorities", allAuthorities);
+		
 		request.setAttribute("role", role);// 存入request域中
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss")
 				.create();// Gson处理Date格式
@@ -437,6 +447,65 @@ public class AccountAction extends ActionSupport {
 		this.accountService.deleteRealRole(Sql4Account.deleteRealRole(id));// 3、删除（真）角色
 		this.inputStream = jsonUtil.string2stream("删除成功");// 做标志位
 		return "ajax";// 返回ajax
+	}
+	/**
+	 * 编辑权限： 1、根据权限名查询权限信息
+	 * 
+	 * @return
+	 */
+	public String findrealAuthority() {
+		HttpServletRequest request = ServletActionContext.getRequest();
+		String name = request.getParameter("name");
+		Authority authority = this.accountService.findrealAuthority(name);
+		request.setAttribute("authority", authority);// 存入request域中
+		request.setAttribute("type", authority.getType());// 类型
+		return "findrealAuthority";
+
+	}
+	/**
+	 * 编辑权限： 2、更新权限信息
+	 * 
+	 * @return
+	 */
+	public String updaterealAuthority() {
+		StringBuffer sql = Sql4Account.updaterealAuthority();// 获取更新SQL
+		this.accountService.updaterealAuthority(sql);// 更新用户信息
+		return "updaterealAuthority";
+	}
+	/**
+	 * 添加单条权限
+	 * @return
+	 */
+	public String addAuthority(){
+		StringBuffer sql= Sql4Account.addAuthority();
+		this.accountService.insertrealAuthority(sql);
+		return "addAuthority";
+	}
+	/**
+	 * 删除单条权限
+	 * 
+	 * @return
+	 */
+	public String deleteAuthority() {
+		HttpServletRequest request = ServletActionContext.getRequest();
+		String name = request.getParameter("name");
+		//查询权限id
+		Authority authority = this.accountService.findrealAuthority(name);
+		this.accountService.deleteAuthority(Sql4Account.deleteAuthorityrole(authority.getId()));//删除权限-角色关系
+		this.accountService.deleteAuthority(Sql4Account.deleterealAuthority(authority.getId()));// 删除权限
+		this.inputStream = jsonUtil.string2stream("删除成功");// 做标志位
+		return "ajax";// 返回ajax
+	}
+	/**
+	 * 获取所有权限
+	 * @return
+	 */
+	public String findallAuthorities(){
+		HttpServletRequest request=ServletActionContext.getRequest();
+		StringBuffer sql=Sql4Account.findallAuthorities();
+		List<HashMap<String,Object>> allAuthorities = this.accountService.findallAuthorities(sql);
+		request.setAttribute("allAuthorities", allAuthorities);
+		return "findallAuthorities";
 	}
 	/********************************************/
 	public InputStream getInputStream() {

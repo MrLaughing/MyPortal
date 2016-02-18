@@ -53,85 +53,49 @@
 			<div class="row cl">
 				<label class="form-label col-2">角色权限：</label>
 				<div class="formControls col-10">
-					<div class="check-box" >
-						<b>回收相关</b>
-						<table border="0" cellpadding="0" cellspacing="0" style="text-align:left; ">
-							 <tr height="28px">
-								 <td width="130px"><input id="authorities" name="authorities" value="1" type="checkbox">各基站出差人数</td>
-								 <td width="130px"><input id="authorities" name="authorities" value="2" type="checkbox">首次上门违约用户</td>
-							 </tr>
-						 </table>
-					 	<b>客服相关</b>
-						 <table border="0" cellpadding="0" cellspacing="0" style="text-align:left; ">
-						 	  <tr height="28px">
-							 	  <td width="130px"><input id="authorities" name="authorities" value="3" type="checkbox">停用用户数</td>
-							 	  <td width="130px"><input id="authorities" name="authorities" value="4" type="checkbox"> 电话购物信息</td>
-							  </tr>
-						  </table>
-					 	<b>商城相关</b>
-						 <table border="0" cellpadding="0" cellspacing="0" style="text-align:left; ">
-							 <tr height="28px">
-								 <td width="130px"><input id="authorities" name="authorities" value="5" type="checkbox">app下单信息</td>
-								 <td width="130px"><input id="authorities" name="authorities" value="6" type="checkbox">未发放优惠券用户</td>
-							 </tr>
-						 </table>
-					 	<b>市场相关</b>
-						 <table border="0" cellpadding="0" cellspacing="0" style="text-align:left; ">
-							 <tr height="28px">
-							 	<td width="130px"><input id="authorities" name="authorities" value="7" type="checkbox">基站推广人数</td>
-							 </tr>
-						 </table>
-					 	<b>推广相关</b>
-						 <table border="0" cellpadding="0" cellspacing="0" style="text-align:left; ">
-						   	<tr height="28px">
-							   <td width="130px"><input id="authorities" name="authorities" value="8" type="checkbox">地推注册明细</td>
-							   <td width="130px"><input id="authorities" name="authorities" value="9" type="checkbox">地推推荐服务日期</td>
-						   	</tr>
-						 </table>
-					 	<b>交互查询</b>
-						 <table border="0" cellpadding="0" cellspacing="0" style="text-align:left; ">
-							 <tr height="28px">
-							   <td width="130px"><input id="authorities" name="authorities" value="10" type="checkbox">查询用户信息</td>
-							   <td width="130px"><input id="authorities" name="authorities" value="11" type="checkbox">重复地址用户信息</td>
-							   <td width="130px"><input id="authorities" name="authorities" value="12" type="checkbox">客户注销原因</td>
-							 </tr>
-						 </table>
-					 	<b style="display: none;">隐藏查询</b>
-						 <table border="0" cellpadding="0" cellspacing="0" style="text-align:left;display: none; ">
-							<tr height="28px">
-								<td width="130px"><input id="authorities" name="authorities" value="admin:report_finddtxx" type="checkbox">单个地推信息</td>
-								<td width="130px"><input id="authorities" name="authorities" value="admin:report_findhsje" type="checkbox">每日回收金额</td>
-							    <td width="130px"><input id="authorities" name="authorities" value="admin:report_findzcyh" type="checkbox">某时段注册用户数</td>
-							</tr>
-							<tr height="28px">
-							    <td width="130px"><input id="authorities" name="authorities" value="admin:report_findnoOpenid" type="checkbox">注册无openID用户</td>
-								<td width="130px"><input id="authorities" name="authorities" value="admin:report_findhsxx" type="checkbox">回收任务信息</td>
-							    <td width="130px"><input id="authorities" name="authorities" value="admin:report_findscsm" type="checkbox">基站首次上门数</td>
-							</tr>
-							<tr height="28px">
-								<td width="130px"><input id="authorities" name="authorities" value="admin:report_findscyh" type="checkbox">未购买过商品用户</td>
-							    <td width="130px"><input id="authorities" name="authorities" value="admin:report_finddddc" type="checkbox">订单查询</td>
-								<td width="130px"><input id="authorities" name="authorities" value="admin:report_findyxyh" type="checkbox">营销用户数</td>
-							</tr>
-							<tr height="28px">
-								<td width="130px"><input id="authorities" name="authorities" value="admin:report_findwssj" type="checkbox">未完善时间用户</td>
-								<td width="130px"><input id="authorities" name="authorities" value="admin:report_findscxd" type="checkbox">首次下单信息</td>
-							    <td width="130px"><input id="authorities" name="authorities" value="admin:report_findxdmx" type="checkbox">首次下单商品明细</td>
-							</tr>
-							<tr height="28px">
-							    <td width="130px"><input id="authorities" name="authorities" value="admin:report_findzcfw" type="checkbox">新用户服务设置</td>
-								<td width="130px"><input id="authorities" name="authorities" value="admin:report_finddtfw" type="checkbox">地推用户服务设置</td>
-							    <td width="130px"><input id="authorities" name="authorities" value="admin:report_findzhye" type="checkbox">所有账户总余额</td>
-							</tr>
-							<tr height="28px">
-								<td width="130px"><input id="authorities" name="authorities" value="admin:report_findscsy" type="checkbox">商城首次使用数</td>
-							    <td width="130px"><input id="authorities" name="authorities" value="admin:report_findhssj" type="checkbox">回收手机任务信息</td>
-							    <td width="130px"><input id="authorities" name="authorities" value="admin:report_findtsgl" type="checkbox">用户投诉管理</td>
-							 </tr>
-							<tr height="28px">
-							    <td width="130px"><input id="authorities" name="authorities" value="admin:report_findsmkh" type="checkbox">上门客户数</td>
-							</tr>
-						 </table>
+					<div>
+						<p><b>回收</b></p>
+						<c:forEach items="${requestScope.allAuthorities }" var="authority" >
+							<c:if test="${authority.type == '回收' }">
+							<span style="display:inline-block;width:32%;"><input id="authorities" name="authorities" value="${authority.id }" type="checkbox">${authority.description }</span>
+							</c:if>
+						</c:forEach>
+						<p><b>客服</b></p>
+						<c:forEach items="${requestScope.allAuthorities }" var="authority" >
+							<c:if test="${authority.type == '客服' }">
+							<span style="display:inline-block;width:32%;"><input id="authorities" name="authorities" value="${authority.id }" type="checkbox">${authority.description }</span>
+							</c:if>
+						</c:forEach>
+						<p><b>商城</b></p>
+						<c:forEach items="${requestScope.allAuthorities }" var="authority" >
+							<c:if test="${authority.type == '商城' }">
+							<span style="display:inline-block;width:32%;"><input id="authorities" name="authorities" value="${authority.id }" type="checkbox">${authority.description }</span>
+							</c:if>
+						</c:forEach>
+						<p><b>市场</b></p>
+						<c:forEach items="${requestScope.allAuthorities }" var="authority" >
+							<c:if test="${authority.type == '市场' }">
+							<span style="display:inline-block;width:32%;"><input id="authorities" name="authorities" value="${authority.id }" type="checkbox">${authority.description }</span>
+							</c:if>
+						</c:forEach>
+						<p><b>推广</b></p>
+						<c:forEach items="${requestScope.allAuthorities }" var="authority" >
+							<c:if test="${authority.type == '推广' }">
+							<span style="display:inline-block;width:32%;"><input id="authorities" name="authorities" value="${authority.id }" type="checkbox">${authority.description }</span>
+							</c:if>
+						</c:forEach>
+						<p><b>交互</b></p>
+						<c:forEach items="${requestScope.allAuthorities }" var="authority" >
+							<c:if test="${authority.type == '交互' }">
+							<span style="display:inline-block;width:32%;"><input id="authorities" name="authorities" value="${authority.id }" type="checkbox">${authority.description }</span>
+							</c:if>
+						</c:forEach>
+						<p><b>导表</b></p>
+						<c:forEach items="${requestScope.allAuthorities }" var="authority" >
+							<c:if test="${authority.type == '导表' }">
+							<span style="display:inline-block;width:32%;"><input id="authorities" name="authorities" value="${authority.id }" type="checkbox">${authority.description }</span>
+							</c:if>
+						</c:forEach>
 					</div>
 				</div>
 			</div>
@@ -146,7 +110,7 @@
 		</form>
 	</div>
 	<script type="text/javascript">
-	/* 处理角色权限选择 */
+		/* 处理角色权限选择 */
 		$(function() {
 			/* 处理格式验证 */
 			$("#form-user-character-add").Validform({
@@ -156,21 +120,6 @@
 				}
 			});
 		});
-	window.onload=authority;
-	/* 初始用户角色checkbox */
-	function authority(){
-		var authoritiesJson=<%= request.getAttribute("authoritiesJson")%>;
-		for(var i=0;i<authoritiesJson.authorities.length;i++){
-			var input = document.getElementsByTagName("input");
-			for (var j = 0; j < input.length; j++) {
-				if(input[j].type == "checkbox"){
-					if(input[j].value==authoritiesJson.authorities[i]){
-						input[j].checked=true;//已有角色初始选中
-					}
-				}
-			}
-		};
-	};
 	</script>
 </body>
 </html>

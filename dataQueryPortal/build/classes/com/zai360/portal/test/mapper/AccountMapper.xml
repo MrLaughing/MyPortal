@@ -25,21 +25,30 @@
 		<result property="name" column="name" />
 		<result property="type" column="type" />
 	</resultMap>
-	<resultMap type="com.zai360.portal.test.vo.Authority"
-		id="authorityResult">
+	<resultMap type="com.zai360.portal.test.vo.Authority" id="authorityResult">
 		<result column="id" property="id" />
 		<result column="name" property="name" />
 		<result column="description" property="description" />
 		<result column="type" property="type" />
-
-	</resultMap>
-
-	<resultMap type="java.util.Map" id="authoritiesResult">
-		<result column="角色" property="角色" javaType="String" />
-		<result column="角色描述" property="角色描述" javaType="String" />
-		<result column="权限" property="权限" javaType="String" />
 	</resultMap>
 	<!-- ****************************分隔符************************************ -->
+	<!-- 查询所有权限 -->
+	<select id="findallAuthorities" parameterType="com.zai360.portal.test.util.SQLAdapter"
+		resultType="java.util.Map">
+		${sql}
+	</select>
+	<!-- 添加权限信息 -->
+	<insert id="insertrealAuthority" parameterType="com.zai360.portal.test.util.SQLAdapter">
+		${sql}
+	</insert>
+	<!-- 更新权限信息 -->
+	<update id="updaterealAuthority" parameterType="com.zai360.portal.test.util.SQLAdapter">
+		${sql}
+	</update>
+	<!-- 查询单条权限信息 -->
+	<select id="findrealAuthority" parameterType="String" resultMap="authorityResult">
+		SELECT * FROM xx_authority_report a WHERE a.`name` = #{name}
+	</select>
 	<!-- 通过基本角色id获取同权限的其他额外角色id -->
 	<select id="findAuthorityById" parameterType="com.zai360.portal.test.util.SQLAdapter"
 		resultType="String">
@@ -53,9 +62,9 @@
 	<delete id="deleteAuthority" parameterType="com.zai360.portal.test.util.SQLAdapter">
 		${sql}
 	</delete>
-	<!-- 查询角色权限信息 -->
+	<!-- 查询权限信息 -->
 	<select id="findAuthorities" parameterType="com.zai360.portal.test.util.SQLAdapter"
-		resultMap="authoritiesResult">
+		resultType="java.util.Map">
 		${sql}
 	</select>
 	<!-- 删除(真)角色 -->
@@ -107,7 +116,8 @@
 	</select>
 	<!-- 通过角色名获取权限对象 -->
 	<select id="findAuthority" parameterType="String" resultMap="authorityResult">
-		SELECT a.* FROM xx_role_authority_report ra, xx_role_report r, xx_authority_report a 
+		SELECT a.* FROM xx_role_authority_report ra, xx_role_report r,
+		xx_authority_report a
 		WHERE ra.`role` = r.`id` AND ra.`authority`=a.`id` AND r.`name` = #{name}
 	</select>
 	<!-- 通过角色名获取角色对象 -->

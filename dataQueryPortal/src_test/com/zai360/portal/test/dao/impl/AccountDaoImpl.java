@@ -107,9 +107,29 @@ public class AccountDaoImpl extends BaseDaoImpl implements
 		List<HashMap<String,Object>> list = this.getSqlSession().selectList("account.findRoles", new SQLAdapter(sql.toString()));
 		return list;
 	}
-
 	@Override
 	public void deleteRealRole(StringBuffer sql) {
 		this.getSqlSession().delete("account.deleteRealRole", new SQLAdapter(sql.toString()));
+	}
+
+	@Override
+	public Authority findrealAuthority(String name) {
+		Authority authority = this.getSqlSession().selectOne("account.findrealAuthority", name);
+		return authority;
+	}
+
+	@Override
+	public void updaterealAuthority(StringBuffer sql) {
+		this.getSqlSession().update("account.updaterealAuthority", new SQLAdapter(sql.toString()));
+	}
+
+	@Override
+	public void insertrealAuthority(StringBuffer sql) {
+		this.getSqlSession().insert("account.insertrealAuthority", new SQLAdapter(sql.toString()));
+	}
+	@Override
+	public List<HashMap<String,Object>> findallAuthorities(StringBuffer sql) {
+		List<HashMap<String,Object>> list = this.getSqlSession().selectList("account.findallAuthorities", new SQLAdapter(sql.toString()));
+		return list;
 	}
 }

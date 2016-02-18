@@ -21,7 +21,6 @@ import com.zai360.portal.test.service.AccountService;
 import com.zai360.portal.test.vo.Admin;
 import com.zai360.portal.test.vo.Authority;
 import com.zai360.portal.test.vo.Role;
-import com.zai360.portal.test.vo.Role_authority;
 
 public class AccountRealm extends AuthorizingRealm {
 	@Autowired

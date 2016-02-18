@@ -11,7 +11,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta charset="utf-8">
 <meta name="renderer" content="webkit|ie-comp|ie-stand">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport"
@@ -38,24 +37,47 @@
 <%@ include file="../util/easyui.jsp"%>
 <script type="text/javascript">
 	function formatOper(value,row,index){  
-	    return "<a style='text-decoration:none' class='ml-5' onClick='editUser("+index+")' title='编辑' href='javascript:;'><i class='Hui-iconfont'>&#xe6df;</i></a>";  
+	    return "<a style='text-decoration:none' class='ml-5' onClick='editAuthority("+index+")' title='编辑' href='javascript:;'>"
+	    +"<i class='Hui-iconfont'>&#xe6df;</i></a><a style='text-decoration:none' class='ml-5' onClick='delAuthority(this,"+index+")' "
+	    +"title='删除' href='javascript:;'><i class='Hui-iconfont'>&#xe6e2;</i></a>";  
+	}
+	/*删除权限*/
+	function delAuthority(obj,index){
+		$('#table').datagrid('selectRow',index);// 关键在这里  
+	    var row = $('#table').datagrid('getSelected'); //拿到该行数据
+		layer.confirm("确认要删除吗?",function(index){
+			$.ajax({
+				type:'post',
+				data:{name:row.name},
+				url:'<%=basePath%>account/account_deleteAuthority.action',
+				success:function(result){
+					if(result=='删除成功'){
+					$('#table').datagrid('reload');//删除成功后刷新表格
+					}
+				}
+			});
+			$(obj).parents("tr").remove();
+			layer.msg('已删除!',{icon:1,time:1000});
+		});
 	}
 	/* 编辑权限 */
-    function editUser(index){
+    function editAuthority(index){  
         $('#table').datagrid('selectRow',index);// 关键在这里  
         var row = $('#table').datagrid('getSelected'); //拿到该行数据
         if (row){ 
-	         var role=encodeURI(row.角色);//中文转成ASCII编码
-        	layer_show('修改权限','<%=basePath%>account/account_findauthority.action?role='+role,'800','510');
+        	layer_show('编辑权限','<%=basePath%>account/account_findrealAuthority.action?name='+row.name,'800','510');
         }  
-    }  
-    window.onload=find;
+    }
+    /*添加权限*/
+    function addAuthority(){
+    	layer_show('添加权限','<%=basePath%>authority/authority-add.jsp','600','510');
+    }
 	function find() {
 		if (true) {
 			$('#table').datagrid({
 				url : "<%=basePath%>account/account_findAuthorities.action",
 				method : "post",//请求方式
-				title : "权限管理",//标题
+				title : "权限信息",//标题
 				collapsible : true,//是否可以折叠
 				fitColumns : false,//自动适应列宽
 				striped : true,//隔行变色
@@ -63,15 +85,18 @@
 				pagination : true,//分页
 				rownumbers : true,//显示序号
 				singleSelect : true,//单选，只能选择一行
-				columns : [ [{
-					field : '角色',
-					title : '角色'
-				} , {
-					field : '角色描述',
-					title : '角色描述'
-				} , {
-					field : '权限',
+				queryParams : {
+					type : $("#type").val(),
+				},//queryParams 传送的额外参数
+				columns : [ [ {
+					field : 'name',
 					title : '权限'
+				} , {
+					field : 'description',
+					title : '权限描述'
+				} , {
+					field : 'type',
+					title : '类型'
 				} , {
 					field : 'id',
 					title : '操作',
@@ -97,15 +122,39 @@
 <body>
 	<nav class="breadcrumb"> <i class="Hui-iconfont">&#xe67f;</i> 首页
 	<span class="c-gray en">&gt;</span>系统管理 <span class="c-gray en">&gt;</span>
-	权限管理 <a class="btn btn-success radius r mr-20"
+		权限管理 <a class="btn btn-success radius r mr-20"
 		style="line-height: 1.6em; margin-top: 3px"
 		href="javascript:location.replace(location.href);" title="刷新"><i
 		class="Hui-iconfont">&#xe68f;</i>刷新</a> </nav>
+	<div class="pd-20">
+		<div class="text-c">
+			<form action="" id="form1" name="form1" method="post">
+			权限类型：<span class="select-box inline"> <select name="type"
+					id="type" class="select" size="1">
+						<option selected="selected" value="">--未选择--</option>
+						<option value="回收">回收</option>
+						<option value="客服">客服</option>
+						<option value="商城">商城</option>
+						<option value="市场">市场</option>
+						<option value="推广">推广</option>
+						<option value="交互">交互</option>
+						<option value="导表">导表</option>
+				</select>
+				</span><span>&nbsp&nbsp&nbsp&nbsp</span> <a
+					href="javascript:;" name="find" id="find" class="btn btn-success"
+					onclick="find()"> <i class="Hui-iconfont">&#xe665;</i> 查询
+				</a>
+				<a
+					href="javascript:;" name="addAuthority" id="addAuthority" class="btn btn-success"
+					onclick="addAuthority()"> <i class="Hui-iconfont">&#xe604;</i> 添加权限
+				</a>
+			</form>
+		</div>
+	</div>
 	<div class="easyui-layout" data-options="fit:true"
 		data-options="fit:true,region:'center',border:true">
 		<div
 			style="width: 1000px; margin-left: auto; margin-right: auto; overflow: hidden;">
-			<br><br><br>
 			<table id="table" style="height: 550px;">
 			</table>
 		</div>

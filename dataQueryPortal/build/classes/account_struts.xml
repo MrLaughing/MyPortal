@@ -20,7 +20,7 @@
 			<!-- <result name="signupAccount" type="dispatcher">../account/account-add-role.jsp</result> -->
 			<result name="signupAccount" type="chain">account_findallRoles</result>
 			<result name="findallRoles" type="dispatcher">../account/account-add-role.jsp</result>
-
+			
 			<!-- chain 用于把相关的几个action连接起来，共同完成一个功能
 			且这些action属于同一个http请求，共享一个ActionContext -->
 			<result name="updateAccount" type="chain">account_findrole</result>
@@ -29,12 +29,12 @@
 			<result name="realUpdateRole" type="chain">account_findauthority</result>
 			<result name="findauthority" type="dispatcher">../role/role-edit-authority.jsp</result>
 			<result name="addRole" type="dispatcher">../role/role-add-authority.jsp</result>
-			
-			
-			<!-- <result name="findauthority" type="dispatcher">../authority/authority-edit.jsp</result> -->
+			<result name="findrealAuthority" type="dispatcher">../authority/authority-edit.jsp</result>
+			<result name="updaterealAuthority" type="dispatcher">../console/updatesuccess.jsp</result>
 			<result name="updatesuccess" type="dispatcher">../console/updatesuccess.jsp</result>
 			<result name="norole" type="dispatcher">../console/norole.jsp</result>
 			<result name="noauthority" type="dispatcher">../console/noauthority.jsp</result>
+			<result name="addAuthority" type="dispatcher">../console/updatesuccess.jsp</result>
       </action>  
     </package>
 </struts>

@@ -35,16 +35,16 @@
 <script type="text/javascript" src="<%=basePath%>js/H-ui.js"></script>
 <script type="text/javascript" src="<%=basePath%>js/H-ui.admin.js"></script>
 <script type="text/javascript" src="<%=basePath%>lib/Validform/5.3.2/Validform.min.js"></script>
-<title>编辑权限</title>
+<title>添加权限</title>
 </head>
 <body>
 	<div class="pd-20">
-		<form id="form1" name="form1" action="<%=basePath%>account/account_updaterealAuthority.action" method="post" class="form form-horizontal"
+		<form id="form1" name="form1" action="<%=basePath%>account/account_addAuthority.action" method="post" class="form form-horizontal"
 			id="form-user-character-add">
 			<div class="row cl">
 				<label class="form-label col-2"><span class="c-red">*</span>权限：</label>
 				<div class="formControls col-5">
-					<input type="text" class="input-text" value="${requestScope.authority.name}" readonly="readonly"
+					<input type="text" class="input-text"
 						id="name" name="name" datatype="*2-32"
 						nullmsg="权限名不能为空">
 				</div>
@@ -53,7 +53,7 @@
 			<div class="row cl">
 				<label class="form-label col-2"><span class="c-red">*</span>描述：</label>
 				<div class="formControls col-5">
-					<input type="text" class="input-text" value="${requestScope.authority.description}" name="description"
+					<input type="text" class="input-text" name="description"
 						id="description" datatype="*2-16" nullmsg="请输入描述信息！">
 				</div>
 				<div class="col-4"></div>
@@ -97,18 +97,6 @@
 				}
 			});
 		});
-	window.onload=type;
-	/* 初始select标签下权限类型权限 */
-	function type(){
-		var	selected='<%= request.getAttribute("type")%>';
-		var types=document.getElementById("type");
-		for(var i=0;i<types.options.length;i++){
-			if(types.options[i].value==selected){
-				types.options[i].selected=true;
-				break;
-			};
-		};
-	};
 	</script>
 </body>
 </html>
