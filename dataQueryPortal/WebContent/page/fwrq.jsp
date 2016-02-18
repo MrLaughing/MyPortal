@@ -139,11 +139,11 @@ function find() {
 					onclick="find()"> <i class="Hui-iconfont">&#xe665;</i>
 					查询
 				</a> 
-				<shiro:hasAnyRoles name="后台导表--地推负责人,后台导表--管理员,后台导表--推广人员">
+				<shiro:hasPermission name="admin:report_report">
 				<a href="javascript:;" name="export" id="export" class="btn btn-success">
 					<i class="Hui-iconfont">&#xe665;</i> 导出excel
 				</a>
-				</shiro:hasAnyRoles>
+				</shiro:hasPermission>
 			</form>
 		</div>
 	</div>

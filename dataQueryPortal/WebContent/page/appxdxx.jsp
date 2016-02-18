@@ -2,6 +2,7 @@
 	import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
@@ -168,9 +169,12 @@
 				<input type="checkbox" name="source_type" value="2">微信
 				<a href="javascript:;" name="find" id="find" class="btn btn-success"
 					onclick="find()"> <i class="Hui-iconfont">&#xe665;</i> 查询
-				</a> <a href="javascript:;" name="export" class="btn btn-success"
+				</a> 
+				<shiro:hasPermission name="admin:report_report">
+				<a href="javascript:;" name="export" class="btn btn-success"
 					id="export"> 导出excel
 				</a>
+				</shiro:hasPermission>
 			</form>
 		</div>
 	</div>

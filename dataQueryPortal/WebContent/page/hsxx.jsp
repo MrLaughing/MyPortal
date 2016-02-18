@@ -2,6 +2,7 @@
 	import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
@@ -140,10 +141,13 @@ function find() {
 					style="width: 120px;"> <a href="javascript:;" name="find"
 					id="find" class="btn btn-success" onclick="find()"> <i
 					class="Hui-iconfont">&#xe665;</i> 查询
-				</a> <a href="javascript:;" name="export" id="export"
+				</a> 
+				<shiro:hasPermission name="admin:report_report">
+				<a href="javascript:;" name="export" id="export"
 					class="btn btn-success"> <i class="Hui-iconfont">&#xe665;</i>
 					导出excel
 				</a>
+				</shiro:hasPermission>
 			</form>
 		</div>
 	</div>
