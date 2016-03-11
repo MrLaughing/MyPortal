@@ -1,0 +1,13 @@
+/account_struts.xml
+/applicationContext.xml
+/com/
+/comment_struts.xml
+/find_struts.xml
+/login_struts.xml
+/oauth2_struts.xml
+/portal.properties
+/query_struts.xml
+/spring-shiro.xml
+/struts.xml
+/test_struts.xml
+/write_struts.xml
