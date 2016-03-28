@@ -33,7 +33,7 @@ public class UrlBase64Test {
     public static void main(String[] args) throws UnsupportedEncodingException {  
 //        String str = "username=100000&password=e10adc3949ba59abbe56e057f20f883e";  
 //        String str = "create_date_min=2015-01-04&create_date_max=2016-01-21&pageSize=10&pageNumber=1";  
-        String str = "username_type=100000,100081&pageSize=10&pageNumber=1";  
+        String str = "phone=iPhone 5s&pageSize=10&pageNumber=1";  
         // 加密该字符串  
         String encodedString = UrlBase64Coder.encoded(str);  
         System.out.println(encodedString);  

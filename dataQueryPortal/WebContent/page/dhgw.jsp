@@ -109,7 +109,7 @@ function find() {
 <title>电话购物信息</title>
 </head>
 <body>
-	<nav class="breadcrumb"> <i class="Hui-iconfont">&#xe67f;</i> <a href="../welcome.html">首页</a>
+	<nav class="breadcrumb"> <i class="Hui-iconfont">&#xe67f;</i> <a href="../welcome.jsp">首页</a>
 	<span class="c-gray en">&gt;</span>常用查询 <span class="c-gray en">&gt;</span>
 	电话购物信息<a class="btn btn-success radius r mr-20"
 		style="line-height: 1.6em; margin-top: 3px"

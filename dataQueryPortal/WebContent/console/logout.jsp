@@ -9,8 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
   <head>
     <base href="<%=basePath%>">
-    
-    <title>test "ssi"</title>
+    <title>再生活（北京）信息技术有限公司</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -20,6 +19,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-   	账户已退出<a href="<%=basePath%>/login.jsp">重新登录</a>
+   	账户已退出<a href="<%=basePath%>login.jsp">重新登录</a>
   </body>
 </html>
